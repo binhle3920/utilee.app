@@ -3,8 +3,8 @@ import Route from './route';
 
 const tools = {
   note: {
-    title: '[DEV] Note',
-    description: 'Create and manage your notes, all your note will be saved in your local storage!',
+    title: 'Offline Notes',
+    description: 'Easily create and manage notes, all saved locally on your device!',
     path: Route.TOOLS.NOTE,
     image: ImageToolsNote
   }
