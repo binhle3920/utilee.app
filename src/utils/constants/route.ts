@@ -1,5 +1,8 @@
 const Route = {
-  DASHBOARD: '/'
+  DASHBOARD: '/',
+  TOOLS: {
+    NOTE: '/note'
+  }
 };
 
 export default Route;
