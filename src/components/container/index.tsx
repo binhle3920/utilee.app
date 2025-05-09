@@ -3,7 +3,7 @@ import { FlexProps } from 'antd';
 import { PropsWithoutRef, useEffect, useState } from 'react';
 
 const Container = (props: PropsWithoutRef<FlexProps>) => {
-  const { children, style, ...rest } = props;
+  const { children, style, className, ...rest } = props;
 
   const [padding, setPadding] = useState<number>(0);
   const [maxWidth, setMaxWidth] = useState<number>(0);
@@ -25,17 +25,19 @@ const Container = (props: PropsWithoutRef<FlexProps>) => {
   }, [screen]);
 
   return (
-    <div
-      className='w-full'
-      style={{
-        paddingLeft: padding,
-        paddingRight: padding,
-        maxWidth: maxWidth || '100%',
-        ...style
-      }}
-      {...rest}
-    >
-      {children}
+    <div className='w-full flex justify-center items-center'>
+      <div
+        className={`w-full ${className}`}
+        style={{
+          paddingLeft: padding,
+          paddingRight: padding,
+          maxWidth: maxWidth || '100%',
+          ...style
+        }}
+        {...rest}
+      >
+        {children}
+      </div>
     </div>
   );
 };

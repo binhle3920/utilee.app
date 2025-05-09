@@ -1,4 +1,4 @@
-import { FontSizeOutlined, HomeTwoTone } from '@ant-design/icons';
+import { FontSizeOutlined, HomeOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Flex, Input, Typography, ColorPicker } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -64,12 +64,7 @@ const ToolsNoteScreen = () => {
   return (
     <Container className='py-4'>
       <Flex justify='space-between' align='center' gap={8}>
-        <Button
-          icon={<HomeTwoTone twoToneColor='#17B8A6' />}
-          type='text'
-          size='large'
-          onClick={() => navigate(Route.DASHBOARD)}
-        />
+        <Button type='primary' icon={<HomeOutlined />} size='large' onClick={() => navigate(Route.DASHBOARD)} />
 
         <Flex align='center' gap={8}>
           <Button onClick={onCountingTypeChange} type='text'>

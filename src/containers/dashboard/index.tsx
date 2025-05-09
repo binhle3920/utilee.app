@@ -1,4 +1,4 @@
-import { Card, Flex, Image, Typography } from 'antd';
+import { Card, Col, Divider, Flex, Image, Row, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import tools from '../../utils/constants/tools';
@@ -11,19 +11,24 @@ const DashboardScreen = () => {
   };
 
   return (
-    <Flex align='center' vertical className='h-full w-full gap-8 mt-8! mb-8!'>
+    <Row gutter={24} className='mt-8! mb-8! w-full' justify='center'>
       {Object.values(tools).map((tool) => (
-        <Card
-          key={tool.title}
-          onClick={() => handleNavigate(tool.path)}
-          className='cursor-pointer w-100'
-          cover={<Image src={tool.image} alt='Note' preview={false} />}
-        >
-          <Typography.Title level={2}>{tool.title}</Typography.Title>
-          <Typography.Paragraph className='text-gray-500!'>{tool.description}</Typography.Paragraph>
-        </Card>
+        <Col xs={12} sm={12} md={8} lg={8} xl={6} key={tool.title}>
+          <Card hoverable key={tool.title} onClick={() => handleNavigate(tool.path)} className='shadow-sm h-full'>
+            <Flex vertical className='h-full' align='center' justify='center'>
+              <Image src={tool.image} alt='Note' preview={false} height={100} />
+
+              <Divider />
+
+              <Flex vertical className='h-full w-full'>
+                <Typography.Title level={4}>{tool.title}</Typography.Title>
+                <Typography.Paragraph className='text-gray-400! text-sm!'>{tool.description}</Typography.Paragraph>
+              </Flex>
+            </Flex>
+          </Card>
+        </Col>
       ))}
-    </Flex>
+    </Row>
   );
 };
 

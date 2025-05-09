@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import DashboardScreen from '../containers/dashboard/index.tsx';
 import DashboardLayout from '../containers/dashboard/layout/index.tsx';
+import LoremIpsumGeneratorScreen from '../containers/tools/lorem-generator/index.tsx';
 import ToolsNoteScreen from '../containers/tools/note/index.tsx';
 import Route from '../utils/constants/route.ts';
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: Route.TOOLS.NOTE,
     element: <ToolsNoteScreen />
+  },
+  {
+    path: Route.TOOLS.LOREM_GENERATOR,
+    element: <LoremIpsumGeneratorScreen />
   },
   {
     path: '*',
