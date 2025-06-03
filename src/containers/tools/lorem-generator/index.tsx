@@ -1,5 +1,5 @@
-import { HomeOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Flex, Input, InputNumber, Typography } from 'antd';
+import { CopyOutlined, HomeOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { App, Button, Divider, Dropdown, Flex, Input, InputNumber, Typography } from 'antd';
 import { loremIpsum } from 'lorem-ipsum';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,8 @@ const LoremIpsumGeneratorScreen = () => {
   const [count, setCount] = useState<number>(1);
   const [units, setUnits] = useState<'paragraph' | 'sentence' | 'word'>('paragraph');
   const [note, setNote] = useState<string>('');
+
+  const { message } = App.useApp();
 
   const navigate = useNavigate();
 
@@ -29,6 +31,12 @@ const LoremIpsumGeneratorScreen = () => {
       })
     );
   }, [count, units]);
+
+  const onCopy = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(note);
+    message.success('Copied to clipboard');
+  };
 
   return (
     <Container className='py-4'>
@@ -53,16 +61,21 @@ const LoremIpsumGeneratorScreen = () => {
             </Button>
           </Dropdown>
         </Flex>
+
+        <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
       </Flex>
 
-      <Input.TextArea
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-        rows={10}
-        className='mt-4!'
-        autoSize
-        style={{ fontSize: 16, minHeight: 16 * 10 * 1.5, color: '#111' }}
-      />
+      <Divider />
+
+      <div onClick={onCopy}>
+        <Input.TextArea
+          value={note}
+          rows={10}
+          className='cursor-copy! bg-white! hover:text-gray-500!'
+          autoSize
+          style={{ fontSize: 16, minHeight: 16 * 10 * 1.5, color: '#111' }}
+        />
+      </div>
     </Container>
   );
 };
