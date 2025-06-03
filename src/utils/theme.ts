@@ -5,7 +5,7 @@ const customTheme: ThemeConfig = {
   cssVar: true,
   algorithm: theme.defaultAlgorithm,
   token: {
-    colorPrimary: '#165fe8',
+    colorPrimary: '#1ab8a6',
     borderRadius: 6
   }
 };
