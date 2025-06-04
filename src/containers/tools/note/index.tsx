@@ -73,7 +73,7 @@ const ToolsNoteScreen = () => {
   return (
     <>
       <SEO
-        title='Free Online Note Taking Tool - DEV Utilities'
+        title='Free Online Note Taking Tool - Utilee'
         description='Simple, fast, and free note-taking tool with word/character counter. Perfect for developers, writers, and students. Auto-saves to local storage. No registration required.'
         keywords='note taking tool, free notes app, online notepad, text editor, word counter, character counter, developer notes, quick notes'
         url={`${APP_BASE_URL}/${Route.TOOLS.NOTE}`}

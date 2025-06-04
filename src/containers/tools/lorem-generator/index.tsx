@@ -42,7 +42,7 @@ const LoremIpsumGeneratorScreen = () => {
   return (
     <>
       <SEO
-        title='Free Lorem Ipsum Generator - DEV Utilities'
+        title='Free Lorem Ipsum Generator - Utilee'
         description='Generate Lorem Ipsum placeholder text instantly. Choose paragraphs, sentences, or words. Perfect for designers, developers, and content creators. Free and easy to use.'
         keywords='lorem ipsum generator, placeholder text, dummy text, filler text, design placeholder, web development, content placeholder, fake text generator'
         url={`${APP_BASE_URL}/${Route.TOOLS.LOREM_GENERATOR}`}

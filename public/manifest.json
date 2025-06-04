@@ -1,11 +1,11 @@
 {
-  "name": "DEV Utilities - Developer Tools Collection",
-  "short_name": "DEV Utilities",
+  "name": "Utilee - Free Developer Tools Collection",
+  "short_name": "Utilee",
   "description": "Free developer utilities including image converter, lorem ipsum generator, note-taking tool, and more productivity tools for developers.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#1890ff",
+  "theme_color": "#1ab8a6",
   "orientation": "portrait-primary",
   "icons": [
     {

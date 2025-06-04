@@ -125,7 +125,7 @@ const ImageConverterScreen = () => {
   return (
     <>
       <SEO
-        title='Free Online Image Converter - DEV Utilities'
+        title='Free Online Image Converter - Utilee'
         description='Convert images to WebP, JPEG, PNG, AVIF formats instantly. Batch convert multiple images with custom quality settings. Free, fast, and secure image conversion tool.'
         keywords='image converter, image format converter, webp converter, jpeg converter, png converter, avif converter, batch image converter, image compression, free image tools'
         url={`${APP_BASE_URL}/${Route.TOOLS.IMAGE_CONVERTER}`}

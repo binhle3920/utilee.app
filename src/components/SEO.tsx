@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { APP_BASE_URL } from '../utils/constants/app';
+
 interface SEOProps {
   title?: string;
   description?: string;
@@ -10,11 +12,11 @@ interface SEOProps {
 }
 
 const SEO: React.FC<SEOProps> = ({
-  title = 'DEV Utilities - All-in-One Developer Tools Collection',
+  title = 'Utilee - All-in-One Developer Tools Collection',
   description = 'Free developer utilities including image converter, lorem ipsum generator, note-taking tool, and more. Boost your productivity with our comprehensive developer toolset.',
   keywords = 'developer tools, image converter, lorem ipsum generator, developer utilities, free tools, productivity tools, web development, coding tools',
-  image = 'https://dev-utilities.com/og-image.png',
-  url = 'https://dev-utilities.com',
+  image = `${APP_BASE_URL}/og-image.png`,
+  url = APP_BASE_URL,
   type = 'website'
 }) => {
   useEffect(() => {

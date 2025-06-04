@@ -15,7 +15,7 @@ const DashboardScreen = () => {
   return (
     <>
       <SEO
-        title='DEV Utilities - Free Developer Tools Collection'
+        title='Utilee - Free Developer Tools Collection'
         description='Access a comprehensive collection of free developer tools including image converter, lorem ipsum generator, note-taking app, and more productivity utilities for developers.'
         keywords='developer tools, free tools, image converter, lorem ipsum generator, note taking, developer utilities, web development tools, coding productivity'
         url={`${APP_BASE_URL}`}
