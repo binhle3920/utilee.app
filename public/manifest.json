@@ -1,0 +1,20 @@
+{
+  "name": "DEV Utilities - Developer Tools Collection",
+  "short_name": "DEV Utilities",
+  "description": "Free developer utilities including image converter, lorem ipsum generator, note-taking tool, and more productivity tools for developers.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1890ff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["developer", "utilities", "productivity"],
+  "lang": "en",
+  "dir": "ltr"
+} 

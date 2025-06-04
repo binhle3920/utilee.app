@@ -6,7 +6,10 @@ import { useEffect, useState } from 'react';
 
 import './index.css';
 import ToolLayout from '../../../components/layouts/tool-layout';
+import SEO from '../../../components/SEO';
+import { APP_BASE_URL } from '../../../utils/constants/app';
 import { LOCAL_STORAGE_KEY } from '../../../utils/constants/local-storage';
+import Route from '../../../utils/constants/route';
 
 // Extensions array
 const extensions = [
@@ -68,17 +71,26 @@ const ToolsNoteScreen = () => {
   };
 
   return (
-    <ToolLayout
-      actions={[
-        <Button onClick={onCountingTypeChange} type='default'>
-          <Typography.Text>
-            {countingType === 'words' ? length : (editor?.getText().length ?? 0)} {countingType}
-          </Typography.Text>
-        </Button>
-      ]}
-    >
-      <EditorContent editor={editor} className='w-full h-full' />
-    </ToolLayout>
+    <>
+      <SEO
+        title='Free Online Note Taking Tool - DEV Utilities'
+        description='Simple, fast, and free note-taking tool with word/character counter. Perfect for developers, writers, and students. Auto-saves to local storage. No registration required.'
+        keywords='note taking tool, free notes app, online notepad, text editor, word counter, character counter, developer notes, quick notes'
+        url={`${APP_BASE_URL}/${Route.TOOLS.NOTE}`}
+      />
+
+      <ToolLayout
+        actions={[
+          <Button onClick={onCountingTypeChange} type='default'>
+            <Typography.Text>
+              {countingType === 'words' ? length : (editor?.getText().length ?? 0)} {countingType}
+            </Typography.Text>
+          </Button>
+        ]}
+      >
+        <EditorContent editor={editor} className='w-full h-full' />
+      </ToolLayout>
+    </>
   );
 };
 

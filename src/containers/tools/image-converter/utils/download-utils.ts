@@ -1,4 +1,4 @@
-import { ConvertedImage } from './imageConverter';
+import { ConvertedImage } from './image-conveter';
 
 /**
  * Downloads a single converted image

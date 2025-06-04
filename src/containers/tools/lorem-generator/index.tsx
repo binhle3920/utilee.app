@@ -4,6 +4,9 @@ import { loremIpsum } from 'lorem-ipsum';
 import { useEffect, useState } from 'react';
 
 import ToolLayout from '../../../components/layouts/tool-layout';
+import SEO from '../../../components/SEO';
+import { APP_BASE_URL } from '../../../utils/constants/app';
+import Route from '../../../utils/constants/route';
 
 const LoremIpsumGeneratorScreen = () => {
   const [count, setCount] = useState<number>(1);
@@ -35,39 +38,48 @@ const LoremIpsumGeneratorScreen = () => {
   };
 
   return (
-    <ToolLayout
-      actions={[
-        <Flex className='justify-end items-center' gap={8}>
-          <InputNumber type='number' min={1} max={100} value={count} onChange={(value) => setCount(value ?? 1)} />
-          <Dropdown
-            menu={{
-              items: [
-                { key: 'paragraph', label: 'Paragraph' },
-                { key: 'sentence', label: 'Sentence' },
-                { key: 'word', label: 'Word' }
-              ],
-              onClick: ({ key }) => setUnits(key as 'paragraph' | 'sentence' | 'word')
-            }}
-            placement='bottomRight'
-          >
-            <Button icon={<UnorderedListOutlined />}>
-              <Typography.Text>{units.charAt(0).toUpperCase() + units.slice(1)}</Typography.Text>
-            </Button>
-          </Dropdown>
-        </Flex>,
-        <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
-      ]}
-    >
-      <div onClick={onCopy}>
-        <Input.TextArea
-          value={note}
-          rows={10}
-          className='cursor-copy! bg-white! hover:text-gray-500!'
-          autoSize
-          style={{ fontSize: 16, minHeight: 16 * 10 * 1.5, color: '#111' }}
-        />
-      </div>
-    </ToolLayout>
+    <>
+      <SEO
+        title='Free Lorem Ipsum Generator - DEV Utilities'
+        description='Generate Lorem Ipsum placeholder text instantly. Choose paragraphs, sentences, or words. Perfect for designers, developers, and content creators. Free and easy to use.'
+        keywords='lorem ipsum generator, placeholder text, dummy text, filler text, design placeholder, web development, content placeholder, fake text generator'
+        url={`${APP_BASE_URL}/${Route.TOOLS.LOREM_GENERATOR}`}
+      />
+
+      <ToolLayout
+        actions={[
+          <Flex className='justify-end items-center' gap={8}>
+            <InputNumber type='number' min={1} max={100} value={count} onChange={(value) => setCount(value ?? 1)} />
+            <Dropdown
+              menu={{
+                items: [
+                  { key: 'paragraph', label: 'Paragraph' },
+                  { key: 'sentence', label: 'Sentence' },
+                  { key: 'word', label: 'Word' }
+                ],
+                onClick: ({ key }) => setUnits(key as 'paragraph' | 'sentence' | 'word')
+              }}
+              placement='bottomRight'
+            >
+              <Button icon={<UnorderedListOutlined />}>
+                <Typography.Text>{units.charAt(0).toUpperCase() + units.slice(1)}</Typography.Text>
+              </Button>
+            </Dropdown>
+          </Flex>,
+          <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
+        ]}
+      >
+        <div onClick={onCopy}>
+          <Input.TextArea
+            value={note}
+            rows={10}
+            className='cursor-copy! bg-white! hover:text-gray-500!'
+            autoSize
+            style={{ fontSize: 16, minHeight: 16 * 10 * 1.5, color: '#111' }}
+          />
+        </div>
+      </ToolLayout>
+    </>
   );
 };
 
