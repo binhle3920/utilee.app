@@ -1,15 +1,12 @@
-import { HomeOutlined } from '@ant-design/icons';
 import Placeholder from '@tiptap/extension-placeholder';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Button, Divider, Flex, Typography } from 'antd';
+import { Button, Typography } from 'antd';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import Container from '../../../components/container';
-import { LOCAL_STORAGE_KEY } from '../../../utils/constants/local-storage';
-import Route from '../../../utils/constants/route';
 import './index.css';
+import ToolLayout from '../../../components/layouts/tool-layout';
+import { LOCAL_STORAGE_KEY } from '../../../utils/constants/local-storage';
 
 // Extensions array
 const extensions = [
@@ -22,8 +19,6 @@ const extensions = [
 const ToolsNoteScreen = () => {
   const [countingType, setCountingType] = useState<'words' | 'characters'>('words');
   const [length, setLength] = useState<number>(0);
-
-  const navigate = useNavigate();
 
   const editor = useEditor({
     extensions,
@@ -73,23 +68,17 @@ const ToolsNoteScreen = () => {
   };
 
   return (
-    <Container className='py-4'>
-      <Flex justify='space-between' align='center' gap={8}>
-        <Button type='primary' icon={<HomeOutlined />} size='large' onClick={() => navigate(Route.DASHBOARD)} />
-
-        <Flex align='center' gap={8}>
-          <Button onClick={onCountingTypeChange} type='default'>
-            <Typography.Text>
-              {countingType === 'words' ? length : (editor?.getText().length ?? 0)} {countingType}
-            </Typography.Text>
-          </Button>
-        </Flex>
-      </Flex>
-
-      <Divider />
-
+    <ToolLayout
+      actions={[
+        <Button onClick={onCountingTypeChange} type='default'>
+          <Typography.Text>
+            {countingType === 'words' ? length : (editor?.getText().length ?? 0)} {countingType}
+          </Typography.Text>
+        </Button>
+      ]}
+    >
       <EditorContent editor={editor} className='w-full h-full' />
-    </Container>
+    </ToolLayout>
   );
 };
 

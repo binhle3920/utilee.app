@@ -1,11 +1,9 @@
-import { CopyOutlined, HomeOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { App, Button, Divider, Dropdown, Flex, Input, InputNumber, Typography } from 'antd';
+import { CopyOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { App, Button, Dropdown, Flex, Input, InputNumber, Typography } from 'antd';
 import { loremIpsum } from 'lorem-ipsum';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import Container from '../../../components/container';
-import Route from '../../../utils/constants/route';
+import ToolLayout from '../../../components/layouts/tool-layout';
 
 const LoremIpsumGeneratorScreen = () => {
   const [count, setCount] = useState<number>(1);
@@ -13,8 +11,6 @@ const LoremIpsumGeneratorScreen = () => {
   const [note, setNote] = useState<string>('');
 
   const { message } = App.useApp();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     setNote(
@@ -39,10 +35,8 @@ const LoremIpsumGeneratorScreen = () => {
   };
 
   return (
-    <Container className='py-4'>
-      <Flex className='justify-between items-center'>
-        <Button type='primary' icon={<HomeOutlined />} size='large' onClick={() => navigate(Route.DASHBOARD)} />
-
+    <ToolLayout
+      actions={[
         <Flex className='justify-end items-center' gap={8}>
           <InputNumber type='number' min={1} max={100} value={count} onChange={(value) => setCount(value ?? 1)} />
           <Dropdown
@@ -60,13 +54,10 @@ const LoremIpsumGeneratorScreen = () => {
               <Typography.Text>{units.charAt(0).toUpperCase() + units.slice(1)}</Typography.Text>
             </Button>
           </Dropdown>
-        </Flex>
-
+        </Flex>,
         <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
-      </Flex>
-
-      <Divider />
-
+      ]}
+    >
       <div onClick={onCopy}>
         <Input.TextArea
           value={note}
@@ -76,7 +67,7 @@ const LoremIpsumGeneratorScreen = () => {
           style={{ fontSize: 16, minHeight: 16 * 10 * 1.5, color: '#111' }}
         />
       </div>
-    </Container>
+    </ToolLayout>
   );
 };
 
