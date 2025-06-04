@@ -27,7 +27,7 @@ const ToolLayout = (props: IProps) => {
         </Container>
       </Layout.Header>
       <Layout.Content className='p-0 w-full bg-white!'>
-        <Container className='w-full overflow-scroll mt-4'>{children}</Container>
+        <Container className='w-full overflow-scroll mt-4 pb-8'>{children}</Container>
       </Layout.Content>
     </Layout>
   );

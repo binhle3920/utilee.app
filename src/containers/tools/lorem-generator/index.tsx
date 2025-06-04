@@ -8,6 +8,8 @@ import SEO from '../../../components/SEO';
 import { APP_BASE_URL } from '../../../utils/constants/app';
 import Route from '../../../utils/constants/route';
 
+const { Title, Text } = Typography;
+
 const LoremIpsumGeneratorScreen = () => {
   const [count, setCount] = useState<number>(1);
   const [units, setUnits] = useState<'paragraph' | 'sentence' | 'word'>('paragraph');
@@ -69,7 +71,17 @@ const LoremIpsumGeneratorScreen = () => {
           <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
         ]}
       >
-        <div onClick={onCopy}>
+        <Flex justify='center' vertical>
+          <Title level={2} className='mb-2!'>
+            Lorem Ipsum Generator
+          </Title>
+          <Text type='secondary'>
+            Generate Lorem Ipsum placeholder text instantly. Choose paragraphs, sentences, or words. Perfect for
+            designers, developers, and content creators. Free and easy to use.
+          </Text>
+        </Flex>
+
+        <div onClick={onCopy} className='mt-6! border border-gray-200! rounded-md! p-4!'>
           <Input.TextArea
             value={note}
             rows={10}
