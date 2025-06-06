@@ -52,7 +52,18 @@ const ImageConverterScreen = () => {
   });
 
   const handleChange: UploadProps['onChange'] = (info) => {
-    setUploadFileList(info.fileList);
+    // Check the file format
+    const validFiles = info.fileList.filter((file) => {
+      const isImage = file.type?.startsWith('image/');
+      if (!isImage) {
+        message.error(`${file.name} is not an image`);
+      }
+
+      return isImage;
+    });
+
+    // Update the file list
+    setUploadFileList(validFiles);
   };
 
   const handleConvert = async () => {
@@ -174,7 +185,7 @@ const ImageConverterScreen = () => {
         {uploadFileList.length > 0 && (
           <Card title='Conversion Settings' className='my-4!'>
             <Row gutter={[24, 16]}>
-              <Col span={12}>
+              <Col span={24} md={12}>
                 <div className='mb-2'>
                   <Text strong>Output Format</Text>
                 </div>
@@ -189,7 +200,7 @@ const ImageConverterScreen = () => {
                   ))}
                 </Select>
               </Col>
-              <Col span={12}>
+              <Col span={24} md={12}>
                 <div className='mb-2'>
                   <Text strong>Quality: {quality}%</Text>
                   {outputFormat === 'png' && (
