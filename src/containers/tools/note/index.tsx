@@ -1,15 +1,16 @@
+import { CopyOutlined } from '@ant-design/icons';
 import Placeholder from '@tiptap/extension-placeholder';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Button, Typography } from 'antd';
+import { Button, message, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 
-import './index.css';
 import ToolLayout from '../../../components/layouts/tool-layout';
 import SEO from '../../../components/SEO';
 import { APP_BASE_URL } from '../../../utils/constants/app';
 import { LOCAL_STORAGE_KEY } from '../../../utils/constants/local-storage';
 import Route from '../../../utils/constants/route';
+import './index.css';
 
 // Extensions array
 const extensions = [
@@ -70,6 +71,16 @@ const ToolsNoteScreen = () => {
     setCountingType(countingType === 'words' ? 'characters' : 'words');
   };
 
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(editor?.getText() ?? '');
+      message.success('Copied to clipboard');
+    } catch (error) {
+      console.error('Copy failed:', error);
+      message.error('Failed to copy to clipboard');
+    }
+  };
+
   return (
     <>
       <SEO
@@ -81,11 +92,12 @@ const ToolsNoteScreen = () => {
 
       <ToolLayout
         actions={[
-          <Button onClick={onCountingTypeChange} type='default'>
+          <Button key='counting-type' onClick={onCountingTypeChange} type='default'>
             <Typography.Text>
               {countingType === 'words' ? length : (editor?.getText().length ?? 0)} {countingType}
             </Typography.Text>
-          </Button>
+          </Button>,
+          <Button key='copy' type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
         ]}
       >
         <EditorContent editor={editor} className='w-full h-full' />

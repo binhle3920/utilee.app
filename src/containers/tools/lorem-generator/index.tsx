@@ -33,10 +33,16 @@ const LoremIpsumGeneratorScreen = () => {
     );
   }, [count, units]);
 
-  const onCopy = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onCopy = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    navigator.clipboard.writeText(note);
-    message.success('Copied to clipboard');
+
+    try {
+      await navigator.clipboard.writeText(note);
+      message.success('Copied to clipboard');
+    } catch (error) {
+      console.error('Copy failed:', error);
+      message.error('Failed to copy to clipboard');
+    }
   };
 
   return (
