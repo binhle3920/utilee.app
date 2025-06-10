@@ -87,12 +87,12 @@ const ToolsNoteScreen = () => {
 
       <ToolLayout
         actions={[
-          <Button onClick={onCountingTypeChange} type='default'>
+          <Button key='counting-type' onClick={onCountingTypeChange} type='default'>
             <Typography.Text>
               {countingType === 'words' ? length : (editor?.getText().length ?? 0)} {countingType}
             </Typography.Text>
           </Button>,
-          <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
+          <Button key='copy' type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
         ]}
       >
         <EditorContent editor={editor} className='w-full h-full' />
