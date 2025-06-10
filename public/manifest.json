@@ -9,9 +9,9 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
+      "src": "/logo.webp", 
+      "sizes": "512x512",
+      "type": "image/webp"
     }
   ],
   "categories": ["developer", "utilities", "productivity"],
