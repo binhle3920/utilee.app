@@ -71,9 +71,14 @@ const ToolsNoteScreen = () => {
     setCountingType(countingType === 'words' ? 'characters' : 'words');
   };
 
-  const onCopy = () => {
-    navigator.clipboard.writeText(editor?.getText() ?? '');
-    message.success('Copied to clipboard');
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(editor?.getText() ?? '');
+      message.success('Copied to clipboard');
+    } catch (error) {
+      console.error('Copy failed:', error);
+      message.error('Failed to copy to clipboard');
+    }
   };
 
   return (
