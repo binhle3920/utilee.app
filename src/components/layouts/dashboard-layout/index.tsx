@@ -23,7 +23,7 @@ const DashboardLayout = () => {
   };
 
   return (
-    <Layout className='h-screen'>
+    <Layout className='min-h-screen! flex'>
       <Layout.Header>
         <Flex justify='space-between' align='center' vertical={false} className='h-full!'>
           <Flex align='center' gap={8} className='cursor-pointer' onClick={onClickLogo}>
@@ -40,26 +40,24 @@ const DashboardLayout = () => {
         </Flex>
       </Layout.Header>
 
-      <Layout.Content className='p-0 w-full bg-white!'>
+      <Layout.Content className='p-0 w-full bg-white! flex-1'>
         <Container className='w-full overflow-scroll flex'>
           <Outlet />
         </Container>
       </Layout.Content>
 
       <Layout.Footer className='p-0'>
-        <Container>
-          <Flex justify='between' align='center'>
-            <Typography.Text className='w-full'>©2025 Created by Binh Le</Typography.Text>
+        <Flex justify='space-between' align='center'>
+          <Typography.Text className='w-full'>©2025 Created by Binh Le</Typography.Text>
 
-            {/* Buy me a coffee button */}
-            <img
-              src={'https://cdn.buymeacoffee.com/buttons/default-orange.png'}
-              alt='Buy me a coffee'
-              className='w-40 rounded-lg shadow-md cursor-pointer hover:scale-105 hover:shadow-lg transition-all duration-300 object-contain'
-              onClick={onBuyMeACoffee}
-            />
-          </Flex>
-        </Container>
+          {/* Buy me a coffee button */}
+          <img
+            src={'https://cdn.buymeacoffee.com/buttons/default-orange.png'}
+            alt='Buy me a coffee'
+            className='w-40 rounded-lg shadow-md cursor-pointer hover:scale-105 hover:shadow-lg transition-all duration-300 object-contain'
+            onClick={onBuyMeACoffee}
+          />
+        </Flex>
       </Layout.Footer>
     </Layout>
   );

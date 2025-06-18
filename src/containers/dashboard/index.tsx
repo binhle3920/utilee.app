@@ -21,24 +21,31 @@ const DashboardScreen = () => {
         url={`${APP_BASE_URL}`}
       />
 
-      <Row gutter={24} className='mt-8! mb-8! w-full' justify='center'>
-        {Object.values(tools).map((tool) => (
-          <Col xs={12} sm={12} md={8} lg={8} xl={6} key={tool.title}>
-            <Card hoverable key={tool.title} onClick={() => handleNavigate(tool.path)} className='shadow-sm h-full'>
-              <Flex vertical className='h-full' align='center' justify='center'>
-                <Image src={tool.image} alt='Note' preview={false} height={100} />
+      <div className='py-8 w-full'>
+        <Row gutter={0} justify='center'>
+          {Object.values(tools).map((tool) => (
+            <Col xs={24} sm={12} md={8} lg={6} xl={6} key={tool.title} className='flex'>
+              <Card
+                hoverable
+                key={tool.title}
+                onClick={() => handleNavigate(tool.path)}
+                className='w-full h-full rounded-none!'
+              >
+                <Flex vertical align='center' justify='center'>
+                  <Image src={tool.image} alt='Note' preview={false} height={100} />
 
-                <Divider />
+                  <Divider />
 
-                <Flex vertical className='h-full w-full'>
-                  <Typography.Title level={4}>{tool.title}</Typography.Title>
-                  <Typography.Paragraph className='text-gray-400! text-sm!'>{tool.description}</Typography.Paragraph>
+                  <Flex vertical className='w-full'>
+                    <Typography.Title level={4}>{tool.title}</Typography.Title>
+                    <Typography.Paragraph className='text-gray-400! text-sm!'>{tool.description}</Typography.Paragraph>
+                  </Flex>
                 </Flex>
-              </Flex>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </div>
     </>
   );
 };
