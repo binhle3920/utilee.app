@@ -1,5 +1,8 @@
 import { CopyOutlined } from '@ant-design/icons';
 import Placeholder from '@tiptap/extension-placeholder';
+import TaskItem from '@tiptap/extension-task-item';
+import TaskList from '@tiptap/extension-task-list';
+import Text from '@tiptap/extension-text';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Button, message, Typography } from 'antd';
@@ -15,6 +18,9 @@ import './index.css';
 // Extensions array
 const extensions = [
   StarterKit,
+  TaskItem,
+  TaskList,
+  Text,
   Placeholder.configure({
     placeholder: 'Write something...'
   })
@@ -30,7 +36,7 @@ const ToolsNoteScreen = () => {
     content: '',
     editorProps: {
       attributes: {
-        class: 'prose prose-sm sm:prose-base lg:prose-lg focus:outline-none min-w-full'
+        class: 'prose prose-sm focus:outline-none min-w-full'
       }
     },
     onUpdate: ({ editor }) => {
