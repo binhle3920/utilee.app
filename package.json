@@ -21,6 +21,8 @@
     "@ant-design/pro-components": "^2.8.4",
     "@tailwindcss/vite": "^4.0.3",
     "@tiptap/extension-placeholder": "^2.12.0",
+    "@tiptap/extension-task-item": "^2.14.0",
+    "@tiptap/extension-task-list": "^2.14.0",
     "@tiptap/pm": "^2.12.0",
     "@tiptap/react": "^2.12.0",
     "@tiptap/starter-kit": "^2.12.0",
