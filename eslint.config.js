@@ -25,7 +25,9 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'perfectionist/sort-imports': 'warn',
+      'perfectionist/sort-imports': ['warn', {
+        "internalPattern": ['^@/.+']
+      }],
       'unused-imports/no-unused-imports': 'warn',
       'react-hooks/exhaustive-deps': 'off',
       '@typescript-eslint/no-explicit-any': 'off',

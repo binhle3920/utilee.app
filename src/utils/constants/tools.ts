@@ -1,6 +1,7 @@
 import ImageToolsImageConverter from '../../assets/svg/tools/image_converter.svg';
 import ImageToolsLoremGenerator from '../../assets/svg/tools/lorem.svg';
 import ImageToolsNote from '../../assets/svg/tools/note.svg';
+import ImageToolsTextComparision from '../../assets/svg/tools/text-comparision.svg';
 import Route from './route';
 
 const tools = {
@@ -23,6 +24,12 @@ const tools = {
     description: 'Convert images to different formats and sizes. Perfect for social media and web design projects!',
     path: Route.TOOLS.IMAGE_CONVERTER,
     image: ImageToolsImageConverter
+  },
+  textComparison: {
+    title: 'Text Comparison',
+    description: 'Compare two texts and see the difference between them.',
+    path: Route.TOOLS.TEXT_COMPARISION,
+    image: ImageToolsTextComparision
   }
 };
 

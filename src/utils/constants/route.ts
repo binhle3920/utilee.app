@@ -3,7 +3,8 @@ const Route = {
   TOOLS: {
     NOTE: '/note',
     LOREM_GENERATOR: '/lorem-generator',
-    IMAGE_CONVERTER: '/image-converter'
+    IMAGE_CONVERTER: '/image-converter',
+    TEXT_COMPARISION: '/text-comparision'
   }
 };
 

@@ -7,11 +7,12 @@ import StarterKit from '@tiptap/starter-kit';
 import { Button, message, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 
-import ToolLayout from '../../../components/layouts/tool-layout';
-import SEO from '../../../components/SEO';
-import { APP_BASE_URL } from '../../../utils/constants/app';
-import { LOCAL_STORAGE_KEY } from '../../../utils/constants/local-storage';
-import Route from '../../../utils/constants/route';
+import ToolLayout from '@/components/layouts/tool-layout';
+import SEO from '@/components/SEO';
+import { APP_BASE_URL } from '@/utils/constants/app';
+import { LOCAL_STORAGE_KEY } from '@/utils/constants/local-storage';
+import Route from '@/utils/constants/route';
+
 import './index.css';
 
 // Extensions array
@@ -19,6 +20,7 @@ const extensions = [
   StarterKit,
   TaskItem,
   TaskList,
+
   Placeholder.configure({
     placeholder: 'Write something...'
   })

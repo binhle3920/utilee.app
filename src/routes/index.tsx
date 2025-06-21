@@ -5,6 +5,7 @@ import DashboardScreen from '../containers/dashboard/index.tsx';
 import ImageConverterScreen from '../containers/tools/image-converter/index.tsx';
 import LoremIpsumGeneratorScreen from '../containers/tools/lorem-generator/index.tsx';
 import ToolsNoteScreen from '../containers/tools/note/index.tsx';
+import TextComparisionScreen from '../containers/tools/text-comparision/index.tsx';
 import Route from '../utils/constants/route.ts';
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: Route.TOOLS.IMAGE_CONVERTER,
     element: <ImageConverterScreen />
+  },
+  {
+    path: Route.TOOLS.TEXT_COMPARISION,
+    element: <TextComparisionScreen />
   },
   {
     path: '*',

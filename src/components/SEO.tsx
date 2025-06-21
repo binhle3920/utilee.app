@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { APP_BASE_URL } from '../utils/constants/app';
+import { APP_BASE_URL } from '@/utils/constants/app';
 
 interface SEOProps {
   title?: string;

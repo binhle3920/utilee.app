@@ -1,9 +1,9 @@
 import { Card, Col, Divider, Flex, Image, Row, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import SEO from '../../components/SEO';
-import { APP_BASE_URL } from '../../utils/constants/app';
-import tools from '../../utils/constants/tools';
+import SEO from '@/components/SEO';
+import { APP_BASE_URL } from '@/utils/constants/app';
+import tools from '@/utils/constants/tools';
 
 const DashboardScreen = () => {
   const navigate = useNavigate();

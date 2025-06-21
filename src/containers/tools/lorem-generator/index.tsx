@@ -3,10 +3,10 @@ import { App, Button, Dropdown, Flex, Input, InputNumber, Typography } from 'ant
 import { loremIpsum } from 'lorem-ipsum';
 import { useEffect, useState } from 'react';
 
-import ToolLayout from '../../../components/layouts/tool-layout';
-import SEO from '../../../components/SEO';
-import { APP_BASE_URL } from '../../../utils/constants/app';
-import Route from '../../../utils/constants/route';
+import ToolLayout from '@/components/layouts/tool-layout';
+import SEO from '@/components/SEO';
+import { APP_BASE_URL } from '@/utils/constants/app';
+import Route from '@/utils/constants/route';
 
 const { Title, Text } = Typography;
 
