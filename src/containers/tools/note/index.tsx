@@ -88,7 +88,7 @@ const ToolsNoteScreen = () => {
   };
 
   return (
-    <>
+    <div className='note-tool-container'>
       <SEO
         title='Free Online Note Taking Tool - Utilee'
         description='Simple, fast, and free note-taking tool with word/character counter. Perfect for developers, writers, and students. Auto-saves to local storage. No registration required.'
@@ -108,7 +108,7 @@ const ToolsNoteScreen = () => {
       >
         <EditorContent editor={editor} className='w-full h-full' />
       </ToolLayout>
-    </>
+    </div>
   );
 };
 

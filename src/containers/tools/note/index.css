@@ -1,25 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=National+Park:wght@200..800&family=Tagesschrift&display=swap');
-
-.ant-input {
+.note-tool-container .ant-input {
   border: none;
   margin: 0;
   padding: 0;
-  font-family: 'National Park', system-ui;
   font-weight: 400;
   font-style: normal;
   border-radius: 0;
 }
 
-.ant-input:focus {
+.note-tool-container .ant-input:focus {
   border: none;
   box-shadow: none;
 }
 
-.ant-input-group-addon {
+.note-tool-container .ant-input-group-addon {
   border: none;
 }
 
-.tiptap p.is-empty::before {
+.note-tool-container .tiptap p.is-empty::before {
   color: #adb5bd;
   content: attr(data-placeholder);
   float: left;
@@ -28,7 +25,9 @@
 }
 
 /* Basic editor styles */
-.tiptap {
+.note-tool-container .tiptap {
+  font-family: 'Cousine', monospace;
+
   :first-child {
     margin-top: 0;
   }
@@ -50,7 +49,7 @@
   }
 
   /* Task list specific styles */
-  ul[data-type="taskList"] {
+  ul[data-type='taskList'] {
     list-style: none;
     margin-left: 0;
     padding: 0;
@@ -70,11 +69,11 @@
       }
     }
 
-    input[type="checkbox"] {
+    input[type='checkbox'] {
       cursor: pointer;
     }
 
-    ul[data-type="taskList"] {
+    ul[data-type='taskList'] {
       margin: 0;
     }
   }

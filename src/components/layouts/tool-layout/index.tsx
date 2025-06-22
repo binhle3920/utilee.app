@@ -23,13 +23,13 @@ const ToolLayout = (props: IProps) => {
 
   return (
     <Layout className='h-screen'>
-      <Layout.Header className='p-0! bg-white! border-b border-gray-200! flex'>
+      <Layout.Header className='p-0! flex'>
         <Container>
           <Flex justify='space-between' align='center'>
             <Flex align='center' gap={8} className='cursor-pointer -ml-1!' onClick={onClickLogo}>
               <img src={'/logo/logo.webp'} alt='Utilee' className='w-10 h-10 rounded-full' />
               {!isMobile && (
-                <Typography.Title level={3} className='mb-0!'>
+                <Typography.Title level={3} className='mb-0! text-white!'>
                   Utilee
                 </Typography.Title>
               )}

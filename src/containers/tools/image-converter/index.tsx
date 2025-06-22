@@ -100,7 +100,13 @@ const ImageConverterScreen = () => {
   };
 
   const handleDownloadAll = () => {
+    if (convertedImages.length === 0) {
+      message.warning('No converted images to download');
+      return;
+    }
+
     downloadAllImages(convertedImages);
+    message.success('All converted images have been downloaded');
   };
 
   const handleRemoveOriginal = (file: UploadFile) => {
@@ -121,19 +127,14 @@ const ImageConverterScreen = () => {
     setUploadFileList([]);
     setConvertedImages([]);
     setProgress(0);
+
+    message.success('All images and converted images have been cleared');
   };
 
   const actionButtons = [
     <Flex justify='center' align='center' gap={8}>
-      <Button onClick={onClearAll} disabled={uploadFileList.length === 0 && convertedImages.length === 0}>
-        Clear All
-      </Button>
-      <Button
-        type='primary'
-        icon={<DownloadOutlined />}
-        onClick={handleDownloadAll}
-        disabled={convertedImages.length === 0}
-      >
+      <Button onClick={onClearAll}>Clear All</Button>
+      <Button type='primary' icon={<DownloadOutlined />} onClick={handleDownloadAll}>
         Download All
       </Button>
     </Flex>
