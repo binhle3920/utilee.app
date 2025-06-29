@@ -2,11 +2,12 @@ import { Flex, Layout, Typography } from 'antd';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import Container from '@/components/container';
-import useMobileScreen from '@/hooks/use-mobile-screen';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
-  const isMobile = useMobileScreen();
+
+  const isMobile = useIsMobile();
 
   const onClickLogo = () => {
     navigate('/');

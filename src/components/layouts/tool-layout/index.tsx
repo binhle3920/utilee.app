@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Container from '@/components/container';
-import useMobileScreen from '@/hooks/use-mobile-screen';
+import { useIsMobile } from '@/hooks/use-mobile';
 import Route from '@/utils/constants/route';
 
 interface IProps {
@@ -15,7 +15,7 @@ const ToolLayout = (props: IProps) => {
   const { children, actions } = props;
 
   const navigate = useNavigate();
-  const isMobile = useMobileScreen();
+  const isMobile = useIsMobile();
 
   const onClickLogo = () => {
     navigate(Route.DASHBOARD);
