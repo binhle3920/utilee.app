@@ -1,12 +1,18 @@
-import { Card, Col, Divider, Flex, Image, Row, Typography } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Card, Divider, Flex, Image, Typography } from 'antd';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import SEO from '@/components/SEO';
 import { APP_BASE_URL } from '@/utils/constants/app';
-import tools from '@/utils/constants/tools';
+import tools, { ToolsCollection } from '@/utils/constants/tools';
+
+const { Title, Text } = Typography;
 
 const DashboardScreen = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const activeCategory = searchParams.get('c');
+  const toolCategory = tools[activeCategory as keyof ToolsCollection];
 
   const handleNavigate = (path: string) => {
     navigate(path);
@@ -21,31 +27,38 @@ const DashboardScreen = () => {
         url={`${APP_BASE_URL}`}
       />
 
-      <div className='py-8 w-full'>
-        <Row gutter={0} justify='center'>
-          {Object.values(tools).map((tool) => (
-            <Col xs={24} sm={12} md={8} lg={6} xl={6} key={tool.title} className='flex'>
+      {toolCategory && (
+        <div className='py-4 w-full'>
+          <Flex vertical className='mb-4!'>
+            <Title level={2} className='mb-0! text-gray-900!'>
+              {toolCategory.label}
+            </Title>
+            <Text className='text-gray-500! text-sm!'>{Object.keys(toolCategory.tools).length} tools available</Text>
+          </Flex>
+
+          <div className='flex flex-wrap gap-4'>
+            {Object.values(toolCategory.tools).map((tool) => (
               <Card
-                hoverable
                 key={tool.title}
+                hoverable
                 onClick={() => handleNavigate(tool.path)}
-                className='w-full h-full rounded-none!'
+                className='min-w-[280px] flex-1 max-w-[320px]'
               >
                 <Flex vertical align='center' justify='center'>
-                  <Image src={tool.image} alt='Note' preview={false} height={100} />
+                  <Image src={tool.image} alt={tool.title} preview={false} height={100} />
 
                   <Divider />
 
                   <Flex vertical className='w-full'>
-                    <Typography.Title level={4}>{tool.title}</Typography.Title>
-                    <Typography.Paragraph className='text-gray-400! text-sm!'>{tool.description}</Typography.Paragraph>
+                    <Title level={4}>{tool.title}</Title>
+                    <Text className='text-gray-400! text-sm!'>{tool.description}</Text>
                   </Flex>
                 </Flex>
               </Card>
-            </Col>
-          ))}
-        </Row>
-      </div>
+            ))}
+          </div>
+        </div>
+      )}
     </>
   );
 };

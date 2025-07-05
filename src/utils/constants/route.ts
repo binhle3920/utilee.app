@@ -4,7 +4,7 @@ const Route = {
     NOTE: '/note',
     LOREM_GENERATOR: '/lorem-generator',
     IMAGE_CONVERTER: '/image-converter',
-    TEXT_COMPARISION: '/text-comparision'
+    TEXT_COMPARISON: '/text-comparison'
   }
 };
 

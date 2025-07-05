@@ -11,9 +11,9 @@ const Container = (props: PropsWithoutRef<FlexProps>) => {
   const screen = useBreakpoint();
 
   useEffect(() => {
-    if (screen === 'xs' || screen === 'sm' || screen === 'md') {
+    if (screen === 'xs' || screen === 'sm') {
       setPadding(16);
-    } else if (screen === 'lg') {
+    } else if (screen === 'lg' || screen === 'md') {
       setPadding(24);
     } else if (screen === 'xl') {
       setPadding(24);

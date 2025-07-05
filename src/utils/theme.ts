@@ -5,6 +5,7 @@ const customTheme: ThemeConfig = {
   cssVar: true,
   algorithm: theme.defaultAlgorithm,
   token: {
+    fontFamily: 'Geist',
     colorPrimary: '#1ab8a6',
     borderRadius: 6
   }

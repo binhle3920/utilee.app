@@ -72,7 +72,7 @@ const TextComparisonScreen = () => {
         title='Text Comparison - Utilee'
         description='Compare two texts and see the difference between them.'
         keywords='text comparison, text difference, text similarity, text diff, text compare'
-        url={`${APP_BASE_URL}/${Route.TOOLS.TEXT_COMPARISION}`}
+        url={`${APP_BASE_URL}/${Route.TOOLS.TEXT_COMPARISON}`}
       />
 
       <ToolLayout actions={renderActions()}>

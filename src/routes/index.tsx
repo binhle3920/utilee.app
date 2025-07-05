@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     element: <ImageConverterScreen />
   },
   {
-    path: Route.TOOLS.TEXT_COMPARISION,
+    path: Route.TOOLS.TEXT_COMPARISON,
     element: <TextComparisionScreen />
   },
   {
