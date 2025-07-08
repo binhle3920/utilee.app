@@ -34,10 +34,9 @@ import { formatFileSize, getCompressionRatio } from '@/containers/tools/image-co
 import { ConvertedImage, convertMultipleImages } from '@/containers/tools/image-converter/utils/image-conveter';
 import { APP_BASE_URL } from '@/utils/constants/app';
 import Route from '@/utils/constants/route';
+import '@/containers/tools/image-converter/index.css';
 
-import './index.css';
-
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const ImageConverterScreen = () => {
   const [uploadFileList, setUploadFileList] = useState<UploadFile[]>([]);
@@ -149,17 +148,11 @@ const ImageConverterScreen = () => {
         url={`${APP_BASE_URL}/${Route.TOOLS.IMAGE_CONVERTER}`}
       />
 
-      <ToolLayout actions={actionButtons}>
-        <Flex justify='center' vertical>
-          <Title level={2} className='mb-2!'>
-            Image Converter
-          </Title>
-          <Text type='secondary'>
-            Convert your images to different formats with customizable quality settings. Supports <b>WebP</b>,{' '}
-            <b>JPEG</b>, <b>PNG</b>, and <b>AVIF</b> formats.
-          </Text>
-        </Flex>
-
+      <ToolLayout
+        title='Image Converter'
+        description='Convert your images to different formats with customizable quality settings. Supports WebP, JPEG, PNG, and AVIF formats.'
+        actions={actionButtons}
+      >
         {/* Upload Section */}
         <Card title='Upload Images' className='mt-6! mb-4!'>
           <Upload

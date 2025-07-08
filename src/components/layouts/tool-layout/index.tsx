@@ -6,13 +6,17 @@ import Container from '@/components/container';
 import { useIsMobile } from '@/hooks/use-mobile';
 import Route from '@/utils/constants/route';
 
+const { Title, Text } = Typography;
+
 interface IProps {
   children?: ReactNode;
   actions?: ReactNode[];
+  title?: string;
+  description?: string;
 }
 
 const ToolLayout = (props: IProps) => {
-  const { children, actions } = props;
+  const { children, actions, title, description } = props;
 
   const navigate = useNavigate();
   const isMobile = useIsMobile();
@@ -40,7 +44,18 @@ const ToolLayout = (props: IProps) => {
         </Container>
       </Layout.Header>
       <Layout.Content className='p-0 w-full bg-white!'>
-        <Container className='w-full overflow-scroll mt-4 pb-8'>{children}</Container>
+        <Container className='w-full overflow-scroll mt-4 pb-8'>
+          {title && description && (
+            <Flex justify='center' vertical>
+              <Title level={2} className='mb-0!'>
+                {title}
+              </Title>
+              <Text type='secondary'>{description}</Text>
+            </Flex>
+          )}
+
+          {children}
+        </Container>
       </Layout.Content>
     </Layout>
   );

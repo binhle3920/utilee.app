@@ -8,8 +8,6 @@ import SEO from '@/components/SEO';
 import { APP_BASE_URL } from '@/utils/constants/app';
 import Route from '@/utils/constants/route';
 
-const { Title, Text } = Typography;
-
 const LoremIpsumGeneratorScreen = () => {
   const [count, setCount] = useState<number>(1);
   const [units, setUnits] = useState<'paragraph' | 'sentence' | 'word'>('paragraph');
@@ -55,6 +53,8 @@ const LoremIpsumGeneratorScreen = () => {
       />
 
       <ToolLayout
+        title='Lorem Ipsum Generator'
+        description='Generate Lorem Ipsum placeholder text instantly. Choose paragraphs, sentences, or words. Perfect for designers, developers, and content creators. Free and easy to use.'
         actions={[
           <Flex className='justify-end items-center' gap={8}>
             <InputNumber type='number' min={1} max={100} value={count} onChange={(value) => setCount(value ?? 1)} />
@@ -77,16 +77,6 @@ const LoremIpsumGeneratorScreen = () => {
           <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
         ]}
       >
-        <Flex justify='center' vertical>
-          <Title level={2} className='mb-2!'>
-            Lorem Ipsum Generator
-          </Title>
-          <Text type='secondary'>
-            Generate Lorem Ipsum placeholder text instantly. Choose paragraphs, sentences, or words. Perfect for
-            designers, developers, and content creators. Free and easy to use.
-          </Text>
-        </Flex>
-
         <div onClick={onCopy} className='mt-6'>
           <Input.TextArea
             value={note}

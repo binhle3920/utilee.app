@@ -75,7 +75,11 @@ const TextComparisonScreen = () => {
         url={`${APP_BASE_URL}/${Route.TOOLS.TEXT_COMPARISON}`}
       />
 
-      <ToolLayout actions={renderActions()}>
+      <ToolLayout
+        title='Text Comparison'
+        description='Compare two texts and see the difference between them.'
+        actions={renderActions()}
+      >
         <div className='mt-6'>
           {showDiff ? (
             <ReactDiffViewer
