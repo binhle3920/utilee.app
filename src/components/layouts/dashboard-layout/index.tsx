@@ -6,6 +6,7 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 
 import Container from '@/components/container';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { LOCAL_STORAGE_KEY } from '@/utils/constants/local-storage';
 import tools, { categoryKeys, ToolsCollection } from '@/utils/constants/tools';
 
 const { Sider, Content, Footer } = Layout;
@@ -37,6 +38,12 @@ const DashboardLayout = () => {
     }
   }, [isMobile]);
 
+  useEffect(() => {
+    console.log('expandSidebar', localStorage.getItem(LOCAL_STORAGE_KEY.CONFIG.EXPAND_SIDEBAR));
+    const expandSidebar = localStorage.getItem(LOCAL_STORAGE_KEY.CONFIG.EXPAND_SIDEBAR);
+    setCollapsed(expandSidebar === 'false');
+  }, []);
+
   const onBuyMeACoffee = () => {
     window.open('https://coff.ee/binhle', '_blank');
   };
@@ -55,6 +62,7 @@ const DashboardLayout = () => {
       setMobileDrawerOpen(!mobileDrawerOpen);
     } else {
       setCollapsed(!collapsed);
+      localStorage.setItem(LOCAL_STORAGE_KEY.CONFIG.EXPAND_SIDEBAR, collapsed.toString());
     }
   };
 
