@@ -1,11 +1,12 @@
 import { IconLetterCase, IconPhoto } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 
-import ImageToolsImageConverter from '../../assets/svg/tools/image_converter.svg';
-import ImageToolsLoremGenerator from '../../assets/svg/tools/lorem.svg';
-import ImageToolsNote from '../../assets/svg/tools/note.svg';
-import ImageToolsTextComparison from '../../assets/svg/tools/text-comparision.svg';
-import Route from './route';
+import ImageToolsImageConverter from '@/assets/png/image-converter.png';
+import ImageToolsJsonFormatter from '@/assets/png/json-formatter.png';
+import ImageToolsLoremGenerator from '@/assets/png/lorem-generator.png';
+import ImageToolsNote from '@/assets/png/note.png';
+import ImageToolsTextComparison from '@/assets/png/text-comparision.png';
+import Route from '@/utils/constants/route';
 
 export interface Tool {
   title: string;
@@ -46,6 +47,12 @@ const textTools: ToolCategory = {
     description: 'Compare two texts and see the difference between them with an intuitive diff viewer.',
     path: Route.TOOLS.TEXT_COMPARISON,
     image: ImageToolsTextComparison
+  },
+  jsonFormatter: {
+    title: 'JSON Formatter',
+    description: 'Format JSON data for better readability and structure.',
+    path: Route.TOOLS.JSON_FORMATTER,
+    image: ImageToolsJsonFormatter
   }
 };
 

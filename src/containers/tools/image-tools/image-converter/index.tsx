@@ -28,13 +28,16 @@ import {
   qualityMarks,
   defaultQuality,
   defaultFormat
-} from '@/containers/tools/image-converter/utils/constants';
-import { downloadAllImages, downloadImage } from '@/containers/tools/image-converter/utils/download-utils';
-import { formatFileSize, getCompressionRatio } from '@/containers/tools/image-converter/utils/format-utils';
-import { ConvertedImage, convertMultipleImages } from '@/containers/tools/image-converter/utils/image-conveter';
+} from '@/containers/tools/image-tools/image-converter/utils/constants';
+import { downloadAllImages, downloadImage } from '@/containers/tools/image-tools/image-converter/utils/download-utils';
+import { formatFileSize, getCompressionRatio } from '@/containers/tools/image-tools/image-converter/utils/format-utils';
+import {
+  ConvertedImage,
+  convertMultipleImages
+} from '@/containers/tools/image-tools/image-converter/utils/image-conveter';
 import { APP_BASE_URL } from '@/utils/constants/app';
 import Route from '@/utils/constants/route';
-import '@/containers/tools/image-converter/index.css';
+import '@/containers/tools/image-tools/image-converter/index.css';
 
 const { Text } = Typography;
 
