@@ -3,9 +3,6 @@
 /* Plugins */
 @plugin "@tailwindcss/typography";
 
-/* Cousine font for notes */
-@import url('https://fonts.googleapis.com/css2?family=Cousine:wght@400;700&display=swap');
-
 :root {
   /* Orange Gradient Palette */
   --orange-50: #fff7ed;
