@@ -28,6 +28,7 @@ const extensions = [
 
 const ToolsNoteScreen = () => {
   const [countingType, setCountingType] = useState<'words' | 'characters'>('words');
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const [length, setLength] = useState<number>(0);
 
   const editor = useEditor({
@@ -38,6 +39,12 @@ const ToolsNoteScreen = () => {
       attributes: {
         class: 'prose prose-invert prose-sm focus:outline-none min-w-full'
       }
+    },
+    onFocus: () => {
+      setIsFocused(true);
+    },
+    onBlur: () => {
+      setIsFocused(false);
     },
     onUpdate: ({ editor }) => {
       const content = editor.getHTML();
@@ -51,7 +58,6 @@ const ToolsNoteScreen = () => {
     }
   });
 
-  // Get the note from local storage
   useEffect(() => {
     const data = localStorage.getItem(LOCAL_STORAGE_KEY.NOTE);
     if (data) {
@@ -61,7 +67,6 @@ const ToolsNoteScreen = () => {
     }
   }, [editor]);
 
-  // Count the number of words in the note
   useEffect(() => {
     if (editor) {
       const text = editor.getText();
@@ -108,7 +113,9 @@ const ToolsNoteScreen = () => {
           <Button key='copy' type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
         ]}
       >
-        <div className='flex-1 rounded-xl bg-[var(--bg-container)] border border-[var(--border-default)] p-6 overflow-auto'>
+        <div
+          className={`flex-1 rounded-xl bg-[var(--bg-container)] border p-6 overflow-auto transition-all ${isFocused ? 'border-[var(--border-light)] shadow-[0_0_0_2px_rgba(249,115,22,0.15)]' : 'border-[var(--border-default)]'}`}
+        >
           <EditorContent editor={editor} className='w-full h-full' />
         </div>
       </ToolLayout>

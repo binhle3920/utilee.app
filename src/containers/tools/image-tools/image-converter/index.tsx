@@ -156,7 +156,7 @@ const ImageConverterScreen = () => {
         description='Convert your images to different formats with customizable quality settings. Supports WebP, JPEG, PNG, and AVIF formats.'
         actions={actionButtons}
       >
-        <div className='overflow-y-scroll flex-1'>
+        <div className='h-full'>
           {/* Upload Section */}
           <Card
             title={<span className='text-[var(--text-primary)]!'>Upload Images</span>}

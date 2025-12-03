@@ -56,9 +56,9 @@ const ToolLayout = (props: IProps) => {
       </Layout.Header>
 
       <Layout.Content className='p-0 w-full bg-transparent! flex-1 overflow-hidden flex flex-col'>
-        <Container className='flex-1 flex flex-col overflow-hidden mt-6 pb-6 md:pb-8'>
+        <Container className='flex flex-col py-6 overflow-y-scroll'>
           {title && description && (
-            <Flex justify='center' vertical className='mb-6! shrink-0'>
+            <Flex justify='center' vertical className='shrink-0'>
               <Title level={2} className='mb-1! text-[var(--text-primary)]! font-bold!'>
                 <span className='text-gradient-orange'>{title}</span>
               </Title>
@@ -66,7 +66,7 @@ const ToolLayout = (props: IProps) => {
             </Flex>
           )}
 
-          <div className='flex-1 flex flex-col overflow-hidden'>{children}</div>
+          <div className='flex flex-1 flex-col pt-6'>{children}</div>
         </Container>
       </Layout.Content>
     </Layout>

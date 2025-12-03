@@ -125,7 +125,7 @@ const TextComparisonScreen = () => {
         description='Compare two texts and see the difference between them.'
         actions={renderActions()}
       >
-        <div className='flex-1 flex flex-col overflow-hidden'>
+        <div className='flex-1 flex flex-col'>
           {showDiff ? (
             <div className='rounded-xl overflow-auto border border-[var(--border-default)] flex flex-1'>
               <ReactDiffViewer
@@ -137,7 +137,7 @@ const TextComparisonScreen = () => {
               />
             </div>
           ) : (
-            <Flex gap={16} className='flex-1 overflow-hidden'>
+            <Flex gap={16} className='flex-1'>
               <StyledTextArea
                 className='flex-1 h-full!'
                 value={text1}

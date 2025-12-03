@@ -85,14 +85,7 @@ const LoremIpsumGeneratorScreen = () => {
           <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
         ]}
       >
-        <div onClick={onCopy} className='flex-1'>
-          <StyledTextArea
-            value={note}
-            rows={10}
-            className='cursor-copy! hover:border-[var(--border-light)]! focus:border-orange-500! h-full!'
-            autoSize
-          />
-        </div>
+        <StyledTextArea value={note} onChange={(e) => setNote(e.target.value)} className='flex-1! h-full!' />
       </ToolLayout>
     </>
   );
