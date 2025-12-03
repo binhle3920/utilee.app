@@ -22,7 +22,7 @@ const extensions = [
   TaskList,
 
   Placeholder.configure({
-    placeholder: 'Write something...'
+    placeholder: 'Start writing your notes...'
   })
 ];
 
@@ -36,7 +36,7 @@ const ToolsNoteScreen = () => {
     content: '',
     editorProps: {
       attributes: {
-        class: 'prose prose-sm focus:outline-none min-w-full'
+        class: 'prose prose-invert prose-sm focus:outline-none min-w-full'
       }
     },
     onUpdate: ({ editor }) => {
@@ -97,16 +97,20 @@ const ToolsNoteScreen = () => {
       />
 
       <ToolLayout
+        title='Note'
+        description='Simple and fast note-taking with word/character counter. Auto-saves to local storage.'
         actions={[
           <Button key='counting-type' onClick={onCountingTypeChange} type='default'>
-            <Typography.Text>
+            <Typography.Text className='text-[var(--text-secondary)]!'>
               {countingType === 'words' ? length : (editor?.getText().length ?? 0)} {countingType}
             </Typography.Text>
           </Button>,
           <Button key='copy' type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
         ]}
       >
-        <EditorContent editor={editor} className='w-full h-full' />
+        <div className='flex-1 rounded-xl bg-[var(--bg-container)] border border-[var(--border-default)] p-6 overflow-auto'>
+          <EditorContent editor={editor} className='w-full h-full' />
+        </div>
       </ToolLayout>
     </div>
   );

@@ -1,8 +1,9 @@
 import { CopyOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { App, Button, Dropdown, Flex, Input, InputNumber, Typography } from 'antd';
+import { App, Button, Dropdown, Flex, InputNumber, Typography } from 'antd';
 import { loremIpsum } from 'lorem-ipsum';
 import { useEffect, useState } from 'react';
 
+import StyledTextArea from '@/components/common/styled-textarea';
 import ToolLayout from '@/components/layouts/tool-layout';
 import SEO from '@/components/SEO';
 import { APP_BASE_URL } from '@/utils/constants/app';
@@ -57,7 +58,14 @@ const LoremIpsumGeneratorScreen = () => {
         description='Generate Lorem Ipsum placeholder text instantly. Choose paragraphs, sentences, or words. Perfect for designers, developers, and content creators. Free and easy to use.'
         actions={[
           <Flex className='justify-end items-center' gap={8}>
-            <InputNumber type='number' min={1} max={100} value={count} onChange={(value) => setCount(value ?? 1)} />
+            <InputNumber
+              type='number'
+              min={1}
+              max={100}
+              value={count}
+              onChange={(value) => setCount(value ?? 1)}
+              className='w-20!'
+            />
             <Dropdown
               menu={{
                 items: [
@@ -77,13 +85,12 @@ const LoremIpsumGeneratorScreen = () => {
           <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
         ]}
       >
-        <div onClick={onCopy} className='mt-6'>
-          <Input.TextArea
+        <div onClick={onCopy} className='flex-1'>
+          <StyledTextArea
             value={note}
             rows={10}
-            className='cursor-copy! bg-white! hover:text-gray-500!'
+            className='cursor-copy! hover:border-[var(--border-light)]! focus:border-orange-500! h-full!'
             autoSize
-            style={{ fontSize: 16, minHeight: 16 * 10 * 1.5, color: '#111' }}
           />
         </div>
       </ToolLayout>

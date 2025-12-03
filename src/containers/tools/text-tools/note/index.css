@@ -1,3 +1,6 @@
+/* Cousine font for notes */
+@import url('https://fonts.googleapis.com/css2?family=Cousine:wght@400;700&display=swap');
+
 .note-tool-container .ant-input {
   border: none;
   margin: 0;
@@ -5,6 +8,8 @@
   font-weight: 400;
   font-style: normal;
   border-radius: 0;
+  background: transparent;
+  color: var(--text-primary);
 }
 
 .note-tool-container .ant-input:focus {
@@ -17,7 +22,7 @@
 }
 
 .note-tool-container .tiptap p.is-empty::before {
-  color: #adb5bd;
+  color: var(--text-muted);
   content: attr(data-placeholder);
   float: left;
   height: 0;
@@ -27,6 +32,9 @@
 /* Basic editor styles */
 .note-tool-container .tiptap {
   font-family: 'Cousine', monospace;
+  color: var(--text-primary);
+  font-size: 15px;
+  line-height: 1.7;
 
   :first-child {
     margin-top: 0;
@@ -34,18 +42,110 @@
 
   p {
     margin: 0;
+    margin-bottom: 0.5em;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  h1 {
+    font-size: 1.75em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.25em;
+  }
+
+  /* Links */
+  a {
+    color: var(--orange-400);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--orange-300);
+  }
+
+  /* Code */
+  code {
+    background: var(--bg-spotlight);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-family: 'Cousine', monospace;
+    font-size: 0.9em;
+    color: var(--orange-400);
+  }
+
+  pre {
+    background: var(--bg-spotlight);
+    border: 1px solid var(--border-default);
+    border-radius: 12px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 1em 0;
+
+    code {
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: var(--text-primary);
+    }
+  }
+
+  /* Blockquote */
+  blockquote {
+    border-left: 3px solid var(--orange-500);
+    padding-left: 16px;
+    margin: 1em 0;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  /* Horizontal rule */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border-default);
+    margin: 2em 0;
   }
 
   /* List styles */
   ul,
   ol {
     padding: 0 1rem;
-    margin: 0;
+    margin: 0.5em 0;
 
     li p {
       margin-top: 0.25em;
       margin-bottom: 0.25em;
     }
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  li {
+    margin-bottom: 0.25em;
+  }
+
+  li::marker {
+    color: var(--orange-400);
   }
 
   /* Task list specific styles */
@@ -57,10 +157,10 @@
     li {
       align-items: flex-start;
       display: flex;
+      gap: 8px;
 
       > label {
         flex: 0 0 auto;
-        margin-right: 0.5rem;
         user-select: none;
       }
 
@@ -71,10 +171,62 @@
 
     input[type='checkbox'] {
       cursor: pointer;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--orange-500);
+      border-radius: 4px;
     }
 
     ul[data-type='taskList'] {
       margin: 0;
     }
   }
+
+  /* Strong/Bold */
+  strong {
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  /* Emphasis/Italic */
+  em {
+    font-style: italic;
+  }
+
+  /* Strikethrough */
+  s {
+    text-decoration: line-through;
+    color: var(--text-tertiary);
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(249, 115, 22, 0.3);
+  }
+}
+
+/* Focus state for the editor container */
+.note-tool-container .tiptap:focus-visible {
+  outline: none;
+}
+
+/* Prose overrides for dark mode */
+.note-tool-container .prose {
+  color: var(--text-primary);
+}
+
+.note-tool-container .prose-invert {
+  --tw-prose-body: var(--text-primary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--orange-400);
+  --tw-prose-bold: var(--text-primary);
+  --tw-prose-counters: var(--text-secondary);
+  --tw-prose-bullets: var(--orange-400);
+  --tw-prose-hr: var(--border-default);
+  --tw-prose-quotes: var(--text-secondary);
+  --tw-prose-quote-borders: var(--orange-500);
+  --tw-prose-code: var(--orange-400);
+  --tw-prose-pre-code: var(--text-primary);
+  --tw-prose-pre-bg: var(--bg-spotlight);
 }

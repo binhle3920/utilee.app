@@ -3,15 +3,183 @@
 /* Plugins */
 @plugin "@tailwindcss/typography";
 
+/* Cousine font for notes */
+@import url('https://fonts.googleapis.com/css2?family=Cousine:wght@400;700&display=swap');
 
 :root {
+  /* Orange Gradient Palette */
+  --orange-50: #fff7ed;
+  --orange-100: #ffedd5;
+  --orange-200: #fed7aa;
+  --orange-300: #fdba74;
+  --orange-400: #fb923c;
+  --orange-500: #f97316;
+  --orange-600: #ea580c;
+  --orange-700: #c2410c;
+  --orange-800: #9a3412;
+  --orange-900: #7c2d12;
+
+  /* Amber accents */
+  --amber-400: #fbbf24;
+  --amber-500: #f59e0b;
+
+  /* Dark Background Palette */
+  --bg-base: #0a0a0f;
+  --bg-elevated: #12121a;
+  --bg-container: #1a1a24;
+  --bg-spotlight: #22222e;
+  --bg-surface: #16161f;
+  --bg-hover: #2a2a38;
+
+  /* Border colors */
+  --border-default: #2a2a3a;
+  --border-light: #3a3a4a;
+  --border-subtle: #1f1f2a;
+
+  /* Text colors */
+  --text-primary: rgba(255, 255, 255, 0.92);
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-tertiary: rgba(255, 255, 255, 0.45);
+  --text-muted: rgba(255, 255, 255, 0.25);
+
+  /* Gradients */
+  --gradient-orange: linear-gradient(135deg, var(--orange-500) 0%, var(--orange-400) 50%, var(--amber-400) 100%);
+  --gradient-orange-soft: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(251, 191, 36, 0.08) 100%);
+  --gradient-orange-glow: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.2) 0%, transparent 70%);
+  --gradient-dark-radial: radial-gradient(ellipse at top, var(--bg-container) 0%, var(--bg-base) 70%);
+  --gradient-dark-mesh: 
+    radial-gradient(at 40% 20%, rgba(249, 115, 22, 0.08) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(251, 191, 36, 0.05) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, rgba(249, 115, 22, 0.04) 0px, transparent 50%);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-orange: 0 4px 20px rgba(249, 115, 22, 0.25);
+  --shadow-orange-lg: 0 8px 40px rgba(249, 115, 22, 0.3);
+
+  /* Base styles */
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light;
-
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global dark background */
+html, body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+/* Prevent horizontal overflow on main content */
+#root {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-600);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(249, 115, 22, 0.3);
+  color: var(--text-primary);
+}
+
+/* Orange gradient text utility */
+.text-gradient-orange {
+  background: var(--gradient-orange);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Orange gradient background utility */
+.bg-gradient-orange {
+  background: var(--gradient-orange);
+}
+
+/* Glow effect utility */
+.glow-orange {
+  box-shadow: var(--shadow-orange);
+}
+
+.glow-orange-lg {
+  box-shadow: var(--shadow-orange-lg);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(249, 115, 22, 0.2);
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(22, 22, 31, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-default);
+}
+
+/* Gradient border effect */
+.gradient-border {
+  position: relative;
+  background: var(--bg-container);
+  border-radius: 16px;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--gradient-orange);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Subtle animated gradient background */
+.animated-bg {
+  background: var(--bg-base);
+  background-image: var(--gradient-dark-mesh);
+  background-attachment: fixed;
+}
+
+/* Focus ring */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg-base), 0 0 0 4px var(--orange-500);
 }

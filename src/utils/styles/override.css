@@ -1,3 +1,246 @@
+/* Ant Design Overrides for Dark Theme */
+
+/* Prevent horizontal overflow globally */
+.ant-layout {
+  overflow-x: hidden !important;
+}
+
+.ant-layout-content {
+  overflow-x: hidden !important;
+}
+
 .ant-input-prefix {
-    margin-right: 12px !important;
+  margin-right: 12px !important;
+}
+
+/* Card enhancements */
+.ant-card {
+  border: 1px solid var(--border-default) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.ant-card:hover {
+  border-color: var(--border-light) !important;
+}
+
+.ant-card-hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(249, 115, 22, 0.15) !important;
+}
+
+/* Button primary gradient */
+.ant-btn-primary {
+  background: var(--gradient-orange) !important;
+  border: none !important;
+  font-weight: 500 !important;
+}
+
+.ant-btn-primary:hover {
+  opacity: 0.9 !important;
+  box-shadow: var(--shadow-orange) !important;
+}
+
+.ant-btn-primary:active {
+  opacity: 0.85 !important;
+}
+
+/* Default button styling */
+.ant-btn-default {
+  border-color: var(--border-default) !important;
+  background: var(--bg-spotlight) !important;
+}
+
+.ant-btn-default:hover {
+  border-color: var(--orange-500) !important;
+  color: var(--orange-400) !important;
+}
+
+/* Input focus state */
+.ant-input:focus,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: var(--orange-500) !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.15) !important;
+}
+
+/* Select dropdown */
+.ant-select-dropdown {
+  background: var(--bg-elevated) !important;
+  border: 1px solid var(--border-default) !important;
+}
+
+.ant-select-item-option-selected {
+  background: rgba(249, 115, 22, 0.15) !important;
+}
+
+.ant-select-item-option:hover {
+  background: var(--bg-hover) !important;
+}
+
+/* Dropdown menu */
+.ant-dropdown-menu {
+  background: var(--bg-elevated) !important;
+  border: 1px solid var(--border-default) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.ant-dropdown-menu-item:hover {
+  background: var(--bg-hover) !important;
+}
+
+/* Modal styling */
+.ant-modal-content {
+  background: var(--bg-elevated) !important;
+  border: 1px solid var(--border-default) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.ant-modal-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-default) !important;
+}
+
+/* Slider */
+.ant-slider-track {
+  background: var(--gradient-orange) !important;
+}
+
+.ant-slider-handle::after {
+  box-shadow: 0 0 0 2px var(--orange-500) !important;
+}
+
+/* Progress bar */
+.ant-progress-bg {
+  background: var(--gradient-orange) !important;
+}
+
+/* Tags */
+.ant-tag {
+  border-radius: 8px !important;
+}
+
+.ant-tag-blue {
+  background: rgba(59, 130, 246, 0.15) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+  color: #60a5fa !important;
+}
+
+.ant-tag-green {
+  background: rgba(34, 197, 94, 0.15) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+  color: #4ade80 !important;
+}
+
+.ant-tag-orange {
+  background: rgba(249, 115, 22, 0.15) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+  color: #fb923c !important;
+}
+
+/* Upload dragger */
+.ant-upload-wrapper .ant-upload-drag {
+  background: var(--bg-spotlight) !important;
+  border: 2px dashed var(--border-default) !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-upload-wrapper .ant-upload-drag:hover {
+  border-color: var(--orange-500) !important;
+}
+
+/* Upload list */
+.ant-upload-list-item {
+  border-color: var(--border-default) !important;
+}
+
+/* Divider */
+.ant-divider {
+  border-color: var(--border-default) !important;
+}
+
+/* Typography links */
+a {
+  color: var(--orange-400);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--orange-300);
+}
+
+/* Message styling */
+.ant-message-notice-content {
+  background: var(--bg-elevated) !important;
+  border: 1px solid var(--border-default) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Tooltip */
+.ant-tooltip-inner {
+  background: var(--bg-elevated) !important;
+  border: 1px solid var(--border-default) !important;
+}
+
+.ant-tooltip-arrow::before {
+  background: var(--bg-elevated) !important;
+}
+
+/* Spin/Loading */
+.ant-spin-dot-item {
+  background: var(--orange-500) !important;
+}
+
+/* Layout header */
+.ant-layout-header {
+  background: var(--bg-elevated) !important;
+  border-bottom: 1px solid var(--border-default) !important;
+}
+
+/* Drawer */
+.ant-drawer-header {
+  background: var(--bg-surface) !important;
+  border-bottom: 1px solid var(--border-default) !important;
+}
+
+.ant-drawer-body {
+  background: var(--bg-surface) !important;
+}
+
+/* InputNumber */
+.ant-input-number {
+  background: var(--bg-spotlight) !important;
+  border-color: var(--border-default) !important;
+}
+
+.ant-input-number:hover {
+  border-color: var(--orange-500) !important;
+}
+
+.ant-input-number:focus,
+.ant-input-number-focused {
+  border-color: var(--orange-500) !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.15) !important;
+}
+
+/* TextArea */
+.ant-input-textarea {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.ant-input-textarea textarea {
+  background: var(--bg-spotlight) !important;
+  border-color: var(--border-default) !important;
+  flex: 1 !important;
+  height: 100% !important;
+}
+
+.ant-input-textarea textarea:hover {
+  border-color: var(--border-light) !important;
+}
+
+.ant-input-textarea textarea:focus {
+  border-color: var(--orange-500) !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.15) !important;
 }

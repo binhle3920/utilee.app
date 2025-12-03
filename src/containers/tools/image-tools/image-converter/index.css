@@ -1,1 +1,89 @@
-@import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=National+Park:wght@200..800&family=Tagesschrift&display=swap');
+/* Image converter specific styles */
+
+/* Upload area hover state */
+.ant-upload-wrapper .ant-upload.ant-upload-select {
+  border-radius: 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-upload-wrapper .ant-upload.ant-upload-select:hover {
+  border-color: var(--orange-500) !important;
+  background: rgba(249, 115, 22, 0.05) !important;
+}
+
+/* Converted image card hover effects */
+.converted-image-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: hidden;
+}
+
+.converted-image-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(249, 115, 22, 0.15) !important;
+}
+
+.converted-image-card .image-preview {
+  background: var(--bg-spotlight);
+  transition: all 0.3s ease;
+}
+
+.converted-image-card:hover .image-preview {
+  background: var(--bg-hover);
+}
+
+.converted-image-card .image-preview img {
+  transition: transform 0.3s ease;
+}
+
+.converted-image-card:hover .image-preview img {
+  transform: scale(1.05);
+}
+
+/* Card actions styling */
+.converted-image-card .ant-card-actions {
+  background: var(--bg-surface) !important;
+  border-top: 1px solid var(--border-default) !important;
+}
+
+.converted-image-card .ant-card-actions > li {
+  border-right: 1px solid var(--border-default) !important;
+}
+
+.converted-image-card .ant-card-actions > li:last-child {
+  border-right: none !important;
+}
+
+.converted-image-card .ant-card-actions > li > span {
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.converted-image-card .ant-card-actions > li > span:hover {
+  color: var(--orange-400);
+}
+
+/* Upload list item styling */
+.ant-upload-list-item {
+  background: var(--bg-spotlight) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.ant-upload-list-item:hover {
+  background: var(--bg-hover) !important;
+}
+
+/* Progress bar animation */
+.ant-progress-bg {
+  background: var(--gradient-orange) !important;
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.4);
+}
+
+/* Slider marks text color */
+.ant-slider-mark-text {
+  color: var(--text-tertiary) !important;
+}
+
+.ant-slider-mark-text-active {
+  color: var(--text-secondary) !important;
+}

@@ -25,19 +25,17 @@ const Container = (props: PropsWithoutRef<FlexProps>) => {
   }, [screen]);
 
   return (
-    <div className='w-full flex justify-center items-center'>
-      <div
-        className={`w-full ${className}`}
-        style={{
-          paddingLeft: padding,
-          paddingRight: padding,
-          maxWidth: maxWidth || '100%',
-          ...style
-        }}
-        {...rest}
-      >
-        {children}
-      </div>
+    <div
+      className={`w-full h-full ${className}`}
+      style={{
+        paddingLeft: padding,
+        paddingRight: padding,
+        maxWidth: maxWidth || '100%',
+        ...style
+      }}
+      {...rest}
+    >
+      {children}
     </div>
   );
 };

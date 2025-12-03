@@ -156,155 +156,180 @@ const ImageConverterScreen = () => {
         description='Convert your images to different formats with customizable quality settings. Supports WebP, JPEG, PNG, and AVIF formats.'
         actions={actionButtons}
       >
-        {/* Upload Section */}
-        <Card title='Upload Images' className='mt-6! mb-4!'>
-          <Upload
-            listType='picture-card'
-            fileList={uploadFileList}
-            multiple
-            accept='image/*'
-            showUploadList={{
-              showPreviewIcon: true,
-              showRemoveIcon: true
-            }}
-            onChange={handleChange}
-            beforeUpload={() => false}
-            onRemove={handleRemoveOriginal}
-            onPreview={(file) => {
-              const url = URL.createObjectURL(file.originFileObj as RcFile);
-              handlePreview(url);
-            }}
+        <div className='overflow-y-scroll flex-1'>
+          {/* Upload Section */}
+          <Card
+            title={<span className='text-[var(--text-primary)]!'>Upload Images</span>}
+            className='mb-4! bg-[var(--bg-container)]! border-[var(--border-default)]!'
           >
-            <Flex justify='center' align='center' gap={8} vertical>
-              <UploadOutlined className='text-2xl' color='secondary' />
-              <Text className='text-xs!' type='secondary'>
-                Upload your Images
-              </Text>
-            </Flex>
-          </Upload>
-        </Card>
-
-        {/* Conversion Settings */}
-        {uploadFileList.length > 0 && (
-          <Card title='Conversion Settings' className='my-4!'>
-            <Row gutter={[24, 16]}>
-              <Col span={24} md={12}>
-                <div className='mb-2'>
-                  <Text strong>Output Format</Text>
-                </div>
-                <Select value={outputFormat} onChange={setOutputFormat} style={{ width: '100%' }} size='large'>
-                  {formatOptions.map((option) => (
-                    <Select.Option key={option.value} value={option.value}>
-                      <Flex justify='space-between' align='center' gap={8}>
-                        <div>{option.label}</div>
-                        <div className='text-xs text-gray-500'>{option.description}</div>
-                      </Flex>
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Col>
-              <Col span={24} md={12}>
-                <div className='mb-2'>
-                  <Text strong>Quality: {quality}%</Text>
-                  {outputFormat === 'png' && (
-                    <Text type='secondary' className='ml-2'>
-                      (PNG is lossless)
-                    </Text>
-                  )}
-                </div>
-                <Slider
-                  min={10}
-                  max={100}
-                  value={quality}
-                  onChange={setQuality}
-                  disabled={outputFormat === 'png'}
-                  marks={qualityMarks}
-                />
-              </Col>
-            </Row>
-
-            <div className='mt-4'>
-              <Button
-                type='primary'
-                size='large'
-                onClick={handleConvert}
-                loading={converting}
-                disabled={uploadFileList.length === 0}
-                block
-              >
-                Convert {uploadFileList.length} Image{uploadFileList.length > 1 ? 's' : ''}
-              </Button>
-            </div>
-
-            {converting && (
-              <div className='mt-4'>
-                <Progress percent={Math.round(progress)} status='active' />
-              </div>
-            )}
+            <Upload
+              listType='picture-card'
+              fileList={uploadFileList}
+              multiple
+              accept='image/*'
+              showUploadList={{
+                showPreviewIcon: true,
+                showRemoveIcon: true
+              }}
+              onChange={handleChange}
+              beforeUpload={() => false}
+              onRemove={handleRemoveOriginal}
+              onPreview={(file) => {
+                const url = URL.createObjectURL(file.originFileObj as RcFile);
+                handlePreview(url);
+              }}
+            >
+              <Flex justify='center' align='center' gap={8} vertical className='p-2'>
+                <UploadOutlined className='text-2xl text-orange-400!' />
+                <Text className='text-xs! text-[var(--text-secondary)]!'>Upload Images</Text>
+              </Flex>
+            </Upload>
           </Card>
-        )}
 
-        {/* Converted Images */}
-        {convertedImages.length > 0 && (
-          <Card title={`Converted Images (${convertedImages.length})`}>
-            <Row gutter={[16, 16]}>
-              {convertedImages.map((img) => (
-                <Col key={img.id} xs={24} sm={12} md={8} lg={6}>
-                  <Card
-                    size='small'
-                    className='converted-image-card'
-                    cover={
-                      <div className='image-preview relative'>
-                        <img
-                          alt='converted'
-                          src={img.convertedUrl}
-                          className='w-full h-32 object-cover cursor-pointer'
+          {/* Conversion Settings */}
+          {uploadFileList.length > 0 && (
+            <Card
+              title={<span className='text-[var(--text-primary)]!'>Conversion Settings</span>}
+              className='mb-4! bg-[var(--bg-container)]! border-[var(--border-default)]!'
+            >
+              <Row gutter={[24, 16]}>
+                <Col span={24} md={12}>
+                  <div className='mb-2'>
+                    <Text strong className='text-[var(--text-primary)]!'>
+                      Output Format
+                    </Text>
+                  </div>
+                  <Select value={outputFormat} onChange={setOutputFormat} style={{ width: '100%' }} size='large'>
+                    {formatOptions.map((option) => (
+                      <Select.Option key={option.value} value={option.value}>
+                        <Flex justify='space-between' align='center' gap={8}>
+                          <div className='text-[var(--text-primary)]!'>{option.label}</div>
+                          <div className='text-xs text-[var(--text-tertiary)]!'>{option.description}</div>
+                        </Flex>
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Col>
+                <Col span={24} md={12}>
+                  <div className='mb-2'>
+                    <Text strong className='text-[var(--text-primary)]!'>
+                      Quality: {quality}%
+                    </Text>
+                    {outputFormat === 'png' && (
+                      <Text className='text-[var(--text-tertiary)]! ml-2'>(PNG is lossless)</Text>
+                    )}
+                  </div>
+                  <Slider
+                    min={10}
+                    max={100}
+                    value={quality}
+                    onChange={setQuality}
+                    disabled={outputFormat === 'png'}
+                    marks={qualityMarks}
+                  />
+                </Col>
+              </Row>
+
+              <div className='mt-4'>
+                <Button
+                  type='primary'
+                  size='large'
+                  onClick={handleConvert}
+                  loading={converting}
+                  disabled={uploadFileList.length === 0}
+                  block
+                >
+                  Convert {uploadFileList.length} Image{uploadFileList.length > 1 ? 's' : ''}
+                </Button>
+              </div>
+
+              {converting && (
+                <div className='mt-4'>
+                  <Progress percent={Math.round(progress)} status='active' />
+                </div>
+              )}
+            </Card>
+          )}
+
+          {/* Converted Images */}
+          {convertedImages.length > 0 && (
+            <Card
+              title={<span className='text-[var(--text-primary)]!'>Converted Images ({convertedImages.length})</span>}
+              className='bg-[var(--bg-container)]! border-[var(--border-default)]!'
+            >
+              <Row gutter={[16, 16]}>
+                {convertedImages.map((img) => (
+                  <Col key={img.id} xs={24} sm={12} md={8} lg={6}>
+                    <Card
+                      size='small'
+                      className='converted-image-card bg-[var(--bg-spotlight)]! border-[var(--border-default)]!'
+                      cover={
+                        <div className='image-preview relative'>
+                          <img
+                            alt='converted'
+                            src={img.convertedUrl}
+                            className='w-full h-32 object-cover cursor-pointer'
+                            onClick={() => handlePreview(img.convertedUrl)}
+                          />
+                          <div className='absolute top-2 right-2'>
+                            <Tag color='blue'>{img.format.toUpperCase()}</Tag>
+                          </div>
+                        </div>
+                      }
+                      actions={[
+                        <EyeOutlined
+                          key='preview'
                           onClick={() => handlePreview(img.convertedUrl)}
+                          className='text-[var(--text-secondary)]! hover:text-orange-400!'
+                        />,
+                        <DownloadOutlined
+                          key='download'
+                          onClick={() => handleDownload(img)}
+                          className='text-[var(--text-secondary)]! hover:text-orange-400!'
+                        />,
+                        <DeleteOutlined
+                          key='delete'
+                          onClick={() => handleRemoveConverted(img.id)}
+                          className='text-[var(--text-secondary)]! hover:text-red-400!'
                         />
-                        <div className='absolute top-2 right-2'>
-                          <Tag color='blue'>{img.format.toUpperCase()}</Tag>
+                      ]}
+                    >
+                      <div className='text-xs'>
+                        <div className='truncate font-medium mb-1 text-[var(--text-primary)]!'>
+                          {img.originalFile.name}
+                        </div>
+                        <Flex justify='space-between' className='text-[var(--text-tertiary)]!'>
+                          <span>{formatFileSize(img.originalSize)}</span>
+                          <span className='text-orange-400!'>→</span>
+                          <span>{formatFileSize(img.convertedSize)}</span>
+                        </Flex>
+                        <div className='text-center mt-1'>
+                          <Tag color={img.convertedSize < img.originalSize ? 'green' : 'orange'}>
+                            {getCompressionRatio(img.originalSize, img.convertedSize)}
+                          </Tag>
                         </div>
                       </div>
-                    }
-                    actions={[
-                      <EyeOutlined key='preview' onClick={() => handlePreview(img.convertedUrl)} />,
-                      <DownloadOutlined key='download' onClick={() => handleDownload(img)} />,
-                      <DeleteOutlined key='delete' onClick={() => handleRemoveConverted(img.id)} />
-                    ]}
-                  >
-                    <div className='text-xs'>
-                      <div className='truncate font-medium mb-1'>{img.originalFile.name}</div>
-                      <Flex justify='space-between' className='text-gray-600'>
-                        <span>{formatFileSize(img.originalSize)}</span>
-                        <span>→</span>
-                        <span>{formatFileSize(img.convertedSize)}</span>
-                      </Flex>
-                      <div className='text-center mt-1'>
-                        <Tag color={img.convertedSize < img.originalSize ? 'green' : 'orange'}>
-                          {getCompressionRatio(img.originalSize, img.convertedSize)}
-                        </Tag>
-                      </div>
-                    </div>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-          </Card>
-        )}
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </Card>
+          )}
 
-        {/* Preview Modal */}
-        <Modal
-          open={previewVisible}
-          title='Image Preview'
-          footer={null}
-          onCancel={() => setPreviewVisible(false)}
-          width={800}
-          centered
-        >
-          <Flex justify='center' align='center' className='h-full'>
-            <Image src={previewImage} alt='preview' style={{ maxWidth: '100%', maxHeight: '70vh' }} preview={false} />
-          </Flex>
-        </Modal>
+          {/* Preview Modal */}
+          <Modal
+            open={previewVisible}
+            title={<span className='text-[var(--text-primary)]!'>Image Preview</span>}
+            footer={null}
+            onCancel={() => setPreviewVisible(false)}
+            width={800}
+            centered
+          >
+            <Flex justify='center' align='center' className='h-full'>
+              <Image src={previewImage} alt='preview' style={{ maxWidth: '100%', maxHeight: '70vh' }} preview={false} />
+            </Flex>
+          </Modal>
+        </div>
       </ToolLayout>
     </>
   );

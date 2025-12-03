@@ -1,4 +1,5 @@
-import { Flex, Layout, Typography } from 'antd';
+import { IconArrowLeft } from '@tabler/icons-react';
+import { Button, Flex, Layout, Typography } from 'antd';
 import { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,35 +27,46 @@ const ToolLayout = (props: IProps) => {
   };
 
   return (
-    <Layout className='h-screen'>
-      <Layout.Header className='p-0! flex'>
+    <Layout className='h-screen animated-bg flex flex-col overflow-hidden'>
+      <Layout.Header className='p-0! flex bg-[var(--bg-elevated)]! border-b border-[var(--border-default)]! h-16! shrink-0'>
         <Container>
-          <Flex justify='space-between' align='center'>
-            <Flex align='center' gap={8} className='cursor-pointer -ml-1!' onClick={onClickLogo}>
-              <img src={'/logo/logo.webp'} alt='Utilee' className='w-10 h-10 rounded-full' />
+          <Flex justify='space-between' align='center' className='h-full!'>
+            <Flex align='center' gap={12} className='cursor-pointer -ml-1!' onClick={onClickLogo}>
+              <Button
+                type='text'
+                icon={<IconArrowLeft size={18} />}
+                className='text-[var(--text-secondary)]! hover:text-orange-400! hover:bg-[var(--bg-hover)]!'
+              />
+              <div className='relative'>
+                <img src={'/logo/logo.webp'} alt='Utilee' className='w-10 h-10 rounded-xl' />
+                <div className='absolute inset-0 rounded-xl bg-gradient-to-br from-orange-500/20 to-amber-400/10 pointer-events-none' />
+              </div>
               {!isMobile && (
-                <Typography.Title level={3} className='mb-0! text-white!'>
+                <Typography.Title level={3} className='mb-0! text-gradient-orange font-bold!'>
                   Utilee
                 </Typography.Title>
               )}
             </Flex>
 
-            {actions?.map((action, index) => <div key={index}>{action}</div>)}
+            <Flex gap={8} align='center'>
+              {actions?.map((action, index) => <div key={index}>{action}</div>)}
+            </Flex>
           </Flex>
         </Container>
       </Layout.Header>
-      <Layout.Content className='p-0 w-full bg-white!'>
-        <Container className='w-full overflow-scroll mt-4 pb-8'>
+
+      <Layout.Content className='p-0 w-full bg-transparent! flex-1 overflow-hidden flex flex-col'>
+        <Container className='flex-1 flex flex-col overflow-hidden mt-6 pb-6 md:pb-8'>
           {title && description && (
-            <Flex justify='center' vertical>
-              <Title level={2} className='mb-0!'>
-                {title}
+            <Flex justify='center' vertical className='mb-6! shrink-0'>
+              <Title level={2} className='mb-1! text-[var(--text-primary)]! font-bold!'>
+                <span className='text-gradient-orange'>{title}</span>
               </Title>
-              <Text type='secondary'>{description}</Text>
+              <Text className='text-[var(--text-secondary)]! text-base!'>{description}</Text>
             </Flex>
           )}
 
-          {children}
+          <div className='flex-1 flex flex-col overflow-hidden'>{children}</div>
         </Container>
       </Layout.Content>
     </Layout>
