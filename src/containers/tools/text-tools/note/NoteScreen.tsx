@@ -103,7 +103,6 @@ const NoteScreen = () => {
 
       <ToolLayout
         title='Note'
-        description='Simple and fast note-taking with word/character counter. Auto-saves to local storage.'
         actions={[
           <Button key='counting-type' onClick={onCountingTypeChange} type='default'>
             <Typography.Text className='text-[var(--text-secondary)]!'>

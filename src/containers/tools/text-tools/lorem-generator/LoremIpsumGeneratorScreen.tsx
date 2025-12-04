@@ -57,7 +57,6 @@ const LoremIpsumGeneratorScreen = () => {
 
       <ToolLayout
         title='Lorem Ipsum Generator'
-        description='Generate Lorem Ipsum placeholder text instantly. Choose paragraphs, sentences, or words. Perfect for designers, developers, and content creators. Free and easy to use.'
         actions={[
           <Flex className='justify-end items-center' gap={8}>
             <InputNumber
@@ -87,7 +86,7 @@ const LoremIpsumGeneratorScreen = () => {
           <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={handleCopy} />
         ]}
       >
-        <StyledTextArea value={note} onChange={(e) => setNote(e.target.value)} className='flex-1! h-full!' />
+        <StyledTextArea value={note} readOnly className='flex-1! h-full!' />
       </ToolLayout>
     </>
   );

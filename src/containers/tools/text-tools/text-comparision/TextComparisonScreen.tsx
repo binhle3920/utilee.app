@@ -80,11 +80,7 @@ const TextComparisonScreen = () => {
         url={`${APP_BASE_URL}/${Route.TOOLS.TEXT_COMPARISON}`}
       />
 
-      <ToolLayout
-        title='Text Comparison'
-        description='Compare two texts and see the difference between them.'
-        actions={renderActions()}
-      >
+      <ToolLayout title='Text Comparison' actions={renderActions()}>
         <div className='flex-1 flex flex-col'>
           {showDiff ? (
             <div className='rounded-xl overflow-auto border border-[var(--border-default)] flex flex-1'>

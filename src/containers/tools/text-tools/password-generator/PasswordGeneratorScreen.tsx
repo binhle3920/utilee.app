@@ -102,7 +102,6 @@ const PasswordGeneratorScreen = () => {
 
       <ToolLayout
         title='Password Generator'
-        description='Generate strong, secure passwords with customizable length and character options. Create unique passwords for all your accounts instantly!'
         actions={[
           <Button type='default' icon={<ReloadOutlined />} onClick={handleGeneratePassword}>
             Generate

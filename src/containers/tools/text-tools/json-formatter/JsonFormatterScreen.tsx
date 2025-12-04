@@ -75,7 +75,6 @@ const JsonFormatterScreen = () => {
 
       <ToolLayout
         title='JSON Formatter'
-        description='Format and beautify JSON data for better readability and structure.'
         actions={[
           <Flex className='justify-end items-center' gap={8}>
             <Dropdown
@@ -103,9 +102,6 @@ const JsonFormatterScreen = () => {
       >
         <Flex gap={16} className='flex-1 overflow-hidden' vertical={isMobile}>
           <div className='flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden'>
-            <Typography.Text className='text-[var(--text-secondary)]! mb-2! block! text-sm! font-medium! shrink-0'>
-              Input JSON
-            </Typography.Text>
             <StyledTextArea
               variant='monospace'
               value={inputJson}
@@ -116,9 +112,6 @@ const JsonFormatterScreen = () => {
           </div>
 
           <div className='flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden'>
-            <Typography.Text className='text-[var(--text-secondary)]! mb-2! block! text-sm! font-medium! shrink-0'>
-              Formatted Output
-            </Typography.Text>
             <StyledTextArea
               variant='readonly'
               value={outputJson}

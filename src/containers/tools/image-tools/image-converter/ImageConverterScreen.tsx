@@ -149,11 +149,7 @@ const ImageConverterScreen = () => {
         url={`${APP_BASE_URL}/${Route.TOOLS.IMAGE_CONVERTER}`}
       />
 
-      <ToolLayout
-        title='Image Converter'
-        description='Convert your images to different formats with customizable quality settings. Supports WebP, JPEG, PNG, and AVIF formats.'
-        actions={actionButtons}
-      >
+      <ToolLayout title='Image Converter' actions={actionButtons}>
         <div className='h-full'>
           {/* Upload Section */}
           <Card
