@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { Suspense } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
-import SuspendLoading from '@/components/loadings/suspense-loading';
+import SuspendLoading from '@/components/loadings/SuspenseLoading';
 import router from '@/routes';
 
 // Setup dayjs locale to English

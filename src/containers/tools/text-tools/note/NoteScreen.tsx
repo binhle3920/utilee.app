@@ -7,13 +7,13 @@ import StarterKit from '@tiptap/starter-kit';
 import { Button, message, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 
-import ToolLayout from '@/components/layouts/tool-layout';
+import ToolLayout from '@/components/layouts/ToolLayout';
 import SEO from '@/components/SEO';
 import { APP_BASE_URL } from '@/utils/constants/app';
 import { LOCAL_STORAGE_KEY } from '@/utils/constants/local-storage';
 import Route from '@/utils/constants/route';
 
-import './index.css';
+import './utils/styles/index.css';
 
 // Extensions array
 const extensions = [
@@ -26,7 +26,7 @@ const extensions = [
   })
 ];
 
-const ToolsNoteScreen = () => {
+const NoteScreen = () => {
   const [countingType, setCountingType] = useState<'words' | 'characters'>('words');
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [length, setLength] = useState<number>(0);
@@ -123,4 +123,4 @@ const ToolsNoteScreen = () => {
   );
 };
 
-export default ToolsNoteScreen;
+export default NoteScreen;

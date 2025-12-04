@@ -3,15 +3,17 @@ import { App, Button, Dropdown, Flex, InputNumber, Typography } from 'antd';
 import { loremIpsum } from 'lorem-ipsum';
 import { useEffect, useState } from 'react';
 
-import StyledTextArea from '@/components/common/styled-textarea';
-import ToolLayout from '@/components/layouts/tool-layout';
+import StyledTextArea from '@/components/common/StyledTextArea';
+import ToolLayout from '@/components/layouts/ToolLayout';
 import SEO from '@/components/SEO';
 import { APP_BASE_URL } from '@/utils/constants/app';
 import Route from '@/utils/constants/route';
 
+import { Units } from './utils/types';
+
 const LoremIpsumGeneratorScreen = () => {
   const [count, setCount] = useState<number>(1);
-  const [units, setUnits] = useState<'paragraph' | 'sentence' | 'word'>('paragraph');
+  const [units, setUnits] = useState<Units>(Units.PARAGRAPH);
   const [note, setNote] = useState<string>('');
 
   const { message } = App.useApp();
@@ -32,7 +34,7 @@ const LoremIpsumGeneratorScreen = () => {
     );
   }, [count, units]);
 
-  const onCopy = async (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleCopy = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
 
     try {
@@ -69,11 +71,11 @@ const LoremIpsumGeneratorScreen = () => {
             <Dropdown
               menu={{
                 items: [
-                  { key: 'paragraph', label: 'Paragraph' },
-                  { key: 'sentence', label: 'Sentence' },
-                  { key: 'word', label: 'Word' }
+                  { key: Units.PARAGRAPH, label: 'Paragraph' },
+                  { key: Units.SENTENCE, label: 'Sentence' },
+                  { key: Units.WORD, label: 'Word' }
                 ],
-                onClick: ({ key }) => setUnits(key as 'paragraph' | 'sentence' | 'word')
+                onClick: ({ key }) => setUnits(key as Units)
               }}
               placement='bottomRight'
             >
@@ -82,7 +84,7 @@ const LoremIpsumGeneratorScreen = () => {
               </Button>
             </Dropdown>
           </Flex>,
-          <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
+          <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={handleCopy} />
         ]}
       >
         <StyledTextArea value={note} onChange={(e) => setNote(e.target.value)} className='flex-1! h-full!' />

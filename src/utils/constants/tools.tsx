@@ -53,6 +53,13 @@ const textTools: ToolCategory = {
     description: 'Format JSON data for better readability and structure.',
     path: Route.TOOLS.JSON_FORMATTER,
     image: ImageToolsJsonFormatter
+  },
+  passwordGenerator: {
+    title: 'Password Generator',
+    description:
+      'Generate strong, secure passwords with customizable length and character options. Create unique passwords for all your accounts instantly!',
+    path: Route.TOOLS.PASSWORD_GENERATOR,
+    image: ImageToolsJsonFormatter // Placeholder - replace with password-generator.png when available
   }
 };
 

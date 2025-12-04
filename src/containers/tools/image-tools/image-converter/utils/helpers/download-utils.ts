@@ -1,4 +1,4 @@
-import { ConvertedImage } from '@/containers/tools/image-tools/image-converter/utils/image-conveter';
+import type { ConvertedImage } from '@/containers/tools/image-tools/image-converter/utils/types';
 
 /**
  * Downloads a single converted image

@@ -3,7 +3,7 @@ import { Button, Flex, Layout, Typography } from 'antd';
 import { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Container from '@/components/container';
+import Container from '@/components/Container';
 import { useIsMobile } from '@/hooks/use-mobile';
 import Route from '@/utils/constants/route';
 

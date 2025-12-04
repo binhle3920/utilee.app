@@ -2,8 +2,8 @@ import { CopyOutlined, FormatPainterOutlined, UnorderedListOutlined } from '@ant
 import { App, Button, Dropdown, Flex, Typography } from 'antd';
 import { useState } from 'react';
 
-import StyledTextArea from '@/components/common/styled-textarea';
-import ToolLayout from '@/components/layouts/tool-layout';
+import StyledTextArea from '@/components/common/StyledTextArea';
+import ToolLayout from '@/components/layouts/ToolLayout';
 import SEO from '@/components/SEO';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { APP_BASE_URL } from '@/utils/constants/app';
@@ -17,7 +17,7 @@ const JsonFormatterScreen = () => {
   const { message } = App.useApp();
   const isMobile = useIsMobile();
 
-  const formatJson = () => {
+  const handleFormatJson = () => {
     if (!inputJson.trim()) {
       message.warning('Please enter JSON to format');
       return;
@@ -33,7 +33,7 @@ const JsonFormatterScreen = () => {
     }
   };
 
-  const minifyJson = () => {
+  const handleMinifyJson = () => {
     if (!inputJson.trim()) {
       message.warning('Please enter JSON to minify');
       return;
@@ -49,7 +49,7 @@ const JsonFormatterScreen = () => {
     }
   };
 
-  const onCopy = async () => {
+  const handleCopy = async () => {
     if (!outputJson) {
       message.warning('No formatted JSON to copy');
       return;
@@ -93,12 +93,12 @@ const JsonFormatterScreen = () => {
                 <Typography.Text>{indentSize === 1 ? 'Tab' : `${indentSize} spaces`}</Typography.Text>
               </Button>
             </Dropdown>
-            <Button type='primary' icon={<FormatPainterOutlined />} onClick={formatJson}>
+            <Button type='primary' icon={<FormatPainterOutlined />} onClick={handleFormatJson}>
               Format
             </Button>
-            <Button onClick={minifyJson}>Minify</Button>
+            <Button onClick={handleMinifyJson}>Minify</Button>
           </Flex>,
-          <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={onCopy} />
+          <Button type='default' shape='circle' icon={<CopyOutlined />} onClick={handleCopy} />
         ]}
       >
         <Flex gap={16} className='flex-1 overflow-hidden' vertical={isMobile}>

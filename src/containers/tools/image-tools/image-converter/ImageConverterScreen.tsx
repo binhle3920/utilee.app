@@ -21,23 +21,21 @@ import { RcFile } from 'antd/es/upload';
 import { useState } from 'react';
 import { useMount } from 'react-use';
 
-import ToolLayout from '@/components/layouts/tool-layout';
+import ToolLayout from '@/components/layouts/ToolLayout';
 import SEO from '@/components/SEO';
-import {
-  formatOptions,
-  qualityMarks,
-  defaultQuality,
-  defaultFormat
-} from '@/containers/tools/image-tools/image-converter/utils/constants';
-import { downloadAllImages, downloadImage } from '@/containers/tools/image-tools/image-converter/utils/download-utils';
-import { formatFileSize, getCompressionRatio } from '@/containers/tools/image-tools/image-converter/utils/format-utils';
-import {
-  ConvertedImage,
-  convertMultipleImages
-} from '@/containers/tools/image-tools/image-converter/utils/image-conveter';
 import { APP_BASE_URL } from '@/utils/constants/app';
 import Route from '@/utils/constants/route';
-import '@/containers/tools/image-tools/image-converter/index.css';
+
+import { formatOptions, qualityMarks, defaultQuality, defaultFormat } from './utils/constants';
+import {
+  convertMultipleImages,
+  downloadImage,
+  downloadAllImages,
+  formatFileSize,
+  getCompressionRatio
+} from './utils/helpers';
+import { ConvertedImage } from './utils/types';
+import './utils/styles/index.css';
 
 const { Text } = Typography;
 

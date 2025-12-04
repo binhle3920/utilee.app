@@ -4,7 +4,7 @@ import { Flex, Layout, Typography, Button, Drawer, Divider } from 'antd';
 import { useEffect, useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 
-import Container from '@/components/container';
+import Container from '@/components/Container';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { LOCAL_STORAGE_KEY } from '@/utils/constants/local-storage';
 import tools, { categoryKeys, ToolsCollection } from '@/utils/constants/tools';

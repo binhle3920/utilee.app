@@ -1,15 +1,6 @@
 import { RcFile } from 'antd/es/upload';
 
-export interface ConvertedImage {
-  id: string;
-  originalFile: RcFile;
-  convertedBlob: Blob;
-  convertedUrl: string;
-  originalSize: number;
-  convertedSize: number;
-  format: string;
-  quality: number;
-}
+import type { ConvertedImage } from '@/containers/tools/image-tools/image-converter/utils/types';
 
 /**
  * Converts an image file to the specified format and quality
