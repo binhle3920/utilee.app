@@ -25,7 +25,7 @@ const ToolLayout = (props: IProps) => {
 
   return (
     <Layout className='h-screen animated-bg flex flex-col overflow-hidden'>
-      <Layout.Header className='p-0! flex bg-[var(--bg-elevated)]! border-b border-[var(--border-default)]! h-14! shrink-0'>
+      <Layout.Header className='p-0! flex h-14! justify-center'>
         <Container>
           <Flex justify='space-between' align='center' className='h-full!'>
             <Flex align='center' gap={12} className='cursor-pointer -ml-1!' onClick={onClickLogo}>
@@ -45,7 +45,7 @@ const ToolLayout = (props: IProps) => {
         </Container>
       </Layout.Header>
 
-      <Layout.Content className='p-0 w-full bg-transparent! flex-1 overflow-hidden flex flex-col'>
+      <Layout.Content className='p-0 w-full bg-transparent! flex-1 overflow-hidden flex flex-col items-center'>
         <Container className='flex flex-col pt-5 pb-6 overflow-y-auto flex-1'>
           {/* Tool Title & Actions Bar */}
           <Flex justify='space-between' align='center' wrap='wrap' gap={12} className='pb-4! shrink-0'>

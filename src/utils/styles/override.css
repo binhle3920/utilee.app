@@ -55,6 +55,11 @@
   color: var(--orange-400) !important;
 }
 
+.ant-btn-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
 /* Input focus state */
 .ant-input:focus,
 .ant-input-affix-wrapper:focus,

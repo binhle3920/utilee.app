@@ -74,10 +74,7 @@ const DashboardLayout = () => {
         gap={collapsed && !isMobile ? 0 : 12}
         className='cursor-pointer py-4! px-3!'
       >
-        <div className='relative'>
-          <img src={'/logo/logo.webp'} alt='Utilee' className='w-11 h-11 rounded-xl' />
-          <div className='absolute inset-0 rounded-xl bg-gradient-to-br from-orange-500/20 to-amber-400/10 pointer-events-none' />
-        </div>
+        <img src={'/logo/logo.webp'} alt='Utilee' className='w-11 h-11 rounded-xl' />
         {(!collapsed || isMobile) && (
           <Title level={3} className='m-0! text-gradient-orange font-bold!'>
             Utilee
