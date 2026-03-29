@@ -5,11 +5,11 @@ A desktop utility tool aggregator — a Next.js static site bundled into a deskt
 ## Commands
 
 ```bash
-npm run dev          # Next.js dev server (localhost:3000)
-npm run build        # Static export to /out
-npm run lint         # ESLint
-npm run tauri:dev    # Tauri desktop app in dev mode
-npm run tauri:build  # Build distributable desktop app
+pnpm dev          # Next.js dev server (localhost:3000)
+pnpm build        # Static export to /out
+pnpm lint         # ESLint
+pnpm tauri:dev    # Tauri desktop app in dev mode
+pnpm tauri:build  # Build distributable desktop app
 ```
 
 ## Architecture
@@ -30,11 +30,11 @@ Categories: `text-writing`, `converters`, `generators`, `images`, `data`, `netwo
 
 ### Routing
 
-| Route | View |
-|---|---|
-| `/` | Dashboard — tool grid with search, grouped by category |
-| `/category/[category]` | All tools within a category |
-| `/tools/[slug]` | Individual tool, rendered inside a shell with breadcrumb nav |
+| Route                  | View                                                         |
+| ---------------------- | ------------------------------------------------------------ |
+| `/`                    | Dashboard — tool grid with search, grouped by category       |
+| `/category/[category]` | All tools within a category                                  |
+| `/tools/[slug]`        | Individual tool, rendered inside a shell with breadcrumb nav |
 
 ### Styling
 
@@ -96,10 +96,10 @@ The `raycast-extension/` directory contains a Raycast extension for quick access
 
 ```bash
 cd raycast-extension
-npm install
-npm run dev    # Develop with Raycast
-npm run build  # Build extension
-npm run lint   # Lint
+pnpm install
+pnpm dev    # Develop with Raycast
+pnpm build  # Build extension
+pnpm lint   # Lint
 ```
 
 > **Note:** The Raycast extension has its own hardcoded tool list in `src/search-tools.tsx` that must be updated manually when tools are added or removed.

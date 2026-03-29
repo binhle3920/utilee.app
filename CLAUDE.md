@@ -7,11 +7,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run dev          # Next.js dev server (localhost:3000)
-npm run build        # Static export to /out
-npm run lint         # ESLint
-npm run tauri:dev    # Tauri desktop app in dev mode
-npm run tauri:build  # Build distributable desktop app
+pnpm dev          # Next.js dev server (localhost:3000)
+pnpm build        # Static export to /out
+pnpm lint         # ESLint
+pnpm tauri:dev    # Tauri desktop app in dev mode
+pnpm tauri:build  # Build distributable desktop app
 ```
 
 No test runner is configured yet.
