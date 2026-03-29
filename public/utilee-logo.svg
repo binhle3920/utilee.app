@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="56" fill="#18181b"/>
+  <!-- Stylized "U" shape -->
+  <path d="M32 30 L32 72 Q32 90 60 90 Q88 90 88 72 L88 30" stroke="#a78bfa" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Small accent dot -->
+  <circle cx="60" cy="100" r="4" fill="#a78bfa"/>
+</svg>
