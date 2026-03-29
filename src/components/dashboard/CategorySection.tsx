@@ -8,8 +8,8 @@ interface CategorySectionProps {
   categoryLabel: string
   categoryHref?: string
   tools: ToolDefinition[]
-  onToolClick: (slug: string) => void
   favorites?: string[]
+  onToolClick: (slug: string) => void
   onToggleFavorite?: (slug: string) => void
 }
 
