@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 type Separator = '-' | '_'
 
@@ -31,6 +32,7 @@ function generateSlug(
 }
 
 export function SlugGenerator() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('')
   const [separator, setSeparator] = useState<Separator>('-')
   const [lowercase, setLowercase] = useState(true)
@@ -50,21 +52,21 @@ export function SlugGenerator() {
   }, [slug])
 
   const separatorOptions: { value: Separator; label: string }[] = [
-    { value: '-', label: 'Hyphen (-)' },
-    { value: '_', label: 'Underscore (_)' },
+    { value: '-', label: t.tool.slugGenerator.hyphen },
+    { value: '_', label: t.tool.slugGenerator.underscore },
   ]
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-5">
       <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
         <div className="px-4 py-2.5 border-b border-stone-100">
-          <span className="text-xs text-stone-400">Input Text</span>
+          <span className="text-xs text-stone-400">{t.tool.slugGenerator.inputText}</span>
         </div>
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type or paste your text here..."
+          placeholder={t.tool.slugGenerator.placeholder}
           className="w-full px-4 py-3 text-sm text-stone-700 outline-none placeholder:text-stone-400"
         />
       </div>
@@ -72,7 +74,7 @@ export function SlugGenerator() {
       <div className="bg-white border border-stone-200 rounded-xl p-5 flex flex-col gap-5">
         <div className="flex flex-col gap-2">
           <label className="text-xs font-medium text-stone-500 uppercase tracking-wider">
-            Separator
+            {t.tool.slugGenerator.separator}
           </label>
           <div className="flex gap-2">
             {separatorOptions.map((opt) => (
@@ -98,14 +100,14 @@ export function SlugGenerator() {
             onChange={(e) => setLowercase(e.target.checked)}
             className="w-4 h-4 accent-stone-800"
           />
-          <span className="text-sm text-stone-600">Force lowercase</span>
+          <span className="text-sm text-stone-600">{t.tool.slugGenerator.forceLowercase}</span>
         </label>
 
         <div className="flex flex-col gap-2">
           <label className="text-xs font-medium text-stone-500 uppercase tracking-wider">
-            Max Length{' '}
+            {t.tool.slugGenerator.maxLength}{' '}
             <span className="text-stone-800 font-semibold normal-case tracking-normal">
-              {maxLength === 0 ? 'Unlimited' : maxLength}
+              {maxLength === 0 ? t.tool.slugGenerator.unlimited : maxLength}
             </span>
           </label>
           <div className="flex items-center gap-3">
@@ -133,13 +135,13 @@ export function SlugGenerator() {
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-stone-100">
             <span className="text-xs text-stone-400">
-              Generated Slug — {slug.length} character{slug.length !== 1 ? 's' : ''}
+              {t.tool.slugGenerator.generatedSlug} — {slug.length} {slug.length !== 1 ? t.tool.slugGenerator.characters : t.tool.slugGenerator.character}
             </span>
             <button
               onClick={handleCopy}
               className="text-xs text-stone-500 hover:text-stone-800 transition-colors px-2 py-1 rounded hover:bg-stone-100"
             >
-              {copied ? 'Copied!' : 'Copy'}
+              {copied ? t.tool.common.copied : t.tool.common.copy}
             </button>
           </div>
           <div className="p-4">

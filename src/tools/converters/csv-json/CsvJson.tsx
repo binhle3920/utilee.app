@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 type Mode = 'csv-to-json' | 'json-to-csv'
 
@@ -72,6 +73,7 @@ function jsonToCsv(json: string): string {
 }
 
 export function CsvJson() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('')
   const [mode, setMode] = useState<Mode>('csv-to-json')
   const [copied, setCopied] = useState(false)
@@ -87,7 +89,7 @@ export function CsvJson() {
     } catch (e) {
       return {
         output: '',
-        error: e instanceof Error ? e.message : 'Conversion error.',
+        error: e instanceof Error ? e.message : t.tool.csvJson.conversionError,
       }
     }
   }, [input, mode])
@@ -102,7 +104,7 @@ export function CsvJson() {
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-5">
       <div className="bg-white border border-stone-200 rounded-xl p-4 flex items-center gap-3">
-        <span className="text-sm text-stone-500">Mode:</span>
+        <span className="text-sm text-stone-500">{t.tool.common.mode}</span>
         <button
           onClick={() => setMode('csv-to-json')}
           className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
@@ -134,7 +136,7 @@ export function CsvJson() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={mode === 'csv-to-json' ? 'Paste CSV here...' : 'Paste JSON array here...'}
+          placeholder={mode === 'csv-to-json' ? t.tool.csvJson.pasteCsv : t.tool.csvJson.pasteJsonArray}
           className="w-full h-48 p-4 text-sm text-stone-700 font-mono leading-relaxed resize-none outline-none placeholder:text-stone-400"
         />
       </div>
@@ -155,13 +157,13 @@ export function CsvJson() {
             disabled={!output}
             className="text-xs px-2.5 py-1 rounded-md bg-stone-100 text-stone-600 hover:bg-stone-200 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {copied ? 'Copied!' : 'Copy'}
+            {copied ? t.tool.common.copied : t.tool.common.copy}
           </button>
         </div>
         <textarea
           value={output}
           readOnly
-          placeholder="Output will appear here..."
+          placeholder={t.tool.common.outputWillAppearHere}
           className="w-full h-48 p-4 text-sm text-stone-700 font-mono leading-relaxed resize-none outline-none placeholder:text-stone-400 bg-stone-50"
         />
       </div>

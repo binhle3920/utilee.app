@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 function escapeHtml(text: string): string {
   return text
@@ -180,6 +181,7 @@ function hello() {
 `
 
 export function MarkdownPreview() {
+  const { t } = useLanguage()
   const [markdown, setMarkdown] = useState(DEFAULT_MD)
 
   const html = useMemo(() => markdownToHtml(markdown), [markdown])
@@ -189,12 +191,12 @@ export function MarkdownPreview() {
       <div className="grid grid-cols-2 gap-4 min-h-[500px]">
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden flex flex-col">
           <div className="px-4 py-2.5 border-b border-stone-100">
-            <span className="text-xs text-stone-400">Markdown</span>
+            <span className="text-xs text-stone-400">{t.tool.markdownPreview.markdown}</span>
           </div>
           <textarea
             value={markdown}
             onChange={(e) => setMarkdown(e.target.value)}
-            placeholder="Type your Markdown here..."
+            placeholder={t.tool.markdownPreview.placeholder}
             className="flex-1 w-full p-4 text-sm text-stone-700 leading-relaxed resize-none outline-none placeholder:text-stone-400 font-mono"
             spellCheck={false}
           />
@@ -202,7 +204,7 @@ export function MarkdownPreview() {
 
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden flex flex-col">
           <div className="px-4 py-2.5 border-b border-stone-100">
-            <span className="text-xs text-stone-400">Preview</span>
+            <span className="text-xs text-stone-400">{t.tool.markdownPreview.preview}</span>
           </div>
           <div
             className="flex-1 p-4 overflow-y-auto"

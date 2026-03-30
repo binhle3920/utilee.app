@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 interface JsonStats {
   keys: number
@@ -38,6 +39,7 @@ function formatBytes(bytes: number): string {
 }
 
 export function JsonFormatter() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const [status, setStatus] = useState<{ valid: boolean; message: string } | null>(null)
@@ -62,9 +64,9 @@ export function JsonFormatter() {
       const parsed = JSON.parse(input)
       const formatted = JSON.stringify(parsed, null, 2)
       setOutput(formatted)
-      setStatus({ valid: true, message: 'Valid JSON' })
+      setStatus({ valid: true, message: t.tool.jsonFormatter.validJson })
     } catch (e) {
-      const msg = e instanceof Error ? e.message : 'Invalid JSON'
+      const msg = e instanceof Error ? e.message : t.tool.jsonFormatter.invalidJson
       setOutput('')
       setStatus({ valid: false, message: msg })
     }
@@ -75,9 +77,9 @@ export function JsonFormatter() {
       const parsed = JSON.parse(input)
       const minified = JSON.stringify(parsed)
       setOutput(minified)
-      setStatus({ valid: true, message: 'Valid JSON (minified)' })
+      setStatus({ valid: true, message: t.tool.jsonFormatter.validJsonMinified })
     } catch (e) {
-      const msg = e instanceof Error ? e.message : 'Invalid JSON'
+      const msg = e instanceof Error ? e.message : t.tool.jsonFormatter.invalidJson
       setOutput('')
       setStatus({ valid: false, message: msg })
     }
@@ -86,9 +88,9 @@ export function JsonFormatter() {
   const handleValidate = () => {
     try {
       JSON.parse(input)
-      setStatus({ valid: true, message: 'Valid JSON' })
+      setStatus({ valid: true, message: t.tool.jsonFormatter.validJson })
     } catch (e) {
-      const msg = e instanceof Error ? e.message : 'Invalid JSON'
+      const msg = e instanceof Error ? e.message : t.tool.jsonFormatter.invalidJson
       setStatus({ valid: false, message: msg })
     }
   }
@@ -106,7 +108,7 @@ export function JsonFormatter() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder='Paste your JSON here...'
+          placeholder={t.tool.jsonFormatter.placeholder}
           className="w-full h-48 p-4 text-sm text-stone-700 font-mono leading-relaxed resize-none outline-none placeholder:text-stone-400"
         />
       </div>
@@ -116,19 +118,19 @@ export function JsonFormatter() {
           onClick={handleFormat}
           className="px-4 py-2 bg-stone-800 text-white text-sm font-medium rounded-lg hover:bg-stone-700 transition-colors"
         >
-          Format
+          {t.tool.common.format}
         </button>
         <button
           onClick={handleMinify}
           className="px-4 py-2 bg-stone-800 text-white text-sm font-medium rounded-lg hover:bg-stone-700 transition-colors"
         >
-          Minify
+          {t.tool.common.minify}
         </button>
         <button
           onClick={handleValidate}
           className="px-4 py-2 bg-stone-800 text-white text-sm font-medium rounded-lg hover:bg-stone-700 transition-colors"
         >
-          Validate
+          {t.tool.common.validate}
         </button>
       </div>
 
@@ -148,15 +150,15 @@ export function JsonFormatter() {
         <div className="grid grid-cols-3 gap-3">
           <div className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col items-center gap-1">
             <span className="text-2xl font-semibold text-stone-800">{stats.keys}</span>
-            <span className="text-xs text-stone-500 uppercase tracking-wider">Keys</span>
+            <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.jsonFormatter.keys}</span>
           </div>
           <div className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col items-center gap-1">
             <span className="text-2xl font-semibold text-stone-800">{stats.depth}</span>
-            <span className="text-xs text-stone-500 uppercase tracking-wider">Depth</span>
+            <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.jsonFormatter.depth}</span>
           </div>
           <div className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col items-center gap-1">
             <span className="text-2xl font-semibold text-stone-800">{stats.size}</span>
-            <span className="text-xs text-stone-500 uppercase tracking-wider">Size</span>
+            <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.jsonFormatter.size}</span>
           </div>
         </div>
       )}
@@ -164,12 +166,12 @@ export function JsonFormatter() {
       {output && (
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2 border-b border-stone-100">
-            <span className="text-xs text-stone-500 uppercase tracking-wider">Output</span>
+            <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.common.output}</span>
             <button
               onClick={handleCopy}
               className="text-xs text-stone-500 hover:text-stone-800 transition-colors"
             >
-              {copied ? 'Copied!' : 'Copy'}
+              {copied ? t.tool.common.copied : t.tool.common.copy}
             </button>
           </div>
           <pre className="p-4 text-sm text-stone-700 font-mono whitespace-pre-wrap overflow-x-auto max-h-96 overflow-y-auto">

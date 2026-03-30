@@ -6,14 +6,16 @@ import { SearchBar } from './SearchBar'
 import { CategorySection } from './CategorySection'
 import { ToolCard } from './ToolCard'
 import { searchTools, getToolsByCategory } from '@/lib/tools'
-import { CATEGORY_LABELS } from '@/tools/types'
 import { useFavorites } from '@/lib/useFavorites'
+import { useLanguage } from '@/lib/i18n'
+import { SettingsMenu } from '@/components/shell/SettingsMenu'
 import type { ToolDefinition } from '@/tools/types'
 
 export function DashboardView() {
   const [query, setQuery] = useState('')
   const router = useRouter()
   const { favorites, isFavorite, toggleFavorite } = useFavorites()
+  const { t } = useLanguage()
 
   const isSearching = query.trim().length > 0
   const searchResults = isSearching ? searchTools(query) : null
@@ -38,13 +40,14 @@ export function DashboardView() {
         <div className="flex-1">
           <SearchBar value={query} onChange={setQuery} />
         </div>
+        <SettingsMenu />
       </header>
 
       <main className="flex-1 overflow-y-auto px-6 py-6">
         {isSearching ? (
           <div>
             <p className="text-xs text-stone-400 mb-4">
-              {searchResults!.length} result{searchResults!.length !== 1 ? 's' : ''} for &ldquo;{query}&rdquo;
+              {t.resultsFor(searchResults!.length, query)}
             </p>
             {searchResults!.length > 0 ? (
               <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3">
@@ -61,7 +64,7 @@ export function DashboardView() {
             ) : (
               <div className="flex flex-col items-center justify-center py-20 text-stone-400">
                 <span className="text-3xl mb-3">🔍</span>
-                <p className="text-sm">No tools found</p>
+                <p className="text-sm">{t.noToolsFound}</p>
               </div>
             )}
           </div>
@@ -70,7 +73,7 @@ export function DashboardView() {
             {Array.from(byCategory.entries()).map(([category, tools]) => (
               <CategorySection
                 key={category}
-                categoryLabel={CATEGORY_LABELS[category]}
+                categoryLabel={t.categories[category]}
                 categoryHref={`/category/${category}`}
                 tools={sortWithFavoritesFirst(tools)}
                 onToolClick={openTool}

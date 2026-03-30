@@ -1,11 +1,14 @@
 'use client'
 
+import { useLanguage } from '@/lib/i18n'
+
 interface SearchBarProps {
   value: string
   onChange: (value: string) => void
 }
 
 export function SearchBar({ value, onChange }: SearchBarProps) {
+  const { t } = useLanguage()
   return (
     <div className="relative">
       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none">
@@ -15,7 +18,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
       </span>
       <input
         type="text"
-        placeholder="Search tools..."
+        placeholder={t.searchPlaceholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="w-full pl-9 pr-8 py-2 text-sm bg-stone-100 border border-stone-200 rounded-lg outline-none focus:border-stone-400 focus:bg-white transition-colors placeholder:text-stone-400 text-stone-800"

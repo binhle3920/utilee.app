@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 interface ParsedUA {
   browser: { name: string; version: string }
@@ -94,6 +95,7 @@ function parseUserAgent(ua: string): ParsedUA {
 }
 
 export function UserAgentParser() {
+  const { t } = useLanguage()
   const [uaString, setUaString] = useState('')
   const [isCustom, setIsCustom] = useState(false)
 
@@ -112,32 +114,38 @@ export function UserAgentParser() {
     }
   }
 
+  const deviceLabels: Record<string, string> = {
+    'Mobile': t.tool.userAgent.mobile,
+    'Tablet': t.tool.userAgent.tablet,
+    'Desktop': t.tool.userAgent.desktop,
+  }
+
   const cards = [
     {
-      label: 'Browser',
+      label: t.tool.userAgent.browser,
       icon: '🌐',
       items: [
-        { label: 'Name', value: parsed.browser.name },
-        { label: 'Version', value: parsed.browser.version || 'Unknown' },
+        { label: t.tool.common.name, value: parsed.browser.name },
+        { label: t.tool.common.version, value: parsed.browser.version || t.tool.common.unknown },
       ],
     },
     {
-      label: 'Operating System',
+      label: t.tool.userAgent.os,
       icon: '💻',
       items: [
-        { label: 'Name', value: parsed.os.name },
-        { label: 'Version', value: parsed.os.version || 'Unknown' },
+        { label: t.tool.common.name, value: parsed.os.name },
+        { label: t.tool.common.version, value: parsed.os.version || t.tool.common.unknown },
       ],
     },
     {
-      label: 'Engine',
+      label: t.tool.userAgent.engine,
       icon: '⚙️',
-      items: [{ label: 'Rendering Engine', value: parsed.engine }],
+      items: [{ label: t.tool.userAgent.renderingEngine, value: parsed.engine }],
     },
     {
-      label: 'Device',
+      label: t.tool.userAgent.device,
       icon: '📱',
-      items: [{ label: 'Type', value: parsed.deviceType }],
+      items: [{ label: t.tool.common.type, value: deviceLabels[parsed.deviceType] ?? parsed.deviceType }],
     },
   ]
 
@@ -146,13 +154,13 @@ export function UserAgentParser() {
       {/* UA Input */}
       <div className="bg-white border border-stone-200 rounded-xl p-5 flex flex-col gap-3">
         <div className="flex items-center justify-between">
-          <label className="text-xs text-stone-500 uppercase tracking-wider">User Agent String</label>
+          <label className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.userAgent.uaString}</label>
           {isCustom && (
             <button
               onClick={handleReset}
               className="text-xs text-stone-500 hover:text-stone-800 transition-colors px-3 py-1 rounded hover:bg-stone-100"
             >
-              Reset to current browser
+              {t.tool.userAgent.resetToCurrent}
             </button>
           )}
         </div>
@@ -163,11 +171,11 @@ export function UserAgentParser() {
             setIsCustom(true)
           }}
           rows={3}
-          placeholder="Paste a user agent string here..."
+          placeholder={t.tool.userAgent.placeholder}
           className="w-full resize-none rounded-lg border border-stone-200 bg-stone-50 px-3 py-2.5 text-sm text-stone-800 font-mono placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-300"
         />
         {!isCustom && (
-          <span className="text-xs text-stone-400">Showing your current browser&apos;s user agent.</span>
+          <span className="text-xs text-stone-400">{t.tool.userAgent.showingCurrent}</span>
         )}
       </div>
 
@@ -200,8 +208,8 @@ export function UserAgentParser() {
       {uaString && (
         <div className="bg-white border border-stone-200 rounded-xl p-5">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs text-stone-500 uppercase tracking-wider">Raw String</span>
-            <span className="text-xs text-stone-400">{uaString.length} characters</span>
+            <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.userAgent.rawString}</span>
+            <span className="text-xs text-stone-400">{uaString.length} {t.tool.common.characters}</span>
           </div>
           <div className="p-3 bg-stone-50 rounded-lg text-xs text-stone-600 font-mono leading-relaxed break-all">
             {uaString}

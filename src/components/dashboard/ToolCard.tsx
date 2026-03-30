@@ -1,4 +1,7 @@
+'use client'
+
 import type { ToolDefinition } from '@/tools/types'
+import { useLanguage } from '@/lib/i18n'
 
 interface ToolCardProps {
   tool: ToolDefinition
@@ -8,6 +11,7 @@ interface ToolCardProps {
 }
 
 export function ToolCard({ tool, onClick, isFavorite, onToggleFavorite }: ToolCardProps) {
+  const { t } = useLanguage()
   return (
     <button
       onClick={onClick}
@@ -16,7 +20,7 @@ export function ToolCard({ tool, onClick, isFavorite, onToggleFavorite }: ToolCa
       {onToggleFavorite && (
         <span
           role="button"
-          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+          aria-label={isFavorite ? t.removeFromFavorites : t.addToFavorites}
           onClick={(e) => { e.stopPropagation(); onToggleFavorite(tool.slug) }}
           className={`absolute top-2.5 right-2.5 p-0.5 rounded transition-opacity duration-150 ${
             isFavorite
@@ -31,9 +35,9 @@ export function ToolCard({ tool, onClick, isFavorite, onToggleFavorite }: ToolCa
       )}
       <span className="text-2xl leading-none">{tool.icon}</span>
       <div>
-        <p className="font-medium text-stone-800 text-sm leading-snug">{tool.name}</p>
+        <p className="font-medium text-stone-800 text-sm leading-snug">{t.tool.tools[tool.slug]?.name ?? tool.name}</p>
         <p className="text-xs text-stone-400 mt-0.5 leading-snug line-clamp-2">
-          {tool.description}
+          {t.tool.tools[tool.slug]?.description ?? tool.description}
         </p>
       </div>
     </button>

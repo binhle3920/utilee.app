@@ -3,8 +3,9 @@
 import { useRouter } from "next/navigation";
 import { ToolCard } from "@/components/dashboard/ToolCard";
 import { getToolsByCategorySlug } from "@/lib/tools";
-import { CATEGORY_LABELS, type ToolCategory } from "@/tools/types";
+import type { ToolCategory } from "@/tools/types";
 import { useFavorites } from "@/lib/useFavorites";
+import { useLanguage } from "@/lib/i18n";
 
 interface CategoryViewProps {
   category: ToolCategory;
@@ -13,8 +14,9 @@ interface CategoryViewProps {
 export function CategoryView({ category }: CategoryViewProps) {
   const router = useRouter();
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { t } = useLanguage();
   const tools = getToolsByCategorySlug(category);
-  const categoryLabel = CATEGORY_LABELS[category];
+  const categoryLabel = t.categories[category];
 
   return (
     <div className="flex flex-col h-screen bg-stone-50">
@@ -22,7 +24,7 @@ export function CategoryView({ category }: CategoryViewProps) {
         <button
           onClick={() => router.push("/")}
           className="flex items-center gap-1 px-1.5 py-1 rounded-md text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
-          aria-label="Back to dashboard"
+          aria-label={t.dashboard}
         >
           <svg
             width="16"
@@ -39,7 +41,7 @@ export function CategoryView({ category }: CategoryViewProps) {
               strokeLinejoin="round"
             />
           </svg>
-          <span className="text-xs">Dashboard</span>
+          <span className="text-xs">{t.dashboard}</span>
         </button>
         <span className="text-stone-300 text-xs">/</span>
         <span className="text-sm font-medium text-stone-800">

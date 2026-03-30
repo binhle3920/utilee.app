@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 function toTitleCase(text: string): string {
   return text.replace(/\w\S*/g, (word) =>
@@ -70,6 +71,7 @@ const conversions: Conversion[] = [
 ]
 
 export function CaseConverter() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const [activeLabel, setActiveLabel] = useState('')
@@ -97,14 +99,14 @@ export function CaseConverter() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type or paste your text here..."
+          placeholder={t.tool.caseConverter.placeholder}
           className="w-full h-48 p-4 text-sm text-stone-700 leading-relaxed resize-none outline-none placeholder:text-stone-400"
         />
       </div>
 
       <div className="bg-white border border-stone-200 rounded-xl p-4">
         <label className="text-xs font-medium text-stone-500 uppercase tracking-wider block mb-3">
-          Convert to
+          {t.tool.caseConverter.convertTo}
         </label>
         <div className="flex flex-wrap gap-2">
           {conversions.map((c) => (
@@ -131,7 +133,7 @@ export function CaseConverter() {
               onClick={handleCopy}
               className="text-xs text-stone-500 hover:text-stone-800 transition-colors px-2 py-1 rounded hover:bg-stone-100"
             >
-              {copied ? 'Copied!' : 'Copy'}
+              {copied ? t.tool.common.copied : t.tool.common.copy}
             </button>
           </div>
           <div className="p-4 max-h-72 overflow-y-auto">

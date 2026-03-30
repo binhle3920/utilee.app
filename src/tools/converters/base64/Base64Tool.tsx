@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 type Mode = 'encode' | 'decode'
 
 export function Base64Tool() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('')
   const [mode, setMode] = useState<Mode>('encode')
   const [copied, setCopied] = useState(false)
@@ -20,7 +22,7 @@ export function Base64Tool() {
     } catch {
       return {
         output: '',
-        error: mode === 'decode' ? 'Invalid Base64 input.' : 'Could not encode input.',
+        error: mode === 'decode' ? t.tool.base64.invalidBase64 : t.tool.base64.couldNotEncode,
       }
     }
   }, [input, mode])
@@ -35,7 +37,7 @@ export function Base64Tool() {
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-5">
       <div className="bg-white border border-stone-200 rounded-xl p-4 flex items-center gap-3">
-        <span className="text-sm text-stone-500">Mode:</span>
+        <span className="text-sm text-stone-500">{t.tool.common.mode}</span>
         <button
           onClick={() => setMode('encode')}
           className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
@@ -44,7 +46,7 @@ export function Base64Tool() {
               : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
           }`}
         >
-          Encode
+          {t.tool.common.encode}
         </button>
         <button
           onClick={() => setMode('decode')}
@@ -54,18 +56,18 @@ export function Base64Tool() {
               : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
           }`}
         >
-          Decode
+          {t.tool.common.decode}
         </button>
       </div>
 
       <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
         <div className="px-4 py-2 border-b border-stone-100">
-          <span className="text-xs text-stone-500 uppercase tracking-wider">Input</span>
+          <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.common.input}</span>
         </div>
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={mode === 'encode' ? 'Enter text to encode...' : 'Enter Base64 to decode...'}
+          placeholder={mode === 'encode' ? t.tool.base64.encodePlaceholder : t.tool.base64.decodePlaceholder}
           className="w-full h-40 p-4 text-sm text-stone-700 leading-relaxed resize-none outline-none placeholder:text-stone-400"
         />
       </div>
@@ -78,19 +80,19 @@ export function Base64Tool() {
 
       <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
         <div className="px-4 py-2 border-b border-stone-100 flex items-center justify-between">
-          <span className="text-xs text-stone-500 uppercase tracking-wider">Output</span>
+          <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.common.output}</span>
           <button
             onClick={handleCopy}
             disabled={!output}
             className="text-xs px-2.5 py-1 rounded-md bg-stone-100 text-stone-600 hover:bg-stone-200 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {copied ? 'Copied!' : 'Copy'}
+            {copied ? t.tool.common.copied : t.tool.common.copy}
           </button>
         </div>
         <textarea
           value={output}
           readOnly
-          placeholder="Output will appear here..."
+          placeholder={t.tool.common.outputWillAppearHere}
           className="w-full h-40 p-4 text-sm text-stone-700 leading-relaxed resize-none outline-none placeholder:text-stone-400 bg-stone-50"
         />
       </div>

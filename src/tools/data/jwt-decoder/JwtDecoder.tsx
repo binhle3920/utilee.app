@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 interface DecodedJwt {
   header: Record<string, unknown>
@@ -14,16 +15,6 @@ function base64UrlDecode(str: string): string {
   return atob(base64)
 }
 
-const CLAIM_LABELS: Record<string, string> = {
-  iss: 'Issuer',
-  sub: 'Subject',
-  aud: 'Audience',
-  exp: 'Expiration Time',
-  nbf: 'Not Before',
-  iat: 'Issued At',
-  jti: 'JWT ID',
-}
-
 function formatTimestamp(value: unknown): string | null {
   if (typeof value !== 'number') return null
   try {
@@ -34,14 +25,25 @@ function formatTimestamp(value: unknown): string | null {
 }
 
 export function JwtDecoder() {
+  const { t } = useLanguage()
   const [token, setToken] = useState('')
+
+  const CLAIM_LABELS: Record<string, string> = {
+    iss: t.tool.jwt.issuer,
+    sub: t.tool.jwt.subject,
+    aud: t.tool.jwt.audience,
+    exp: t.tool.jwt.expirationTime,
+    nbf: t.tool.jwt.notBefore,
+    iat: t.tool.jwt.issuedAt,
+    jti: t.tool.jwt.jwtId,
+  }
 
   const result = useMemo<{ decoded: DecodedJwt; error: null } | { decoded: null; error: string }>(() => {
     if (!token.trim()) return { decoded: null, error: '' }
 
     const parts = token.trim().split('.')
     if (parts.length !== 3) {
-      return { decoded: null, error: 'Invalid JWT: expected 3 parts separated by dots' }
+      return { decoded: null, error: t.tool.jwt.invalidJwt }
     }
 
     try {
@@ -51,10 +53,10 @@ export function JwtDecoder() {
 
       return { decoded: { header, payload, signature }, error: null }
     } catch (e) {
-      const msg = e instanceof Error ? e.message : 'Failed to decode token'
+      const msg = e instanceof Error ? e.message : t.tool.jwt.failedDecode
       return { decoded: null, error: msg }
     }
-  }, [token])
+  }, [token, t])
 
   const expiryStatus = useMemo(() => {
     if (!result.decoded) return null
@@ -77,7 +79,7 @@ export function JwtDecoder() {
         <textarea
           value={token}
           onChange={(e) => setToken(e.target.value)}
-          placeholder="Paste your JWT token here..."
+          placeholder={t.tool.jwt.placeholder}
           className="w-full h-32 p-4 text-sm text-stone-700 font-mono leading-relaxed resize-none outline-none placeholder:text-stone-400 break-all"
         />
       </div>
@@ -97,8 +99,8 @@ export function JwtDecoder() {
           }`}
         >
           {expiryStatus.isExpired
-            ? `Token expired on ${expiryStatus.date}`
-            : `Token valid until ${expiryStatus.date}`}
+            ? t.tool.jwt.tokenExpired(expiryStatus.date)
+            : t.tool.jwt.tokenValid(expiryStatus.date)}
         </div>
       )}
 
@@ -107,7 +109,7 @@ export function JwtDecoder() {
           <div className="bg-blue-50 border border-blue-200 rounded-xl overflow-hidden">
             <div className="px-4 py-2 border-b border-blue-200">
               <span className="text-xs text-blue-600 uppercase tracking-wider font-medium">
-                Header
+                {t.tool.jwt.header}
               </span>
             </div>
             <pre className="p-4 text-sm text-blue-800 font-mono whitespace-pre-wrap overflow-x-auto">
@@ -118,7 +120,7 @@ export function JwtDecoder() {
           <div className="bg-purple-50 border border-purple-200 rounded-xl overflow-hidden">
             <div className="px-4 py-2 border-b border-purple-200">
               <span className="text-xs text-purple-600 uppercase tracking-wider font-medium">
-                Payload
+                {t.tool.jwt.payload}
               </span>
             </div>
             <pre className="p-4 text-sm text-purple-800 font-mono whitespace-pre-wrap overflow-x-auto">
@@ -129,7 +131,7 @@ export function JwtDecoder() {
           <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
             <div className="px-4 py-2 border-b border-stone-100">
               <span className="text-xs text-stone-500 uppercase tracking-wider font-medium">
-                Signature
+                {t.tool.jwt.signature}
               </span>
             </div>
             <pre className="p-4 text-sm text-stone-600 font-mono whitespace-pre-wrap break-all">
@@ -140,7 +142,7 @@ export function JwtDecoder() {
           {Object.keys(result.decoded.payload).some((k) => k in CLAIM_LABELS) && (
             <div className="bg-white border border-stone-200 rounded-xl p-4">
               <span className="text-xs text-stone-500 uppercase tracking-wider block mb-3">
-                Standard Claims
+                {t.tool.jwt.standardClaims}
               </span>
               <div className="flex flex-col gap-2">
                 {Object.entries(result.decoded.payload)

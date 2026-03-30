@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 const FIRST_NAMES = [
   'James', 'Mary', 'Robert', 'Patricia', 'John', 'Jennifer', 'Michael', 'Linda',
@@ -53,14 +54,6 @@ const STATES = [
 
 type DataType = 'names' | 'emails' | 'phones' | 'addresses' | 'dates' | 'numbers'
 
-const DATA_TYPES: { value: DataType; label: string }[] = [
-  { value: 'names', label: 'Names' },
-  { value: 'emails', label: 'Emails' },
-  { value: 'phones', label: 'Phone Numbers' },
-  { value: 'addresses', label: 'Addresses' },
-  { value: 'dates', label: 'Dates' },
-  { value: 'numbers', label: 'Numbers' },
-]
 
 function pick<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)]
@@ -113,6 +106,17 @@ function generateItem(type: DataType): string {
 }
 
 export function RandomDataGenerator() {
+  const { t } = useLanguage()
+
+  const DATA_TYPES: { value: DataType; label: string }[] = [
+    { value: 'names', label: t.tool.randomData.names },
+    { value: 'emails', label: t.tool.randomData.emails },
+    { value: 'phones', label: t.tool.randomData.phoneNumbers },
+    { value: 'addresses', label: t.tool.randomData.addresses },
+    { value: 'dates', label: t.tool.randomData.dates },
+    { value: 'numbers', label: t.tool.randomData.numbers },
+  ]
+
   const [dataType, setDataType] = useState<DataType>('names')
   const [count, setCount] = useState(10)
   const [results, setResults] = useState<string[]>([])
@@ -136,7 +140,7 @@ export function RandomDataGenerator() {
       <div className="bg-white border border-stone-200 rounded-xl p-5 flex flex-col gap-5">
         <div className="flex flex-col gap-2">
           <label className="text-xs font-medium text-stone-500 uppercase tracking-wider">
-            Data Type
+            {t.tool.randomData.dataType}
           </label>
           <select
             value={dataType}
@@ -153,7 +157,7 @@ export function RandomDataGenerator() {
 
         <div className="flex flex-col gap-2">
           <label className="text-xs font-medium text-stone-500 uppercase tracking-wider">
-            Count: <span className="text-stone-800 font-semibold normal-case tracking-normal">{count}</span>
+            {t.tool.common.count} <span className="text-stone-800 font-semibold normal-case tracking-normal">{count}</span>
           </label>
           <div className="flex items-center gap-3">
             <input
@@ -179,7 +183,7 @@ export function RandomDataGenerator() {
           onClick={handleGenerate}
           className="w-full py-2.5 bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white text-sm font-medium rounded-lg transition-colors"
         >
-          Generate
+          {t.tool.common.generate}
         </button>
       </div>
 
@@ -187,13 +191,13 @@ export function RandomDataGenerator() {
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-stone-100">
             <span className="text-xs text-stone-400">
-              {results.length} result{results.length > 1 ? 's' : ''}
+              {t.tool.randomData.results(results.length)}
             </span>
             <button
               onClick={handleCopyAll}
               className="text-xs text-stone-500 hover:text-stone-800 transition-colors px-2 py-1 rounded hover:bg-stone-100"
             >
-              {copiedAll ? 'Copied!' : 'Copy All'}
+              {copiedAll ? t.tool.common.copied : t.tool.common.copyAll}
             </button>
           </div>
           <div className="p-4 max-h-80 overflow-y-auto">

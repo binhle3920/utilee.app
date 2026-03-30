@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 interface IpData {
   ip: string
@@ -14,6 +15,7 @@ interface IpData {
 }
 
 export function IpInfo() {
+  const { t } = useLanguage()
   const [data, setData] = useState<IpData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -28,11 +30,11 @@ export function IpInfo() {
       const json = await res.json()
       setData(json)
     } catch {
-      setError('Could not retrieve IP information. Check your internet connection.')
+      setError(t.tool.ipInfo.errorMsg)
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [t])
 
   useEffect(() => {
     fetchIp()
@@ -49,13 +51,13 @@ export function IpInfo() {
 
   const details = data
     ? [
-        { label: 'City', value: data.city },
-        { label: 'Region', value: data.region },
-        { label: 'Country', value: data.country },
-        { label: 'Postal Code', value: data.postal },
-        { label: 'Coordinates', value: data.loc },
-        { label: 'Timezone', value: data.timezone },
-        { label: 'Organization', value: data.org },
+        { label: t.tool.ipInfo.city, value: data.city },
+        { label: t.tool.ipInfo.region, value: data.region },
+        { label: t.tool.ipInfo.country, value: data.country },
+        { label: t.tool.ipInfo.postalCode, value: data.postal },
+        { label: t.tool.ipInfo.coordinates, value: data.loc },
+        { label: t.tool.ipInfo.timezone, value: data.timezone },
+        { label: t.tool.ipInfo.organization, value: data.org },
       ]
     : []
 
@@ -63,7 +65,7 @@ export function IpInfo() {
     <div className="max-w-2xl mx-auto flex flex-col gap-5">
       {loading && (
         <div className="bg-white border border-stone-200 rounded-xl p-10 flex items-center justify-center">
-          <span className="text-sm text-stone-500">Fetching your IP info...</span>
+          <span className="text-sm text-stone-500">{t.tool.ipInfo.fetching}</span>
         </div>
       )}
 
@@ -74,7 +76,7 @@ export function IpInfo() {
             onClick={fetchIp}
             className="px-4 py-2 text-sm bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white rounded-lg transition-colors"
           >
-            Retry
+            {t.tool.common.retry}
           </button>
         </div>
       )}
@@ -82,13 +84,13 @@ export function IpInfo() {
       {data && (
         <>
           <div className="bg-white border border-stone-200 rounded-xl p-6 flex flex-col items-center gap-2">
-            <span className="text-xs text-stone-500 uppercase tracking-wider">Your IP Address</span>
+            <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.ipInfo.yourIp}</span>
             <span className="text-3xl font-semibold text-stone-800 font-mono">{data.ip}</span>
             <button
               onClick={handleCopy}
               className="mt-1 text-xs text-stone-500 hover:text-stone-800 transition-colors px-3 py-1 rounded hover:bg-stone-100"
             >
-              {copied ? 'Copied!' : 'Copy to clipboard'}
+              {copied ? t.tool.common.copied : t.tool.common.copyToClipboard}
             </button>
           </div>
 
@@ -106,7 +108,7 @@ export function IpInfo() {
           {lat && lon && (
             <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
               <div className="px-4 py-2.5 border-b border-stone-100">
-                <span className="text-xs text-stone-400">Approximate Location</span>
+                <span className="text-xs text-stone-400">{t.tool.ipInfo.approximateLocation}</span>
               </div>
               <iframe
                 title="IP Location Map"
@@ -124,7 +126,7 @@ export function IpInfo() {
             onClick={fetchIp}
             className="w-full py-2.5 bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white text-sm font-medium rounded-lg transition-colors"
           >
-            Refresh
+            {t.tool.common.refresh}
           </button>
         </>
       )}

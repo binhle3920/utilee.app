@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useRef, useEffect } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 // ── Minimal QR Code Encoder (Byte mode, ECC level M) ──────────────────────
 
@@ -552,6 +553,7 @@ function generateQRMatrix(text: string): number[][] | null {
 // ── Component ──────────────────────────────────────────────────────────────
 
 export function QrCodeGenerator() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('')
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [error, setError] = useState('')
@@ -571,7 +573,7 @@ export function QrCodeGenerator() {
         ctx.fillStyle = '#a8a29e'
         ctx.font = '14px sans-serif'
         ctx.textAlign = 'center'
-        ctx.fillText('Enter text to generate QR code', 150, 155)
+        ctx.fillText(t.tool.qrCode.emptyState, 150, 155)
       }
       setError('')
       return
@@ -579,7 +581,7 @@ export function QrCodeGenerator() {
 
     const matrix = generateQRMatrix(input)
     if (!matrix) {
-      setError('Text is too long for QR encoding (max ~120 characters).')
+      setError(t.tool.qrCode.tooLong)
       return
     }
 
@@ -608,7 +610,7 @@ export function QrCodeGenerator() {
         }
       }
     }
-  }, [input])
+  }, [input, t])
 
   useEffect(() => {
     render()
@@ -644,7 +646,7 @@ export function QrCodeGenerator() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter text or URL to encode as QR code..."
+          placeholder={t.tool.qrCode.placeholder}
           className="w-full h-28 p-4 text-sm text-stone-700 leading-relaxed resize-none outline-none placeholder:text-stone-400"
         />
       </div>
@@ -657,19 +659,19 @@ export function QrCodeGenerator() {
 
       <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
         <div className="flex items-center justify-between px-4 py-2.5 border-b border-stone-100">
-          <span className="text-xs text-stone-400">QR Code</span>
+          <span className="text-xs text-stone-400">{t.tool.qrCode.qrCode}</span>
           <div className="flex gap-2">
             <button
               onClick={handleCopyImage}
               className="text-xs text-stone-500 hover:text-stone-800 transition-colors px-2 py-1 rounded hover:bg-stone-100"
             >
-              {copied ? 'Copied!' : 'Copy Image'}
+              {copied ? t.tool.common.copied : t.tool.qrCode.copyImage}
             </button>
             <button
               onClick={handleDownload}
               className="text-xs text-stone-500 hover:text-stone-800 transition-colors px-2 py-1 rounded hover:bg-stone-100"
             >
-              Download PNG
+              {t.tool.qrCode.downloadPng}
             </button>
           </div>
         </div>

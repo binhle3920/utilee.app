@@ -1,15 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 type Base = 2 | 8 | 10 | 16
-
-const BASE_LABELS: Record<Base, string> = {
-  2: 'Binary',
-  8: 'Octal',
-  10: 'Decimal',
-  16: 'Hexadecimal',
-}
 
 const BASE_PREFIXES: Record<Base, string> = {
   2: '0b',
@@ -26,9 +20,17 @@ const BASE_PATTERNS: Record<Base, RegExp> = {
 }
 
 export function NumberBase() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('')
   const [base, setBase] = useState<Base>(10)
   const [copiedBase, setCopiedBase] = useState<Base | null>(null)
+
+  const BASE_LABELS: Record<Base, string> = {
+    2: t.tool.numberBase.binary,
+    8: t.tool.numberBase.octal,
+    10: t.tool.numberBase.decimal,
+    16: t.tool.numberBase.hexadecimal,
+  }
 
   const isValid = input === '' || BASE_PATTERNS[base].test(input)
   const parsed = isValid && input !== '' ? parseInt(input, base) : NaN
@@ -51,7 +53,7 @@ export function NumberBase() {
     <div className="max-w-2xl mx-auto flex flex-col gap-5">
       <div className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col gap-3">
         <div className="flex items-center gap-3">
-          <span className="text-sm text-stone-500">Input base:</span>
+          <span className="text-sm text-stone-500">{t.tool.numberBase.inputBase}</span>
           {([2, 8, 10, 16] as Base[]).map((b) => (
             <button
               key={b}
@@ -75,7 +77,7 @@ export function NumberBase() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={`Enter a ${BASE_LABELS[base].toLowerCase()} number...`}
+            placeholder={t.tool.numberBase.enterNumber(BASE_LABELS[base].toLowerCase())}
             className={`flex-1 px-3 py-2 text-sm font-mono rounded-lg border outline-none transition-colors ${
               !isValid
                 ? 'border-red-300 text-red-600 bg-red-50'
@@ -86,7 +88,7 @@ export function NumberBase() {
 
         {!isValid && (
           <p className="text-xs text-red-500">
-            Invalid character for {BASE_LABELS[base].toLowerCase()}.
+            {t.tool.numberBase.invalidChar(BASE_LABELS[base].toLowerCase())}
           </p>
         )}
       </div>
@@ -106,7 +108,7 @@ export function NumberBase() {
                 disabled={!r.value}
                 className="text-xs px-2.5 py-1 rounded-md bg-stone-100 text-stone-600 hover:bg-stone-200 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                {copiedBase === r.base ? 'Copied!' : 'Copy'}
+                {copiedBase === r.base ? t.tool.common.copied : t.tool.common.copy}
               </button>
             </div>
             <span className="text-lg font-mono font-semibold text-stone-800 break-all">

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 const MONTH_NAMES = [
   '', 'January', 'February', 'March', 'April', 'May', 'June',
@@ -8,14 +9,6 @@ const MONTH_NAMES = [
 ]
 
 const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-
-const PRESETS = [
-  { label: 'Every minute', value: '* * * * *' },
-  { label: 'Hourly', value: '0 * * * *' },
-  { label: 'Daily at midnight', value: '0 0 * * *' },
-  { label: 'Weekly (Monday)', value: '0 0 * * 1' },
-  { label: 'Monthly', value: '0 0 1 * *' },
-]
 
 interface FieldInfo {
   label: string
@@ -149,7 +142,16 @@ function getNextExecutions(expression: string, count: number): Date[] {
 }
 
 export function CronParser() {
+  const { t } = useLanguage()
   const [expression, setExpression] = useState('0 0 * * *')
+
+  const PRESETS = [
+    { label: t.tool.cron.everyMinute, value: '* * * * *' },
+    { label: t.tool.cron.hourly, value: '0 * * * *' },
+    { label: t.tool.cron.dailyAtMidnight, value: '0 0 * * *' },
+    { label: t.tool.cron.weeklyMonday, value: '0 0 * * 1' },
+    { label: t.tool.cron.monthly, value: '0 0 1 * *' },
+  ]
 
   const { fields, description, nextRuns, error } = useMemo(() => {
     const parts = expression.trim().split(/\s+/)
@@ -158,11 +160,11 @@ export function CronParser() {
         fields: null,
         description: null,
         nextRuns: [],
-        error: 'Expected 5 fields: minute hour day-of-month month day-of-week',
+        error: t.tool.cron.expectedFields,
       }
     }
 
-    const labels = ['Minute (0-59)', 'Hour (0-23)', 'Day of Month (1-31)', 'Month (1-12)', 'Day of Week (0-6)']
+    const labels = [t.tool.cron.minuteField, t.tool.cron.hourField, t.tool.cron.domField, t.tool.cron.monthField, t.tool.cron.dowField]
     const ranges: [number, number][] = [[0, 59], [0, 23], [1, 31], [1, 12], [0, 6]]
 
     const fieldInfos: FieldInfo[] = parts.map((p, i) => ({
@@ -177,13 +179,13 @@ export function CronParser() {
       nextRuns: getNextExecutions(expression, 5),
       error: null,
     }
-  }, [expression])
+  }, [expression, t])
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-5">
       <div className="bg-white border border-stone-200 rounded-xl p-4">
         <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2">
-          Cron Expression
+          {t.tool.cron.cronExpression}
         </label>
         <input
           type="text"
@@ -215,7 +217,7 @@ export function CronParser() {
       {description && (
         <div className="bg-white border border-stone-200 rounded-xl p-4">
           <span className="text-xs text-stone-500 uppercase tracking-wider block mb-2">
-            Description
+            {t.tool.common.description}
           </span>
           <span className="text-lg font-medium text-stone-800">{description}</span>
         </div>
@@ -224,7 +226,7 @@ export function CronParser() {
       {fields && (
         <div className="bg-white border border-stone-200 rounded-xl p-4">
           <span className="text-xs text-stone-500 uppercase tracking-wider block mb-3">
-            Field Breakdown
+            {t.tool.cron.fieldBreakdown}
           </span>
           <div className="flex flex-col gap-2">
             {fields.map((f) => (
@@ -243,7 +245,7 @@ export function CronParser() {
       {nextRuns.length > 0 && (
         <div className="bg-white border border-stone-200 rounded-xl p-4">
           <span className="text-xs text-stone-500 uppercase tracking-wider block mb-3">
-            Next 5 Executions
+            {t.tool.cron.next5}
           </span>
           <div className="flex flex-col gap-2">
             {nextRuns.map((date, i) => (

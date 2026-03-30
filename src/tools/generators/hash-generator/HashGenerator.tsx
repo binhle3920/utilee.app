@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 type Algorithm = 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512'
 
@@ -15,6 +16,7 @@ async function computeHash(algorithm: Algorithm, text: string): Promise<string> 
 }
 
 export function HashGenerator() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('')
   const [hashes, setHashes] = useState<Record<Algorithm, string>>({
     'SHA-1': '',
@@ -58,7 +60,7 @@ export function HashGenerator() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type or paste text to hash..."
+          placeholder={t.tool.hash.placeholder}
           className="w-full h-40 p-4 text-sm text-stone-700 leading-relaxed resize-none outline-none placeholder:text-stone-400"
         />
       </div>
@@ -75,12 +77,12 @@ export function HashGenerator() {
                   onClick={() => handleCopy(algo)}
                   className="text-xs text-stone-500 hover:text-stone-800 transition-colors px-2 py-1 rounded hover:bg-stone-100"
                 >
-                  {copiedAlgo === algo ? 'Copied!' : 'Copy'}
+                  {copiedAlgo === algo ? t.tool.common.copied : t.tool.common.copy}
                 </button>
               </div>
               <div className="p-4">
                 <p className="text-sm text-stone-700 font-mono break-all select-all leading-relaxed">
-                  {hashes[algo] || 'Computing...'}
+                  {hashes[algo] || t.tool.hash.computing}
                 </p>
               </div>
             </div>
@@ -91,10 +93,10 @@ export function HashGenerator() {
       {!input && (
         <div className="bg-white border border-stone-200 rounded-xl p-8 text-center">
           <p className="text-sm text-stone-400">
-            Enter text above to generate SHA-1, SHA-256, SHA-384, and SHA-512 hashes in real-time.
+            {t.tool.hash.emptyState}
           </p>
           <p className="text-xs text-stone-400 mt-2">
-            MD5 is not available via the Web Crypto API.
+            {t.tool.hash.md5Note}
           </p>
         </div>
       )}

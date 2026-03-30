@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 interface ParsedUrl {
   protocol: string
@@ -14,6 +15,7 @@ interface ParsedUrl {
 }
 
 export function UrlParser() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('https://example.com:8080/path/to/page?key=value&foo=bar#section')
   const [copiedField, setCopiedField] = useState('')
 
@@ -56,14 +58,14 @@ export function UrlParser() {
 
   const fields = parsed
     ? [
-        { label: 'Protocol', value: parsed.protocol },
-        { label: 'Origin', value: parsed.origin },
-        { label: 'Host', value: parsed.host },
-        { label: 'Hostname', value: parsed.hostname },
-        { label: 'Port', value: parsed.port || '(default)' },
-        { label: 'Pathname', value: parsed.pathname },
-        { label: 'Search', value: parsed.search || '(none)' },
-        { label: 'Hash', value: parsed.hash || '(none)' },
+        { label: t.tool.urlParser.protocol, value: parsed.protocol },
+        { label: t.tool.urlParser.origin, value: parsed.origin },
+        { label: t.tool.urlParser.host, value: parsed.host },
+        { label: t.tool.urlParser.hostname, value: parsed.hostname },
+        { label: t.tool.urlParser.port, value: parsed.port || t.tool.urlParser.defaultVal },
+        { label: t.tool.urlParser.pathname, value: parsed.pathname },
+        { label: t.tool.urlParser.search, value: parsed.search || t.tool.urlParser.none },
+        { label: t.tool.urlParser.hash, value: parsed.hash || t.tool.urlParser.none },
       ]
     : []
 
@@ -71,7 +73,7 @@ export function UrlParser() {
     <div className="max-w-2xl mx-auto flex flex-col gap-5">
       {/* Input */}
       <div className="bg-white border border-stone-200 rounded-xl p-5 flex flex-col gap-2">
-        <label className="text-xs text-stone-500 uppercase tracking-wider">URL</label>
+        <label className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.urlParser.url}</label>
         <input
           type="text"
           value={input}
@@ -80,7 +82,7 @@ export function UrlParser() {
           className="w-full rounded-lg border border-stone-200 bg-stone-50 px-3 py-2.5 text-sm text-stone-800 font-mono placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-300"
         />
         {isInvalid && (
-          <span className="text-xs text-red-600">Invalid URL. Make sure it includes a protocol (e.g. https://).</span>
+          <span className="text-xs text-red-600">{t.tool.urlParser.invalidUrl}</span>
         )}
       </div>
 
@@ -99,7 +101,7 @@ export function UrlParser() {
                     onClick={() => handleCopy(f.label, f.value)}
                     className="text-xs text-stone-400 hover:text-stone-700 transition-colors shrink-0 px-2 py-0.5 rounded hover:bg-stone-100"
                   >
-                    {copiedField === f.label ? 'Copied!' : 'Copy'}
+                    {copiedField === f.label ? t.tool.common.copied : t.tool.common.copy}
                   </button>
                 </div>
               </div>
@@ -113,13 +115,13 @@ export function UrlParser() {
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
           <div className="px-5 py-3 border-b border-stone-100">
             <span className="text-sm font-medium text-stone-700">
-              Query Parameters ({queryParams.length})
+              {t.tool.urlParser.queryParams(queryParams.length)}
             </span>
           </div>
 
           <div className="grid grid-cols-[1fr_1fr_auto] gap-x-4 px-5 py-2 border-b border-stone-100 bg-stone-50/50">
-            <span className="text-xs text-stone-400 uppercase tracking-wider">Key</span>
-            <span className="text-xs text-stone-400 uppercase tracking-wider">Value</span>
+            <span className="text-xs text-stone-400 uppercase tracking-wider">{t.tool.urlParser.key}</span>
+            <span className="text-xs text-stone-400 uppercase tracking-wider">{t.tool.urlParser.value}</span>
             <span className="text-xs text-stone-400 w-12" />
           </div>
 
@@ -132,7 +134,7 @@ export function UrlParser() {
                   onClick={() => handleCopy(`param-${key}-${i}`, `${key}=${value}`)}
                   className="text-xs text-stone-400 hover:text-stone-700 transition-colors px-2 py-0.5 rounded hover:bg-stone-100"
                 >
-                  {copiedField === `param-${key}-${i}` ? 'Copied!' : 'Copy'}
+                  {copiedField === `param-${key}-${i}` ? t.tool.common.copied : t.tool.common.copy}
                 </button>
               </div>
             ))}
@@ -143,7 +145,7 @@ export function UrlParser() {
       {/* Empty State */}
       {!input.trim() && (
         <div className="bg-white border border-stone-200 rounded-xl p-10 flex items-center justify-center">
-          <span className="text-sm text-stone-400">Enter a URL above to parse it into its components.</span>
+          <span className="text-sm text-stone-400">{t.tool.urlParser.emptyState}</span>
         </div>
       )}
     </div>

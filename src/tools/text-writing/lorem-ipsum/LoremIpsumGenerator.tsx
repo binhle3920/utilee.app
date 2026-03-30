@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 const WORDS = [
   'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit',
@@ -62,6 +63,7 @@ function generate(type: OutputType, count: number, startWithLorem: boolean): str
 }
 
 export function LoremIpsumGenerator() {
+  const { t } = useLanguage()
   const [outputType, setOutputType] = useState<OutputType>('paragraphs')
   const [count, setCount] = useState(3)
   const [startWithLorem, setStartWithLorem] = useState(true)
@@ -83,9 +85,9 @@ export function LoremIpsumGenerator() {
   }, [output])
 
   const typeOptions: { value: OutputType; label: string }[] = [
-    { value: 'paragraphs', label: 'Paragraphs' },
-    { value: 'sentences', label: 'Sentences' },
-    { value: 'words', label: 'Words' },
+    { value: 'paragraphs', label: t.tool.loremIpsum.paragraphs },
+    { value: 'sentences', label: t.tool.loremIpsum.sentences },
+    { value: 'words', label: t.tool.loremIpsum.words },
   ]
 
   return (
@@ -93,7 +95,7 @@ export function LoremIpsumGenerator() {
       <div className="bg-white border border-stone-200 rounded-xl p-5 flex flex-col gap-5">
         <div className="flex flex-col gap-2">
           <label className="text-xs font-medium text-stone-500 uppercase tracking-wider">
-            Output Type
+            {t.tool.loremIpsum.outputType}
           </label>
           <div className="flex gap-2">
             {typeOptions.map((opt) => (
@@ -146,26 +148,26 @@ export function LoremIpsumGenerator() {
             onChange={(e) => setStartWithLorem(e.target.checked)}
             className="w-4 h-4 accent-stone-800"
           />
-          <span className="text-sm text-stone-600">Start with &ldquo;Lorem ipsum&hellip;&rdquo;</span>
+          <span className="text-sm text-stone-600">{t.tool.loremIpsum.startWithLorem}</span>
         </label>
 
         <button
           onClick={handleGenerate}
           className="w-full py-2.5 bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white text-sm font-medium rounded-lg transition-colors"
         >
-          Generate
+          {t.tool.common.generate}
         </button>
       </div>
 
       {output && (
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-stone-100">
-            <span className="text-xs text-stone-400">Output</span>
+            <span className="text-xs text-stone-400">{t.tool.common.output}</span>
             <button
               onClick={handleCopy}
               className="text-xs text-stone-500 hover:text-stone-800 transition-colors px-2 py-1 rounded hover:bg-stone-100"
             >
-              {copied ? 'Copied!' : 'Copy'}
+              {copied ? t.tool.common.copied : t.tool.common.copy}
             </button>
           </div>
           <div className="p-4 max-h-72 overflow-y-auto">

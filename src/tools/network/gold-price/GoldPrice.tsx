@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 const API_URL = 'https://www.vang.today/api/prices'
 const HISTORY_URL = 'https://www.vang.today/api/prices'
@@ -102,6 +103,7 @@ interface Tooltip {
 }
 
 function PriceChart({ data, height = 260 }: { data: ChartPoint[]; height?: number }) {
+  const { t } = useLanguage()
   const containerRef = useRef<HTMLDivElement>(null)
   const [tooltip, setTooltip] = useState<Tooltip | null>(null)
 
@@ -155,7 +157,7 @@ function PriceChart({ data, height = 260 }: { data: ChartPoint[]; height?: numbe
     setTooltip({
       x: px,
       y: py,
-      label: type === 'buy' ? 'Buy' : 'Sell',
+      label: type === 'buy' ? t.tool.common.buy : t.tool.common.sell,
       value: formatVnd(point[type]),
       color: type === 'buy' ? '#dc2626' : '#16a34a',
       date: formatDateShort(point.date),
@@ -282,6 +284,7 @@ function PriceChart({ data, height = 260 }: { data: ChartPoint[]; height?: numbe
 // --- Main component ---
 
 export function GoldPrice() {
+  const { t } = useLanguage()
   const [prices, setPrices] = useState<Record<string, GoldItem>>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -301,11 +304,11 @@ export function GoldPrice() {
       setPrices(json.prices)
       setMeta({ time: json.time, date: json.date })
     } catch {
-      setError('Could not retrieve gold prices. Check your internet connection.')
+      setError(t.tool.goldPrice.errorMsg)
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [t])
 
   const fetchHistory = useCallback(async (type: string) => {
     setChartLoading(true)
@@ -364,7 +367,7 @@ export function GoldPrice() {
     <div className="max-w-3xl mx-auto flex flex-col gap-5">
       {loading && (
         <div className="bg-white border border-stone-200 rounded-xl p-10 flex items-center justify-center">
-          <span className="text-sm text-stone-500">Fetching gold prices...</span>
+          <span className="text-sm text-stone-500">{t.tool.goldPrice.fetching}</span>
         </div>
       )}
 
@@ -375,7 +378,7 @@ export function GoldPrice() {
             onClick={fetchGold}
             className="px-4 py-2 text-sm bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white rounded-lg transition-colors"
           >
-            Retry
+            {t.tool.common.retry}
           </button>
         </div>
       )}
@@ -386,7 +389,7 @@ export function GoldPrice() {
           <div className="bg-white border border-stone-200 rounded-xl">
             <div className="px-5 py-3 border-b border-stone-100 flex items-center justify-between rounded-t-xl">
               <span className="text-sm font-medium text-stone-700">
-                Last 30 days
+                {t.tool.goldPrice.last30Days}
               </span>
               <select
                 value={chartType}
@@ -404,13 +407,13 @@ export function GoldPrice() {
             <div className="px-4 py-4">
               {chartLoading ? (
                 <div className="flex items-center justify-center h-[260px]">
-                  <span className="text-sm text-stone-400">Loading chart...</span>
+                  <span className="text-sm text-stone-400">{t.tool.goldPrice.loadingChart}</span>
                 </div>
               ) : chartData.length > 1 ? (
                 <PriceChart data={chartData} />
               ) : (
                 <div className="flex items-center justify-center h-[260px]">
-                  <span className="text-sm text-stone-400">No historical data available</span>
+                  <span className="text-sm text-stone-400">{t.tool.goldPrice.noHistoryData}</span>
                 </div>
               )}
             </div>
@@ -419,11 +422,11 @@ export function GoldPrice() {
             <div className="px-5 pb-3 flex items-center justify-center gap-6">
               <div className="flex items-center gap-1.5">
                 <span className="w-3 h-0.5 bg-red-600 rounded-full" />
-                <span className="text-xs text-stone-500">Buy</span>
+                <span className="text-xs text-stone-500">{t.tool.common.buy}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-3 h-0.5 bg-green-600 rounded-full" />
-                <span className="text-xs text-stone-500">Sell</span>
+                <span className="text-xs text-stone-500">{t.tool.common.sell}</span>
               </div>
             </div>
           </div>
@@ -432,7 +435,7 @@ export function GoldPrice() {
           <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
             <div className="px-5 py-3 border-b border-stone-100 flex items-center justify-between">
               <span className="text-sm font-medium text-stone-700">
-                Gold Prices
+                {t.tool.goldPrice.goldPrices}
               </span>
               <div className="flex items-center gap-3">
                 {meta && (
@@ -443,7 +446,7 @@ export function GoldPrice() {
                 <button
                   onClick={fetchGold}
                   className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
-                  title="Refresh"
+                  title={t.tool.common.refresh}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
                 </button>
@@ -475,16 +478,16 @@ export function GoldPrice() {
 
             {/* Header */}
             <div className="grid grid-cols-[1fr_minmax(0,1fr)_minmax(0,1fr)] gap-x-4 px-5 py-2 border-b border-stone-100 bg-stone-50/50">
-              <span className="text-xs text-stone-400 uppercase tracking-wider">Type</span>
-              <span className="text-xs text-stone-400 uppercase tracking-wider text-right">Buy</span>
-              <span className="text-xs text-stone-400 uppercase tracking-wider text-right">Sell</span>
+              <span className="text-xs text-stone-400 uppercase tracking-wider">{t.tool.common.type}</span>
+              <span className="text-xs text-stone-400 uppercase tracking-wider text-right">{t.tool.common.buy}</span>
+              <span className="text-xs text-stone-400 uppercase tracking-wider text-right">{t.tool.common.sell}</span>
             </div>
 
             {/* Grouped rows */}
             {groups.map((group) => (
               <div key={group.label}>
                 <div className="px-5 py-1.5 bg-stone-50 border-b border-stone-100">
-                  <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider">{group.label}</span>
+                  <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider">{group.label === 'Other' ? t.tool.goldPrice.other : group.label}</span>
                 </div>
                 <div className="flex flex-col divide-y divide-stone-50">
                   {group.items
@@ -521,7 +524,7 @@ export function GoldPrice() {
             {world.length > 0 && (
               <div>
                 <div className="px-5 py-1.5 bg-stone-50 border-t border-b border-stone-100">
-                  <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider">World</span>
+                  <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider">{t.tool.goldPrice.world}</span>
                 </div>
                 {world.map(([code, item]) => {
                   const chBuy = formatChange(item.change_buy)
@@ -541,7 +544,7 @@ export function GoldPrice() {
             )}
 
             <div className="px-5 py-1.5 border-t border-stone-100 bg-stone-50/50">
-              <span className="text-[10px] text-stone-400 italic">Unit: VND/luong (domestic), USD/oz (world)</span>
+              <span className="text-[10px] text-stone-400 italic">{t.tool.goldPrice.unitNote}</span>
             </div>
           </div>
 
@@ -549,7 +552,7 @@ export function GoldPrice() {
             onClick={() => { fetchGold(); fetchHistory(chartType) }}
             className="w-full py-2.5 bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white text-sm font-medium rounded-lg transition-colors"
           >
-            Refresh All
+            {t.tool.common.refreshAll}
           </button>
         </>
       )}

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 function generateUuidV4(): string {
   if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -22,6 +23,7 @@ function generateUuidV4(): string {
 }
 
 export function UuidGenerator() {
+  const { t } = useLanguage()
   const [count, setCount] = useState(1)
   const [uppercase, setUppercase] = useState(false)
   const [uuids, setUuids] = useState<string[]>([])
@@ -56,7 +58,7 @@ export function UuidGenerator() {
       <div className="bg-white border border-stone-200 rounded-xl p-5 flex flex-col gap-5">
         <div className="flex flex-col gap-2">
           <label className="text-xs font-medium text-stone-500 uppercase tracking-wider">
-            Count: <span className="text-stone-800 font-semibold normal-case tracking-normal">{count}</span>
+            {t.tool.common.count} <span className="text-stone-800 font-semibold normal-case tracking-normal">{count}</span>
           </label>
           <div className="flex items-center gap-3">
             <input
@@ -85,14 +87,14 @@ export function UuidGenerator() {
             onChange={(e) => setUppercase(e.target.checked)}
             className="w-4 h-4 accent-stone-800"
           />
-          <span className="text-sm text-stone-600">Uppercase</span>
+          <span className="text-sm text-stone-600">{t.tool.uuid.uppercase}</span>
         </label>
 
         <button
           onClick={handleGenerate}
           className="w-full py-2.5 bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white text-sm font-medium rounded-lg transition-colors"
         >
-          Generate
+          {t.tool.common.generate}
         </button>
       </div>
 
@@ -100,13 +102,13 @@ export function UuidGenerator() {
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-stone-100">
             <span className="text-xs text-stone-400">
-              {uuids.length} UUID{uuids.length > 1 ? 's' : ''} generated
+              {t.tool.uuid.generated(uuids.length)}
             </span>
             <button
               onClick={handleCopyAll}
               className="text-xs text-stone-500 hover:text-stone-800 transition-colors px-2 py-1 rounded hover:bg-stone-100"
             >
-              {copiedAll ? 'Copied!' : 'Copy All'}
+              {copiedAll ? t.tool.common.copied : t.tool.common.copyAll}
             </button>
           </div>
           <div className="p-4 max-h-80 overflow-y-auto flex flex-col gap-2">
@@ -122,7 +124,7 @@ export function UuidGenerator() {
                   onClick={() => handleCopySingle(uuid, i)}
                   className="shrink-0 text-xs text-stone-400 hover:text-stone-700 transition-colors px-2 py-1 rounded hover:bg-stone-100 opacity-0 group-hover:opacity-100"
                 >
-                  {copiedIndex === i ? 'Copied!' : 'Copy'}
+                  {copiedIndex === i ? t.tool.common.copied : t.tool.common.copy}
                 </button>
               </div>
             ))}

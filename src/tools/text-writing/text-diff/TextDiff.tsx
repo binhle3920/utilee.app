@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 interface DiffLine {
   type: 'added' | 'removed' | 'unchanged'
@@ -57,6 +58,7 @@ function computeDiff(original: string, modified: string): DiffLine[] {
 }
 
 export function TextDiff() {
+  const { t } = useLanguage()
   const [original, setOriginal] = useState('')
   const [modified, setModified] = useState('')
   const [diff, setDiff] = useState<DiffLine[] | null>(null)
@@ -78,24 +80,24 @@ export function TextDiff() {
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden flex flex-col">
           <div className="px-4 py-2.5 border-b border-stone-100">
-            <span className="text-xs text-stone-400">Original</span>
+            <span className="text-xs text-stone-400">{t.tool.textDiff.original}</span>
           </div>
           <textarea
             value={original}
             onChange={(e) => setOriginal(e.target.value)}
-            placeholder="Paste the original text here..."
+            placeholder={t.tool.textDiff.originalPlaceholder}
             className="w-full h-56 p-4 text-sm text-stone-700 leading-relaxed resize-none outline-none placeholder:text-stone-400 font-mono"
           />
         </div>
 
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden flex flex-col">
           <div className="px-4 py-2.5 border-b border-stone-100">
-            <span className="text-xs text-stone-400">Modified</span>
+            <span className="text-xs text-stone-400">{t.tool.textDiff.modified}</span>
           </div>
           <textarea
             value={modified}
             onChange={(e) => setModified(e.target.value)}
-            placeholder="Paste the modified text here..."
+            placeholder={t.tool.textDiff.modifiedPlaceholder}
             className="w-full h-56 p-4 text-sm text-stone-700 leading-relaxed resize-none outline-none placeholder:text-stone-400 font-mono"
           />
         </div>
@@ -105,18 +107,18 @@ export function TextDiff() {
         onClick={handleCompare}
         className="w-full py-2.5 bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white text-sm font-medium rounded-lg transition-colors"
       >
-        Compare
+        {t.tool.common.compare}
       </button>
 
       {diff && (
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2.5 border-b border-stone-100">
-            <span className="text-xs text-stone-400">Diff Result</span>
+            <span className="text-xs text-stone-400">{t.tool.textDiff.diffResult}</span>
             {stats && (
               <div className="flex items-center gap-3">
-                <span className="text-xs text-green-600">+{stats.added} added</span>
-                <span className="text-xs text-red-600">-{stats.removed} removed</span>
-                <span className="text-xs text-stone-400">{stats.unchanged} unchanged</span>
+                <span className="text-xs text-green-600">+{stats.added} {t.tool.textDiff.added}</span>
+                <span className="text-xs text-red-600">-{stats.removed} {t.tool.textDiff.removed}</span>
+                <span className="text-xs text-stone-400">{stats.unchanged} {t.tool.textDiff.unchanged}</span>
               </div>
             )}
           </div>

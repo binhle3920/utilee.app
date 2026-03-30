@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 interface Stats {
   characters: number
@@ -57,22 +58,23 @@ function computeStats(text: string): Stats {
 }
 
 export function WordCounter() {
+  const { t } = useLanguage()
   const [text, setText] = useState('')
 
   const stats = useMemo(() => computeStats(text), [text])
 
   const primaryStats = [
-    { label: 'Words', value: stats.words },
-    { label: 'Characters', value: stats.characters },
-    { label: 'Sentences', value: stats.sentences },
-    { label: 'Paragraphs', value: stats.paragraphs },
+    { label: t.tool.wordCounter.words, value: stats.words },
+    { label: t.tool.wordCounter.characters, value: stats.characters },
+    { label: t.tool.wordCounter.sentences, value: stats.sentences },
+    { label: t.tool.wordCounter.paragraphs, value: stats.paragraphs },
   ]
 
   const secondaryStats = [
-    { label: 'Characters (no spaces)', value: stats.charactersNoSpaces },
-    { label: 'Lines', value: stats.lines },
-    { label: 'Reading time', value: stats.readingTime },
-    { label: 'Speaking time', value: stats.speakingTime },
+    { label: t.tool.wordCounter.charactersNoSpaces, value: stats.charactersNoSpaces },
+    { label: t.tool.wordCounter.lines, value: stats.lines },
+    { label: t.tool.wordCounter.readingTime, value: stats.readingTime },
+    { label: t.tool.wordCounter.speakingTime, value: stats.speakingTime },
   ]
 
   return (
@@ -93,7 +95,7 @@ export function WordCounter() {
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Type or paste your text here..."
+          placeholder={t.tool.wordCounter.placeholder}
           className="w-full h-64 p-4 text-sm text-stone-700 leading-relaxed resize-none outline-none placeholder:text-stone-400"
         />
       </div>

@@ -1,11 +1,13 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 type Mode = 'encode' | 'decode'
 type Method = 'component' | 'uri'
 
 export function UrlEncoder() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('')
   const [mode, setMode] = useState<Mode>('encode')
   const [method, setMethod] = useState<Method>('component')
@@ -28,12 +30,12 @@ export function UrlEncoder() {
     } catch {
       setError(
         mode === 'decode'
-          ? 'Invalid encoded string. Check your input.'
-          : 'Could not encode the input.'
+          ? t.tool.urlEncoder.invalidEncoded
+          : t.tool.urlEncoder.couldNotEncode
       )
       return ''
     }
-  }, [input, mode, method])
+  }, [input, mode, method, t])
 
   const output = getOutput()
 
@@ -57,7 +59,7 @@ export function UrlEncoder() {
       {/* Mode & Method Controls */}
       <div className="bg-white border border-stone-200 rounded-xl p-5 flex flex-col gap-4">
         <div className="flex items-center gap-3">
-          <span className="text-sm text-stone-500 w-16">Mode</span>
+          <span className="text-sm text-stone-500 w-16">{t.tool.common.mode.replace(':', '')}</span>
           <div className="flex rounded-lg border border-stone-200 overflow-hidden">
             <button
               onClick={() => setMode('encode')}
@@ -67,7 +69,7 @@ export function UrlEncoder() {
                   : 'bg-white text-stone-600 hover:bg-stone-50'
               }`}
             >
-              Encode
+              {t.tool.common.encode}
             </button>
             <button
               onClick={() => setMode('decode')}
@@ -77,13 +79,13 @@ export function UrlEncoder() {
                   : 'bg-white text-stone-600 hover:bg-stone-50'
               }`}
             >
-              Decode
+              {t.tool.common.decode}
             </button>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-sm text-stone-500 w-16">Method</span>
+          <span className="text-sm text-stone-500 w-16">{t.tool.common.method}</span>
           <div className="flex rounded-lg border border-stone-200 overflow-hidden">
             <button
               onClick={() => setMethod('component')}
@@ -110,40 +112,40 @@ export function UrlEncoder() {
 
         <p className="text-xs text-stone-400">
           {method === 'component'
-            ? 'encodeURIComponent encodes all special characters including : / ? # & = etc.'
-            : 'encodeURI preserves URL-valid characters like : / ? # & = and only encodes others.'}
+            ? t.tool.urlEncoder.componentDesc
+            : t.tool.urlEncoder.uriDesc}
         </p>
       </div>
 
       {/* Input */}
       <div className="bg-white border border-stone-200 rounded-xl p-5 flex flex-col gap-2">
-        <label className="text-xs text-stone-500 uppercase tracking-wider">Input</label>
+        <label className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.common.input}</label>
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={
             mode === 'encode'
-              ? 'Enter text to encode...'
-              : 'Enter encoded text to decode...'
+              ? t.tool.urlEncoder.encodePlaceholder
+              : t.tool.urlEncoder.decodePlaceholder
           }
           rows={5}
           className="w-full resize-none rounded-lg border border-stone-200 bg-stone-50 px-3 py-2.5 text-sm text-stone-800 font-mono placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-300"
         />
         <div className="flex justify-end">
-          <span className="text-xs text-stone-400">{input.length} characters</span>
+          <span className="text-xs text-stone-400">{input.length} {t.tool.common.characters}</span>
         </div>
       </div>
 
       {/* Output */}
       <div className="bg-white border border-stone-200 rounded-xl p-5 flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <label className="text-xs text-stone-500 uppercase tracking-wider">Output</label>
+          <label className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.common.output}</label>
           <button
             onClick={handleCopy}
             disabled={!output}
             className="text-xs text-stone-500 hover:text-stone-800 transition-colors px-3 py-1 rounded hover:bg-stone-100 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {copied ? 'Copied!' : 'Copy'}
+            {copied ? t.tool.common.copied : t.tool.common.copy}
           </button>
         </div>
         <textarea
@@ -156,10 +158,10 @@ export function UrlEncoder() {
           <span className="text-xs text-red-600">{error}</span>
         )}
         <div className="flex items-center justify-between">
-          <span className="text-xs text-stone-400">{output.length} characters</span>
+          <span className="text-xs text-stone-400">{output.length} {t.tool.common.characters}</span>
           {encodedCharCount && (
             <span className="text-xs text-stone-400">
-              {encodedCharCount.totalEncoded} encoded characters ({encodedCharCount.percentage}% of output)
+              {t.tool.urlEncoder.encodedChars(encodedCharCount.totalEncoded, encodedCharCount.percentage)}
             </span>
           )}
         </div>

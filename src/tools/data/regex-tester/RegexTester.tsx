@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 interface MatchResult {
   match: string
@@ -9,6 +10,7 @@ interface MatchResult {
 }
 
 export function RegexTester() {
+  const { t } = useLanguage()
   const [pattern, setPattern] = useState('')
   const [testString, setTestString] = useState('')
   const [flagG, setFlagG] = useState(true)
@@ -74,27 +76,27 @@ export function RegexTester() {
       <div className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col gap-4">
         <div>
           <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2">
-            Pattern
+            {t.tool.regex.pattern}
           </label>
           <input
             type="text"
             value={pattern}
             onChange={(e) => setPattern(e.target.value)}
-            placeholder="Enter regex pattern..."
+            placeholder={t.tool.regex.patternPlaceholder}
             className="w-full px-3 py-2 text-sm text-stone-700 font-mono border border-stone-200 rounded-lg outline-none focus:border-stone-400 placeholder:text-stone-400"
           />
         </div>
 
         <div>
           <label className="block text-xs text-stone-500 uppercase tracking-wider mb-2">
-            Flags
+            {t.tool.regex.flags}
           </label>
           <div className="flex gap-4">
             {[
-              { label: 'g', desc: 'global', value: flagG, set: setFlagG },
-              { label: 'i', desc: 'case-insensitive', value: flagI, set: setFlagI },
-              { label: 'm', desc: 'multiline', value: flagM, set: setFlagM },
-              { label: 's', desc: 'dotAll', value: flagS, set: setFlagS },
+              { label: 'g', desc: t.tool.regex.global, value: flagG, set: setFlagG },
+              { label: 'i', desc: t.tool.regex.caseInsensitive, value: flagI, set: setFlagI },
+              { label: 'm', desc: t.tool.regex.multiline, value: flagM, set: setFlagM },
+              { label: 's', desc: t.tool.regex.dotAll, value: flagS, set: setFlagS },
             ].map((f) => (
               <label key={f.label} className="flex items-center gap-1.5 cursor-pointer">
                 <input
@@ -121,7 +123,7 @@ export function RegexTester() {
         <textarea
           value={testString}
           onChange={(e) => setTestString(e.target.value)}
-          placeholder="Enter test string..."
+          placeholder={t.tool.regex.testPlaceholder}
           className="w-full h-40 p-4 text-sm text-stone-700 leading-relaxed resize-none outline-none placeholder:text-stone-400"
         />
       </div>
@@ -130,7 +132,7 @@ export function RegexTester() {
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
           <div className="px-4 py-2 border-b border-stone-100">
             <span className="text-xs text-stone-500 uppercase tracking-wider">
-              Matches Highlighted
+              {t.tool.regex.matchesHighlighted}
             </span>
           </div>
           <div className="p-4 text-sm text-stone-700 font-mono whitespace-pre-wrap break-all">
@@ -150,9 +152,9 @@ export function RegexTester() {
       {matches.length > 0 && (
         <div className="bg-white border border-stone-200 rounded-xl p-4">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs text-stone-500 uppercase tracking-wider">Match Results</span>
+            <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.regex.matchResults}</span>
             <span className="text-sm font-medium text-stone-700">
-              {matches.length} match{matches.length !== 1 ? 'es' : ''}
+              {t.tool.regex.matches(matches.length)}
             </span>
           </div>
           <div className="flex flex-col gap-2">
@@ -160,7 +162,7 @@ export function RegexTester() {
               <div key={i} className="p-3 bg-stone-50 rounded-lg">
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-xs text-stone-500">
-                    Match {i + 1} at index {m.index}
+                    {t.tool.regex.matchAt(i + 1, m.index)}
                   </span>
                 </div>
                 <div className="text-sm font-mono text-stone-800 break-all">
@@ -170,7 +172,7 @@ export function RegexTester() {
                   <div className="mt-2 flex flex-col gap-1">
                     {m.groups.map((g, gi) => (
                       <div key={gi} className="text-xs text-stone-500">
-                        Group {gi + 1}:{' '}
+                        {t.tool.regex.group(gi + 1)}{' '}
                         <span className="font-mono text-stone-700">
                           {g !== undefined ? `"${g}"` : 'undefined'}
                         </span>

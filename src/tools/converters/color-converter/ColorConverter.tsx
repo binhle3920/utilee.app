@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 interface RGB { r: number; g: number; b: number }
 interface HSL { h: number; s: number; l: number }
@@ -72,6 +73,7 @@ function clamp(value: number, min: number, max: number): number {
 }
 
 export function ColorConverter() {
+  const { t } = useLanguage()
   const [rgb, setRgb] = useState<RGB>({ r: 59, g: 130, b: 246 })
   const [hexInput, setHexInput] = useState('#3b82f6')
   const [copied, setCopied] = useState<string | null>(null)
@@ -116,7 +118,7 @@ export function ColorConverter() {
     <div className="max-w-2xl mx-auto flex flex-col gap-5">
       {/* Color preview */}
       <div className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col items-center gap-3">
-        <span className="text-xs text-stone-500 uppercase tracking-wider">Preview</span>
+        <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.colorConverter.preview}</span>
         <div className="flex items-center gap-4">
           <div
             className="w-24 h-24 rounded-xl border border-stone-200 shadow-inner"
@@ -139,7 +141,7 @@ export function ColorConverter() {
             onClick={() => handleCopy(hex, 'hex')}
             className="text-xs px-2.5 py-1 rounded-md bg-stone-100 text-stone-600 hover:bg-stone-200 transition-colors"
           >
-            {copied === 'hex' ? 'Copied!' : 'Copy'}
+            {copied === 'hex' ? t.tool.common.copied : t.tool.common.copy}
           </button>
         </div>
         <input
@@ -159,7 +161,7 @@ export function ColorConverter() {
             onClick={() => handleCopy(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`, 'rgb')}
             className="text-xs px-2.5 py-1 rounded-md bg-stone-100 text-stone-600 hover:bg-stone-200 transition-colors"
           >
-            {copied === 'rgb' ? 'Copied!' : 'Copy'}
+            {copied === 'rgb' ? t.tool.common.copied : t.tool.common.copy}
           </button>
         </div>
         <div className="grid grid-cols-3 gap-3">
@@ -203,7 +205,7 @@ export function ColorConverter() {
             onClick={() => handleCopy(`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`, 'hsl')}
             className="text-xs px-2.5 py-1 rounded-md bg-stone-100 text-stone-600 hover:bg-stone-200 transition-colors"
           >
-            {copied === 'hsl' ? 'Copied!' : 'Copy'}
+            {copied === 'hsl' ? t.tool.common.copied : t.tool.common.copy}
           </button>
         </div>
         <div className="grid grid-cols-3 gap-3">

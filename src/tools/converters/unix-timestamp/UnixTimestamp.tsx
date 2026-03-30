@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 function formatRelative(date: Date): string {
   const now = Date.now()
@@ -37,6 +38,7 @@ function toLocalDatetimeString(date: Date): string {
 }
 
 export function UnixTimestamp() {
+  const { t } = useLanguage()
   const [now, setNow] = useState(Math.floor(Date.now() / 1000))
   const [timestampInput, setTimestampInput] = useState('')
   const [dateInput, setDateInput] = useState('')
@@ -77,28 +79,28 @@ export function UnixTimestamp() {
     <div className="max-w-2xl mx-auto flex flex-col gap-5">
       {/* Current timestamp */}
       <div className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col items-center gap-2">
-        <span className="text-xs text-stone-500 uppercase tracking-wider">Current Unix Timestamp</span>
+        <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.unixTimestamp.currentTimestamp}</span>
         <div className="flex items-center gap-3">
           <span className="text-3xl font-mono font-semibold text-stone-800">{now}</span>
           <button
             onClick={() => handleCopy(String(now), 'now')}
             className="text-xs px-2.5 py-1 rounded-md bg-stone-100 text-stone-600 hover:bg-stone-200 transition-colors"
           >
-            {copied === 'now' ? 'Copied!' : 'Copy'}
+            {copied === 'now' ? t.tool.common.copied : t.tool.common.copy}
           </button>
         </div>
       </div>
 
       {/* Mode toggle */}
       <div className="bg-white border border-stone-200 rounded-xl p-4 flex items-center gap-3">
-        <span className="text-sm text-stone-500">Unit:</span>
+        <span className="text-sm text-stone-500">{t.tool.unixTimestamp.unit}</span>
         <button
           onClick={() => setUseMs(false)}
           className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
             !useMs ? 'bg-stone-800 text-white' : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
           }`}
         >
-          Seconds
+          {t.tool.unixTimestamp.seconds}
         </button>
         <button
           onClick={() => setUseMs(true)}
@@ -106,39 +108,39 @@ export function UnixTimestamp() {
             useMs ? 'bg-stone-800 text-white' : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
           }`}
         >
-          Milliseconds
+          {t.tool.unixTimestamp.milliseconds}
         </button>
       </div>
 
       {/* Timestamp to date */}
       <div className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col gap-3">
-        <span className="text-xs text-stone-500 uppercase tracking-wider">Timestamp → Date</span>
+        <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.unixTimestamp.timestampToDate}</span>
         <input
           type="text"
           value={timestampInput}
           onChange={(e) => setTimestampInput(e.target.value)}
-          placeholder={useMs ? 'Enter timestamp in milliseconds...' : 'Enter timestamp in seconds...'}
+          placeholder={useMs ? t.tool.unixTimestamp.enterTimestampMs : t.tool.unixTimestamp.enterTimestampSec}
           className="w-full px-3 py-2 text-sm font-mono rounded-lg border border-stone-200 text-stone-700 outline-none focus:border-stone-400 transition-colors"
         />
         {timestampInput.trim() && !parsedFromTimestamp && (
-          <p className="text-xs text-red-500">Invalid timestamp.</p>
+          <p className="text-xs text-red-500">{t.tool.unixTimestamp.invalidTimestamp}</p>
         )}
         {parsedFromTimestamp && (
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between py-1.5">
-              <span className="text-sm text-stone-500">UTC</span>
+              <span className="text-sm text-stone-500">{t.tool.unixTimestamp.utc}</span>
               <span className="text-sm font-medium text-stone-700 font-mono">
                 {parsedFromTimestamp.toUTCString()}
               </span>
             </div>
             <div className="flex items-center justify-between py-1.5">
-              <span className="text-sm text-stone-500">Local</span>
+              <span className="text-sm text-stone-500">{t.tool.unixTimestamp.local}</span>
               <span className="text-sm font-medium text-stone-700 font-mono">
                 {parsedFromTimestamp.toLocaleString()}
               </span>
             </div>
             <div className="flex items-center justify-between py-1.5">
-              <span className="text-sm text-stone-500">Relative</span>
+              <span className="text-sm text-stone-500">{t.tool.unixTimestamp.relative}</span>
               <span className="text-sm font-medium text-stone-700">
                 {formatRelative(parsedFromTimestamp)}
               </span>
@@ -149,7 +151,7 @@ export function UnixTimestamp() {
 
       {/* Date to timestamp */}
       <div className="bg-white border border-stone-200 rounded-xl p-4 flex flex-col gap-3">
-        <span className="text-xs text-stone-500 uppercase tracking-wider">Date → Timestamp</span>
+        <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.unixTimestamp.dateToTimestamp}</span>
         <input
           type="datetime-local"
           value={dateInput}
@@ -161,13 +163,13 @@ export function UnixTimestamp() {
             onClick={() => setDateInput(toLocalDatetimeString(new Date()))}
             className="text-xs px-2.5 py-1 rounded-md bg-stone-100 text-stone-600 hover:bg-stone-200 transition-colors"
           >
-            Use current time
+            {t.tool.unixTimestamp.useCurrentTime}
           </button>
         </div>
         {parsedFromDate && (
           <div className="flex items-center justify-between py-1.5">
             <span className="text-sm text-stone-500">
-              {useMs ? 'Milliseconds' : 'Seconds'}
+              {useMs ? t.tool.unixTimestamp.milliseconds : t.tool.unixTimestamp.seconds}
             </span>
             <div className="flex items-center gap-2">
               <span className="text-sm font-medium text-stone-700 font-mono">
@@ -182,7 +184,7 @@ export function UnixTimestamp() {
                 }
                 className="text-xs px-2.5 py-1 rounded-md bg-stone-100 text-stone-600 hover:bg-stone-200 transition-colors"
               >
-                {copied === 'date-ts' ? 'Copied!' : 'Copy'}
+                {copied === 'date-ts' ? t.tool.common.copied : t.tool.common.copy}
               </button>
             </div>
           </div>

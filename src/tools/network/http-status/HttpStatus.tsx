@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 interface StatusCode {
   code: number
@@ -62,6 +63,7 @@ function getGroup(code: number): { label: string; range: string; badgeClass: str
 }
 
 export function HttpStatus() {
+  const { t } = useLanguage()
   const [search, setSearch] = useState('')
   const [expanded, setExpanded] = useState<number | null>(null)
 
@@ -88,6 +90,14 @@ export function HttpStatus() {
     return Array.from(map.values())
   }, [filtered])
 
+  const groupLabels: Record<string, string> = {
+    'Informational': t.tool.httpStatus.informational,
+    'Success': t.tool.httpStatus.success,
+    'Redirection': t.tool.httpStatus.redirection,
+    'Client Error': t.tool.httpStatus.clientError,
+    'Server Error': t.tool.httpStatus.serverError,
+  }
+
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-5">
       {/* Search */}
@@ -96,12 +106,12 @@ export function HttpStatus() {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by code number or name..."
+          placeholder={t.tool.httpStatus.searchPlaceholder}
           className="w-full rounded-lg border border-stone-200 bg-stone-50 px-3 py-2.5 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-300"
         />
         <div className="mt-2 flex justify-end">
           <span className="text-xs text-stone-400">
-            {filtered.length} of {STATUS_CODES.length} codes
+            {t.tool.httpStatus.codesCount(filtered.length, STATUS_CODES.length)}
           </span>
         </div>
       </div>
@@ -113,7 +123,7 @@ export function HttpStatus() {
             <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${group.badgeClass}`}>
               {group.range}
             </span>
-            <span className="text-sm font-medium text-stone-700">{group.label}</span>
+            <span className="text-sm font-medium text-stone-700">{groupLabels[group.label] ?? group.label}</span>
           </div>
 
           <div className="flex flex-col divide-y divide-stone-50">
@@ -163,7 +173,7 @@ export function HttpStatus() {
       {/* Empty state */}
       {filtered.length === 0 && (
         <div className="bg-white border border-stone-200 rounded-xl p-10 flex items-center justify-center">
-          <span className="text-sm text-stone-400">No status codes match your search.</span>
+          <span className="text-sm text-stone-400">{t.tool.httpStatus.noMatch}</span>
         </div>
       )}
     </div>

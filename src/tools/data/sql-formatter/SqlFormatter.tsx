@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useLanguage } from '@/lib/i18n'
 
 const KEYWORDS = [
   'SELECT', 'FROM', 'WHERE', 'JOIN', 'ON', 'AND', 'OR', 'ORDER BY', 'GROUP BY',
@@ -144,6 +145,7 @@ function formatSQL(input: string): string {
 }
 
 export function SqlFormatter() {
+  const { t } = useLanguage()
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const [copied, setCopied] = useState(false)
@@ -165,7 +167,7 @@ export function SqlFormatter() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Paste your SQL query here..."
+          placeholder={t.tool.sql.placeholder}
           className="w-full h-48 p-4 text-sm text-stone-700 font-mono leading-relaxed resize-none outline-none placeholder:text-stone-400"
         />
       </div>
@@ -175,19 +177,19 @@ export function SqlFormatter() {
           onClick={handleFormat}
           className="px-4 py-2 bg-stone-800 text-white text-sm font-medium rounded-lg hover:bg-stone-700 transition-colors"
         >
-          Format
+          {t.tool.common.format}
         </button>
       </div>
 
       {output && (
         <div className="bg-white border border-stone-200 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-4 py-2 border-b border-stone-100">
-            <span className="text-xs text-stone-500 uppercase tracking-wider">Formatted SQL</span>
+            <span className="text-xs text-stone-500 uppercase tracking-wider">{t.tool.sql.formattedSql}</span>
             <button
               onClick={handleCopy}
               className="text-xs text-stone-500 hover:text-stone-800 transition-colors"
             >
-              {copied ? 'Copied!' : 'Copy'}
+              {copied ? t.tool.common.copied : t.tool.common.copy}
             </button>
           </div>
           <pre className="p-4 text-sm text-stone-700 font-mono whitespace-pre-wrap overflow-x-auto max-h-96 overflow-y-auto">
