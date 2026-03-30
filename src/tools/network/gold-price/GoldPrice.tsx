@@ -452,9 +452,9 @@ export function GoldPrice() {
 
             {/* SJC 9999 highlight */}
             {sjcMain && (
-              <div className="px-5 py-3 border-b border-stone-200 bg-amber-50/40 grid grid-cols-[1fr_auto_auto] gap-x-4 items-center">
+              <div className="px-5 py-3 border-b border-stone-200 bg-amber-50/40 grid grid-cols-[1fr_minmax(0,1fr)_minmax(0,1fr)] gap-x-4 items-center">
                 <span className="text-sm text-stone-800 font-semibold">SJC 9999</span>
-                <div className="text-right w-32">
+                <div className="text-right">
                   <div className="text-base font-bold text-stone-900 font-mono">
                     {formatPrice(sjcMain.buy, sjcMain.currency)}
                   </div>
@@ -462,7 +462,7 @@ export function GoldPrice() {
                     {formatChange(sjcMain.change_buy).text}
                   </div>
                 </div>
-                <div className="text-right w-32">
+                <div className="text-right">
                   <div className="text-base font-bold text-stone-900 font-mono">
                     {formatPrice(sjcMain.sell, sjcMain.currency)}
                   </div>
@@ -474,10 +474,10 @@ export function GoldPrice() {
             )}
 
             {/* Header */}
-            <div className="grid grid-cols-[1fr_auto_auto] gap-x-4 px-5 py-2 border-b border-stone-100 bg-stone-50/50">
+            <div className="grid grid-cols-[1fr_minmax(0,1fr)_minmax(0,1fr)] gap-x-4 px-5 py-2 border-b border-stone-100 bg-stone-50/50">
               <span className="text-xs text-stone-400 uppercase tracking-wider">Type</span>
-              <span className="text-xs text-stone-400 uppercase tracking-wider text-right w-32">Buy</span>
-              <span className="text-xs text-stone-400 uppercase tracking-wider text-right w-32">Sell</span>
+              <span className="text-xs text-stone-400 uppercase tracking-wider text-right">Buy</span>
+              <span className="text-xs text-stone-400 uppercase tracking-wider text-right">Sell</span>
             </div>
 
             {/* Grouped rows */}
@@ -495,20 +495,20 @@ export function GoldPrice() {
                       return (
                         <div
                           key={code}
-                          className="grid grid-cols-[1fr_auto_auto] gap-x-4 px-5 py-2.5 items-center hover:bg-stone-50/50 transition-colors"
+                          className="grid grid-cols-[1fr_minmax(0,1fr)_minmax(0,1fr)] gap-x-4 px-5 py-2.5 items-center hover:bg-stone-50/50 transition-colors"
                         >
                           <span className="text-sm text-stone-700 font-medium">{item.name}</span>
-                          <div className="text-right w-32">
-                            <span className="text-sm font-semibold text-stone-800 font-mono">
+                          <div className="text-right">
+                            <div className="text-sm font-semibold text-stone-800 font-mono">
                               {formatPrice(item.buy, item.currency)}
-                            </span>
-                            <span className={`ml-1.5 text-[10px] font-mono ${chBuy.className}`}>{chBuy.text}</span>
+                            </div>
+                            <div className={`text-[10px] font-mono ${chBuy.className}`}>{chBuy.text}</div>
                           </div>
-                          <div className="text-right w-32">
-                            <span className="text-sm font-semibold text-stone-800 font-mono">
+                          <div className="text-right">
+                            <div className="text-sm font-semibold text-stone-800 font-mono">
                               {formatPrice(item.sell, item.currency)}
-                            </span>
-                            <span className={`ml-1.5 text-[10px] font-mono ${chSell.className}`}>{chSell.text}</span>
+                            </div>
+                            <div className={`text-[10px] font-mono ${chSell.className}`}>{chSell.text}</div>
                           </div>
                         </div>
                       )
